@@ -10,7 +10,7 @@ This checklist tracks the staged migration from the legacy YOLOv5 + PySide6 proj
 - [x] Phase 5: Agent tool registry and rule-based provider
 - [x] Phase 6: Dataset manifest, validation, and annotation helpers
 - [x] Phase 7: Training skeleton and smoke training
-- [ ] Phase 8: Model registry, evaluation, and comparison
+- [x] Phase 8: Model registry, evaluation, and comparison
 - [ ] Phase 9: Ultralytics and legacy YOLOv5 backends
 - [ ] Phase 10: Modern PySide6 desktop interface
 - [ ] Phase 11: FastAPI service
@@ -101,3 +101,12 @@ This checklist tracks the staged migration from the legacy YOLOv5 + PySide6 proj
 - Wired Agent `smoke_train` and `train_model` tools to safe training flows.
 - Added smoke training script and training docs.
 - Verified smoke training command, YOLO dry-run command, and Ruff.
+
+### Phase 8
+
+- Added local model registry support for listing and registering model metadata.
+- Added mock evaluation and path-based model comparison with metrics, class list, size, license, and notes fields.
+- Wired CLI model list, register, evaluate, and compare commands to actual logic.
+- Wired Agent model list, register, evaluate, and compare tools to actual logic.
+- Added model README, registry example, model-zoo docs, and model registry/comparison tests.
+- Verified `hokage-vision model list`, `hokage-vision model compare --models models/a.pt models/b.pt --mock`, targeted tests, and Ruff.

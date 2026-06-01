@@ -12,5 +12,6 @@ nav:
   - Training: usage/training.md
   - Data Governance: data-governance.md
   - Annotation: annotation.md
+  - Model Zoo: model-zoo.md
   - Migration: migration.md
   - License Audit: license-audit.md

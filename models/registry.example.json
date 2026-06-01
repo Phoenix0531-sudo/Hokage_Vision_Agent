@@ -1,0 +1,20 @@
+{
+  "models": [
+    {
+      "name": "hokage-yolo-smoke",
+      "version": "0.1.0",
+      "path": "models/hokage-yolo-smoke.pt",
+      "backend": "ultralytics",
+      "classes": ["obito", "naruto", "gaara"],
+      "metrics": {
+        "map50": null,
+        "map50_95": null,
+        "precision": null,
+        "recall": null
+      },
+      "created_at": "2026-01-01T00:00:00Z",
+      "license": "TBD",
+      "notes": "Tiny smoke test model for demo and CI."
+    }
+  ]
+}
