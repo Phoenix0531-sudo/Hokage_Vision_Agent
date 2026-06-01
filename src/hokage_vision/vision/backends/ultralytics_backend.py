@@ -89,4 +89,10 @@ class UltralyticsBackend(VisionBackend):
                         box=BoundingBox(*[float(value) for value in xyxy]),
                     )
                 )
-        return DetectionResult(source=source, detections=detections, width=width, height=height, metadata={"backend": "ultralytics"})
+        return DetectionResult(
+            source=source,
+            detections=detections,
+            width=width,
+            height=height,
+            metadata={"backend": "ultralytics"},
+        )

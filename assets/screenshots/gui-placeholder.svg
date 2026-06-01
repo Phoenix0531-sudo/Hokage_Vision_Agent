@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720" role="img" aria-label="Hokage Vision Agent GUI placeholder">
+  <rect width="1280" height="720" fill="#101419"/>
+  <rect x="64" y="56" width="1152" height="608" rx="18" fill="#171d24" stroke="#2a3440" stroke-width="2"/>
+  <rect x="88" y="88" width="224" height="544" rx="12" fill="#202833"/>
+  <rect x="344" y="104" width="504" height="360" rx="12" fill="#26313d" stroke="#3b4654"/>
+  <rect x="880" y="104" width="288" height="360" rx="12" fill="#1f2832" stroke="#3b4654"/>
+  <rect x="344" y="496" width="824" height="96" rx="12" fill="#1f2832" stroke="#3b4654"/>
+  <text x="104" y="130" fill="#d8dee9" font-family="Arial, sans-serif" font-size="28" font-weight="700">Hokage Vision Agent</text>
+  <text x="384" y="286" fill="#d8dee9" font-family="Arial, sans-serif" font-size="34" font-weight="700">Image Detection</text>
+  <text x="384" y="332" fill="#9aa7b5" font-family="Arial, sans-serif" font-size="22">YOLO backend + mock CI mode</text>
+  <text x="912" y="160" fill="#d8dee9" font-family="Arial, sans-serif" font-size="24" font-weight="700">Results</text>
+  <text x="384" y="554" fill="#9aa7b5" font-family="Arial, sans-serif" font-size="22">Final screenshots will be added after GUI polish.</text>
+</svg>

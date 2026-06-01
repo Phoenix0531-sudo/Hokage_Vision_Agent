@@ -26,7 +26,9 @@ def test_detection_result_dataclass_shape() -> None:
 
 
 def test_video_summary_and_model_info_defaults() -> None:
-    summary = VideoDetectionSummary("demo.mp4", frame_count=10, processed_frames=2, detections_by_frame=[])
+    summary = VideoDetectionSummary(
+        "demo.mp4", frame_count=10, processed_frames=2, detections_by_frame=[]
+    )
     model = ModelInfo("mock", "0.1.0", None, "mock", ["obito", "naruto", "gaara"])
 
     assert summary.fps is None

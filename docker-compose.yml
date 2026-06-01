@@ -25,7 +25,7 @@ services:
       target: gui-test
       args: *build-args
     image: hokage-vision-agent:gui
-    command: pytest tests/gui
+    command: pytest tests/gui -m gui
     volumes:
       - .:/workspace
     environment:
@@ -74,9 +74,9 @@ services:
   docs:
     build:
       context: .
-      target: test
+      target: docs
       args: *build-args
-    image: hokage-vision-agent:dev
-    command: sh -lc "python -m pip install -e '.[docs]' && mkdocs build"
+    image: hokage-vision-agent:docs
+    command: mkdocs build
     volumes:
       - .:/workspace

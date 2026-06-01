@@ -38,7 +38,9 @@ class ImageDetectionPanel(QWidget):
         layout.addWidget(self.stats)
 
     def select_image(self) -> None:
-        path, _ = QFileDialog.getOpenFileName(self, "Select image", "examples/images", "Images (*.jpg *.jpeg *.png)")
+        path, _ = QFileDialog.getOpenFileName(
+            self, "Select image", "examples/images", "Images (*.jpg *.jpeg *.png)"
+        )
         if path:
             self.detect_path(Path(path))
 

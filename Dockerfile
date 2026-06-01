@@ -56,6 +56,26 @@ COPY mkdocs.yml ./
 
 CMD ["python", "-c", "import hokage_vision; print(hokage_vision.__version__)"]
 
+FROM test-deps AS docs-deps
+
+COPY requirements-docs.txt ./
+
+RUN --mount=type=cache,target=/root/.cache/pip \
+    python -m pip install -r requirements-docs.txt
+
+FROM docs-deps AS docs
+
+COPY pyproject.toml README.md ./
+COPY src ./src
+
+RUN --mount=type=cache,target=/root/.cache/pip \
+    python -m pip install --no-deps -e .
+
+COPY docs ./docs
+COPY mkdocs.yml ./
+
+CMD ["mkdocs", "build"]
+
 FROM base AS gui-system-deps
 
 ENV QT_QPA_PLATFORM=offscreen \

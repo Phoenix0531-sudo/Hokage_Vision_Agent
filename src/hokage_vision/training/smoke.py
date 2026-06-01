@@ -6,7 +6,9 @@ from pathlib import Path
 from hokage_vision.training.jobs import TrainingJob
 
 
-def run_smoke_training(output_dir: Path = Path("runs/smoke-train"), epochs: int = 1) -> dict[str, object]:
+def run_smoke_training(
+    output_dir: Path = Path("runs/smoke-train"), epochs: int = 1
+) -> dict[str, object]:
     job = TrainingJob(
         name="hokage-yolo-smoke",
         status="completed",

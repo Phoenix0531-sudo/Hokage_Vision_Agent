@@ -77,7 +77,9 @@ def _echo_json(value: object) -> None:
 def detect_image(
     image_path: Path,
     backend: str = typer.Option("mock", "--backend", help="Vision backend to use."),
-    save_rendered: bool = typer.Option(False, "--save-rendered", help="Save a rendered result image."),
+    save_rendered: bool = typer.Option(
+        False, "--save-rendered", help="Save a rendered result image."
+    ),
     save_json: bool = typer.Option(False, "--save-json", help="Save a JSON result file."),
 ) -> None:
     """Detect anime character boxes in one image."""
@@ -139,7 +141,9 @@ def dataset_manifest_create(
 @annotation_app.command("assist")
 def annotation_assist(
     images: Path = typer.Option(..., "--images", help="Local image folder."),
-    model: Path | None = typer.Option(None, "--model", help="Optional model path for future real labeling."),
+    model: Path | None = typer.Option(
+        None, "--model", help="Optional model path for future real labeling."
+    ),
     output: Path = typer.Option(..., "--output", help="Candidate label output folder."),
     review_required: bool = typer.Option(True, "--review-required/--no-review-required"),
 ) -> None:
@@ -193,7 +197,9 @@ def model_register(
     backend: str = typer.Option("ultralytics", "--backend"),
 ) -> None:
     """Register a model."""
-    model = ModelInfo(name=name, version="0.1.0", path=path, backend=backend, classes=["obito", "naruto", "gaara"])
+    model = ModelInfo(
+        name=name, version="0.1.0", path=path, backend=backend, classes=["obito", "naruto", "gaara"]
+    )
     _echo_json(ModelRegistry().register(model))
 
 
@@ -206,7 +212,9 @@ def model_evaluate(
     _echo_json(evaluate_model(model, data, mock=True))
 
 
-@model_app.command("compare", context_settings={"allow_extra_args": True, "ignore_unknown_options": True})
+@model_app.command(
+    "compare", context_settings={"allow_extra_args": True, "ignore_unknown_options": True}
+)
 def model_compare(
     ctx: typer.Context,
     models: list[Path] | None = typer.Option(None, "--models"),

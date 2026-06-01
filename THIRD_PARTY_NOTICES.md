@@ -23,3 +23,7 @@ Dataset images are not redistributed unless rights are verified. Dataset annotat
 ## Documentation
 
 Project documentation may be licensed separately, for example under CC BY 4.0, if the maintainers choose to do so.
+
+## Docker and CI
+
+Docker images use official Python base images and Debian packages. GitHub Actions workflows use third-party actions such as `actions/checkout`, `actions/setup-python`, `actions/upload-artifact`, GitHub Pages deployment actions, CodeQL actions, and release artifact actions. These remain under their own licenses and terms.

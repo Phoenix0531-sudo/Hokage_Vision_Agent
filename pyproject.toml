@@ -98,7 +98,7 @@ hokage-vision = "hokage_vision.cli:main"
 packages = ["src/hokage_vision"]
 
 [tool.pytest.ini_options]
-testpaths = ["tests"]
+testpaths = ["tests/unit", "tests/integration", "tests/packaging"]
 addopts = "-ra"
 markers = [
   "gui: PySide6 GUI tests",
@@ -110,6 +110,24 @@ markers = [
 target-version = "py312"
 line-length = 100
 src = ["src", "tests", "apps", "scripts"]
+exclude = [
+  "*.ipynb",
+  "base_ui.py",
+  "benchmarks.py",
+  "classify",
+  "datasets",
+  "detect.py",
+  "export.py",
+  "hubconf.py",
+  "main_window.py",
+  "models",
+  "segment",
+  "test_open_image.py",
+  "train.py",
+  "untitled.py",
+  "utils",
+  "val.py",
+]
 
 [tool.ruff.lint]
 select = ["E", "F", "I", "B", "UP", "SIM"]

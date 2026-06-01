@@ -59,7 +59,9 @@ def create_default_tool_registry() -> ToolRegistry:
     registry.register("compare_models", "Compare model weights.", _compare_models)
     registry.register("list_models", "List registered models.", _list_models)
     registry.register("register_model", "Register a model.", _register_model)
-    registry.register("generate_report", "Generate a report on explicit request.", _placeholder("generate_report"))
+    registry.register(
+        "generate_report", "Generate a report on explicit request.", _placeholder("generate_report")
+    )
     registry.register("project_health_check", "Check project health.", _project_health_check)
     return registry
 

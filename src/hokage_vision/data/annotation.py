@@ -24,7 +24,9 @@ def assist_annotation(
     generated: list[str] = []
     skipped: list[str] = []
 
-    for image_path in sorted(path for path in images.rglob("*") if path.suffix.lower() in IMAGE_EXTENSIONS):
+    for image_path in sorted(
+        path for path in images.rglob("*") if path.suffix.lower() in IMAGE_EXTENSIONS
+    ):
         result = service.detect_image(image_path)
         label_path = output / f"{image_path.stem}.txt"
         if label_path.exists() and not overwrite:
@@ -45,7 +47,12 @@ def assist_annotation(
         yaml.safe_dump({"review_required": True, "labels": generated}, sort_keys=False),
         encoding="utf-8",
     )
-    return {"generated": generated, "skipped": skipped, "review_required": True, "review_file": str(review_path)}
+    return {
+        "generated": generated,
+        "skipped": skipped,
+        "review_required": True,
+        "review_file": str(review_path),
+    }
 
 
 def _to_yolo(image_width: int, image_height: int, box) -> tuple[float, float, float, float]:

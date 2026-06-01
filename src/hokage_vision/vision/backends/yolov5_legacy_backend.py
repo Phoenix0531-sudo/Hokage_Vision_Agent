@@ -14,7 +14,9 @@ class YOLOv5LegacyBackend(VisionBackend):
     This backend intentionally does not import legacy YOLOv5 modules at package import time.
     """
 
-    def __init__(self, model_path: Path | None, legacy_root: Path = Path("legacy/old_project")) -> None:
+    def __init__(
+        self, model_path: Path | None, legacy_root: Path = Path("legacy/old_project")
+    ) -> None:
         self.model_path = Path(model_path) if model_path else None
         self.legacy_root = Path(legacy_root)
         self.model: Any | None = None

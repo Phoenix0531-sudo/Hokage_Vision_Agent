@@ -16,7 +16,7 @@ This checklist tracks the staged migration from the legacy YOLOv5 + PySide6 proj
 - [x] Phase 11: FastAPI service
 - [x] Phase 12: Python package build workflow
 - [x] Phase 13: Desktop executable build workflow
-- [ ] Phase 14: CI, documentation, release, and governance
+- [x] Phase 14: CI, documentation, release, and governance
 - [ ] Phase 15: Final portfolio polish
 
 ## Working Rules
@@ -156,3 +156,14 @@ This checklist tracks the staged migration from the legacy YOLOv5 + PySide6 proj
 - Added desktop executable documentation and clarified that model weights remain external runtime assets.
 - Added the `binutils` system dependency to the GUI/desktop Docker layer so PyInstaller can inspect Linux shared libraries.
 - Verified Ruff checks, Docker desktop build, and headless GUI smoke tests.
+
+### Phase 14
+
+- Added CI, GUI test, docs deploy, Docker, release, CodeQL, and Dependabot workflows.
+- Replaced the legacy YOLOv5 contributing guide with Hokage Vision Agent governance, security, conduct, citation, changelog, PR template, and issue templates.
+- Added scoped Apache-2.0 license text plus `LICENSES/README.md`, keeping legacy YOLOv5, datasets, annotations, and weights under separate license boundaries.
+- Upgraded English and Chinese README files with badges, Docker-first usage, CLI/GUI/API/Agent examples, data/training workflow, architecture notes, roadmap, and license warnings.
+- Added missing MkDocs pages for installation, architecture, dataset format, contributing, roadmap, and changelog.
+- Adjusted Docker docs service so `docker compose run --rm docs mkdocs build` works without runtime dependency installation.
+- Scoped Ruff away from legacy YOLOv5 files and made default pytest skip GUI tests by test path, while GUI tests run in the dedicated PySide6 image.
+- Verified Ruff checks, default pytest, headless GUI tests, MkDocs build, workflow YAML parsing, and docs Docker target build.

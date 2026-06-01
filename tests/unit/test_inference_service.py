@@ -28,7 +28,9 @@ def test_detect_folder_filters_images_and_reports_progress(tmp_path: Path) -> No
     progress: list[tuple[int, int]] = []
     service = InferenceService(MockBackend())
 
-    results = service.detect_folder(tmp_path, progress_callback=lambda done, total: progress.append((done, total)))
+    results = service.detect_folder(
+        tmp_path, progress_callback=lambda done, total: progress.append((done, total))
+    )
 
     assert len(results) == 2
     assert progress == [(1, 2), (2, 2)]

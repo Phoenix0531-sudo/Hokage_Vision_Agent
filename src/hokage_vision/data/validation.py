@@ -37,7 +37,11 @@ def validate_yolo_dataset(dataset_yaml: Path) -> DatasetValidationReport:
     root = _dataset_root(dataset_yaml, data)
     manifest = data.get("manifest")
     if manifest:
-        manifest_path = (dataset_yaml.parent / manifest).resolve() if not Path(manifest).is_absolute() else Path(manifest)
+        manifest_path = (
+            (dataset_yaml.parent / manifest).resolve()
+            if not Path(manifest).is_absolute()
+            else Path(manifest)
+        )
         report.manifest_exists = manifest_path.exists()
         if not manifest_path.exists():
             report.issues.append(f"manifest does not exist: {manifest}")
@@ -75,13 +79,19 @@ def _resolve_path(root: Path, value: str) -> Path:
 
 
 def _validate_image_dir(image_dir: Path, names: list[str], report: DatasetValidationReport) -> None:
-    for image_path in sorted(path for path in image_dir.rglob("*") if path.suffix.lower() in IMAGE_EXTENSIONS):
+    for image_path in sorted(
+        path for path in image_dir.rglob("*") if path.suffix.lower() in IMAGE_EXTENSIONS
+    ):
         report.image_count += 1
         label_path = _label_path_for_image(image_path)
         if not label_path.exists():
             report.missing_labels.append(str(label_path))
             continue
-        rows = [line.strip() for line in label_path.read_text(encoding="utf-8").splitlines() if line.strip()]
+        rows = [
+            line.strip()
+            for line in label_path.read_text(encoding="utf-8").splitlines()
+            if line.strip()
+        ]
         if not rows:
             report.empty_label_count += 1
         for line_number, row in enumerate(rows, start=1):
@@ -98,7 +108,9 @@ def _validate_image_dir(image_dir: Path, names: list[str], report: DatasetValida
             if class_id < 0 or class_id >= len(names):
                 report.invalid_labels.append(f"{label_path}:{line_number}: class id out of range")
             if any(value < 0 or value > 1 for value in values[1:]):
-                report.invalid_labels.append(f"{label_path}:{line_number}: bbox values must be between 0 and 1")
+                report.invalid_labels.append(
+                    f"{label_path}:{line_number}: bbox values must be between 0 and 1"
+                )
             report.class_distribution[class_id] = report.class_distribution.get(class_id, 0) + 1
             report.box_count += 1
 

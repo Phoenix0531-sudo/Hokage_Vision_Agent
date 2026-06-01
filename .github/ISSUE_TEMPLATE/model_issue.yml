@@ -1,0 +1,25 @@
+name: Model Issue
+description: Report a model, weight, evaluation, or registry issue.
+title: "model: "
+labels: ["model"]
+body:
+  - type: input
+    id: model
+    attributes:
+      label: Model Name or Path
+    validations:
+      required: true
+  - type: textarea
+    id: issue
+    attributes:
+      label: Issue
+      description: Include backend, classes, metrics, and failure mode.
+    validations:
+      required: true
+  - type: textarea
+    id: provenance
+    attributes:
+      label: Provenance and License
+      description: Describe where the model came from and its license.
+    validations:
+      required: true
