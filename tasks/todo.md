@@ -15,7 +15,7 @@ This checklist tracks the staged migration from the legacy YOLOv5 + PySide6 proj
 - [x] Phase 10: Modern PySide6 desktop interface
 - [x] Phase 11: FastAPI service
 - [x] Phase 12: Python package build workflow
-- [ ] Phase 13: Desktop executable build workflow
+- [x] Phase 13: Desktop executable build workflow
 - [ ] Phase 14: CI, documentation, release, and governance
 - [ ] Phase 15: Final portfolio polish
 
@@ -148,3 +148,11 @@ This checklist tracks the staged migration from the legacy YOLOv5 + PySide6 proj
 - Added a packaging test that builds sdist/wheel, installs the wheel in a temporary venv, and validates the console script.
 - Added package build tooling to the Docker test dependency layer and included packaging tests in the `test` service.
 - Verified Docker package build, packaging test, Ruff checks, and full unit/integration/packaging tests.
+
+### Phase 13
+
+- Added a PyInstaller desktop build script that targets the PySide6 desktop entrypoint and excludes large model frameworks from the executable bundle.
+- Added a desktop build workflow with Linux as the required target and Windows/macOS as best-effort matrix targets.
+- Added desktop executable documentation and clarified that model weights remain external runtime assets.
+- Added the `binutils` system dependency to the GUI/desktop Docker layer so PyInstaller can inspect Linux shared libraries.
+- Verified Ruff checks, Docker desktop build, and headless GUI smoke tests.

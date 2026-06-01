@@ -1,5 +1,4 @@
-from hokage_vision.cli import main
-
+from hokage_vision.ui.app import run_app
 
 if __name__ == "__main__":
-    main()
+    raise SystemExit(run_app())
