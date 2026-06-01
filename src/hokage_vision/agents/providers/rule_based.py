@@ -24,7 +24,9 @@ class RuleBasedAgent:
                 "I could not map the request to an allowed Hokage Vision Agent tool.",
                 [],
                 [],
-                ["Try asking for image detection, folder detection, dataset checks, training, or model comparison."],
+                [
+                    "Try asking for image detection, folder detection, dataset checks, training, or model comparison."
+                ],
             )
 
         arguments = self._arguments_for(tool_name, user_task)
@@ -80,11 +82,25 @@ class RuleBasedAgent:
 
     def _arguments_for(self, tool_name: str, task: str) -> dict[str, Any]:
         if tool_name == "detect_image":
-            return {"path": str(self._first_existing_path(task, want_dir=False) or Path("examples/images/sample.jpg"))}
+            return {
+                "path": str(
+                    self._first_existing_path(task, want_dir=False)
+                    or Path("examples/images/sample.jpg")
+                )
+            }
         if tool_name == "detect_folder":
-            return {"path": str(self._first_existing_path(task, want_dir=True) or Path("examples/images"))}
+            return {
+                "path": str(
+                    self._first_existing_path(task, want_dir=True) or Path("examples/images")
+                )
+            }
         if tool_name == "detect_video":
-            return {"path": str(self._first_existing_path(task, want_dir=False) or Path("examples/videos/demo.mp4"))}
+            return {
+                "path": str(
+                    self._first_existing_path(task, want_dir=False)
+                    or Path("examples/videos/demo.mp4")
+                )
+            }
         if tool_name == "generate_report":
             return {"requested": True, "task": task}
         return {"task": task}
@@ -98,12 +114,16 @@ class RuleBasedAgent:
 
     def _message(self, user_task: str, call: ToolCall) -> str:
         if call.status == "success":
-            return f"Understood task: {user_task}. Called tool: {call.name}. Result status: success."
+            return (
+                f"Understood task: {user_task}. Called tool: {call.name}. Result status: success."
+            )
         return f"Understood task: {user_task}. Called tool: {call.name}. Error: {call.error}"
 
     def _suggestions(self, tool_name: str) -> list[str]:
         if tool_name.startswith("detect_"):
-            return ["Review detections in the GUI or run model comparison after real weights are registered."]
+            return [
+                "Review detections in the GUI or run model comparison after real weights are registered."
+            ]
         if tool_name == "train_model":
             return ["Validate the dataset before executing real training."]
         return ["Continue with the next project-scoped workflow step."]

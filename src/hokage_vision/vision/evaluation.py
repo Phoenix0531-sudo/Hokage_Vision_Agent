@@ -9,7 +9,9 @@ def mock_evaluation_metrics() -> dict[str, float | None]:
     return {"map50": None, "map50_95": None, "precision": None, "recall": None}
 
 
-def evaluate_model(model_path: Path, data: Path | None = None, *, mock: bool = True) -> dict[str, object]:
+def evaluate_model(
+    model_path: Path, data: Path | None = None, *, mock: bool = True
+) -> dict[str, object]:
     if mock:
         return {
             "model": str(model_path),

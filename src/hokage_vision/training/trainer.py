@@ -88,4 +88,9 @@ def run_yolo_training(
         name=output_dir.name,
         exist_ok=False,
     )
-    return {"status": "completed", "dry_run": False, "result": str(result), "output_dir": str(output_dir)}
+    return {
+        "status": "completed",
+        "dry_run": False,
+        "result": str(result),
+        "output_dir": str(output_dir),
+    }

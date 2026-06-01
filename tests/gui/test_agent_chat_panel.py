@@ -1,4 +1,8 @@
+import pytest
+
 from hokage_vision.ui.widgets.agent_chat_panel import AgentChatPanel
+
+pytestmark = pytest.mark.gui
 
 
 def test_agent_chat_panel_runs_task(qtbot) -> None:

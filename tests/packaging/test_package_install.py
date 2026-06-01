@@ -32,7 +32,9 @@ def test_wheel_build_and_console_script(tmp_path: Path) -> None:
     assert wheels
     assert sdists
 
-    subprocess.run([sys.executable, "-m", "venv", "--system-site-packages", str(venv_dir)], check=True)
+    subprocess.run(
+        [sys.executable, "-m", "venv", "--system-site-packages", str(venv_dir)], check=True
+    )
     subprocess.run(
         [_venv_python(venv_dir), "-m", "pip", "install", "--no-deps", str(wheels[0])],
         check=True,

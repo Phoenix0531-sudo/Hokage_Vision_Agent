@@ -33,7 +33,9 @@ def test_validate_yolo_dataset_reports_missing_labels(tmp_path: Path) -> None:
     image_dir.mkdir(parents=True)
     Image.new("RGB", (32, 32), (0, 0, 0)).save(image_dir / "a.jpg")
     dataset_yaml = tmp_path / "dataset.yaml"
-    dataset_yaml.write_text("path: .\ntrain: images/train\nval: images/train\nnames: [obito]\n", encoding="utf-8")
+    dataset_yaml.write_text(
+        "path: .\ntrain: images/train\nval: images/train\nnames: [obito]\n", encoding="utf-8"
+    )
 
     report = validate_yolo_dataset(dataset_yaml)
 

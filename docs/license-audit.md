@@ -35,7 +35,7 @@ This audit records the current known license boundaries before restructuring the
 
 ## Required Follow-up
 
-- Add an Apache-2.0 `LICENSE` for new project code only after legacy isolation is complete.
-- Add `LICENSES/README.md` describing source, docs, legacy, data, annotations, model weights, and binary asset boundaries.
+- Keep the Apache-2.0 `LICENSE` scoped to newly written Hokage Vision Agent code until legacy isolation is complete.
+- Keep `LICENSES/README.md` updated with source, docs, legacy, data, annotations, model weights, and binary asset boundaries.
 - Preserve or reference the applicable upstream YOLOv5 license for legacy code.
-- Add `THIRD_PARTY_NOTICES.md` and keep it updated as dependencies are introduced.
+- Keep `THIRD_PARTY_NOTICES.md` updated as dependencies are introduced.

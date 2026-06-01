@@ -1,4 +1,8 @@
+import pytest
+
 from hokage_vision.ui.widgets.settings_panel import SettingsPanel
+
+pytestmark = pytest.mark.gui
 
 
 def test_settings_panel_defaults(qtbot) -> None:

@@ -39,5 +39,7 @@ def create_dataset_manifest(
         annotations=AnnotationInfo(format="yolo", reviewed=False),
     )
     output.parent.mkdir(parents=True, exist_ok=True)
-    output.write_text(yaml.safe_dump(manifest.model_dump(mode="json"), sort_keys=False), encoding="utf-8")
+    output.write_text(
+        yaml.safe_dump(manifest.model_dump(mode="json"), sort_keys=False), encoding="utf-8"
+    )
     return manifest

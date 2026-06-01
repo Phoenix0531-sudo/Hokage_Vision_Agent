@@ -28,7 +28,9 @@ router = APIRouter()
 
 def _service_for_backend(backend: str) -> InferenceService:
     if backend != "mock":
-        raise HTTPException(status_code=400, detail="API currently supports the mock backend by default.")
+        raise HTTPException(
+            status_code=400, detail="API currently supports the mock backend by default."
+        )
     return InferenceService(MockBackend())
 
 

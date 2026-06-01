@@ -6,15 +6,22 @@ theme:
 nav:
   - Home: index.md
   - Getting Started: getting-started.md
+  - Installation: installation.md
   - Docker: docker.md
-  - CLI: usage/cli.md
-  - GUI: usage/gui.md
-  - API: usage/api.md
-  - Agent: usage/agent.md
-  - Training: usage/training.md
+  - Usage:
+      - CLI: usage/cli.md
+      - GUI: usage/gui.md
+      - API: usage/api.md
+      - Agent: usage/agent.md
+      - Training: usage/training.md
+  - Architecture: architecture.md
   - Data Governance: data-governance.md
+  - Dataset: dataset.md
   - Annotation: annotation.md
   - Model Zoo: model-zoo.md
   - Packaging: packaging.md
-  - Migration: migration.md
   - License Audit: license-audit.md
+  - Migration: migration.md
+  - Contributing: contributing.md
+  - Roadmap: roadmap.md
+  - Changelog: changelog.md

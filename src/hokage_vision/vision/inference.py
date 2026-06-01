@@ -40,7 +40,9 @@ class InferenceService:
         if save_json:
             output_dir.mkdir(parents=True, exist_ok=True)
             json_path = output_dir / f"{Path(image_path).stem}.json"
-            json_path.write_text(json.dumps(asdict(result), default=str, indent=2), encoding="utf-8")
+            json_path.write_text(
+                json.dumps(asdict(result), default=str, indent=2), encoding="utf-8"
+            )
             result.metadata["json_path"] = str(json_path)
         return result
 

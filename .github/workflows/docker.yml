@@ -1,0 +1,34 @@
+name: Docker
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  docker:
+    runs-on: ubuntu-latest
+    env:
+      DOCKER_BUILDKIT: "1"
+      COMPOSE_DOCKER_CLI_BUILD: "1"
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build Docker targets
+        run: docker compose build
+      - name: Run core tests
+        run: docker compose run --rm test
+      - name: Run GUI smoke tests
+        run: docker compose run --rm gui-test
+      - name: Check API health
+        run: |
+          docker compose up -d api
+          for i in $(seq 1 30); do
+            if curl -fsS http://localhost:8000/health; then
+              exit 0
+            fi
+            sleep 2
+          done
+          docker compose logs api
+          exit 1
+      - name: Stop services
+        if: always()
+        run: docker compose down --remove-orphans
