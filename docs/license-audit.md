@@ -8,7 +8,8 @@ This audit records the current known license boundaries before restructuring the
 
 - No root `LICENSE`, `COPYING`, or `NOTICE` file was found.
 - The repository contains a large amount of upstream-like YOLOv5 source code in the root tree, including `detect.py`, `train.py`, `val.py`, `export.py`, `hubconf.py`, `models/`, `utils/`, `classify/`, `segment/`, and `data/`.
-- The upstream Ultralytics YOLOv5 project has used the AGPL-3.0 license in recent versions. This repository must treat the legacy YOLOv5 code as governed by its upstream license unless provenance proves otherwise.
+- Local file headers and repository history suggest the imported YOLOv5 code is from a GPL-3.0-era YOLOv5 tree. Current upstream YOLOv5 uses AGPL-3.0, but this repository should not assume AGPL-only without confirming the exact imported upstream version.
+- Git history indicates a root GPL-3.0 `LICENSE` existed in the first commit and was later deleted. `setup.cfg` still references `LICENSE`.
 - Project-specific files appear to include `base_ui.py`, `main_window.py`, `main_window.ui`, `test_open_image.py`, `datasets/classes.txt`, and readme/demo images.
 - The repository includes label files under `datasets/labels/` and sample images under `data/images/`, but no source manifest or redistribution statement.
 - No model weight `.pt` files were found in the initial large-file scan, but the GUI hardcodes `runs/train/exp/weights/best.pt`.
@@ -30,6 +31,7 @@ This audit records the current known license boundaries before restructuring the
 - Legal status of `readme_images.png` and `readme_images/PixPin_2024-05-30_09-03-06.gif`.
 - Whether `libEGL.dll` can be redistributed in this repository and under which license.
 - Whether old notebooks contain embedded outputs or assets that should be removed or isolated.
+- Exact license for the historical YOLOv5 version imported here, including whether GPL-3.0 is the correct governing license for the retained legacy snapshot.
 
 ## Required Follow-up
 
