@@ -5,6 +5,9 @@ from pathlib import Path
 from typing import Any
 
 from hokage_vision.agents.registry import ToolRegistry
+from hokage_vision.data.annotation import assist_annotation
+from hokage_vision.data.manifest import create_dataset_manifest
+from hokage_vision.data.validation import validate_yolo_dataset
 from hokage_vision.vision.backends.mock import MockBackend
 from hokage_vision.vision.inference import InferenceService
 
@@ -32,13 +35,13 @@ def create_default_tool_registry() -> ToolRegistry:
     registry.register("detect_image", "Detect objects in one image.", _detect_image)
     registry.register("detect_folder", "Detect objects in a local folder.", _detect_folder)
     registry.register("detect_video", "Detect objects in a local video.", _detect_video)
-    registry.register("validate_dataset", "Validate a YOLO dataset.", _placeholder("validate_dataset"))
+    registry.register("validate_dataset", "Validate a YOLO dataset.", _validate_dataset)
     registry.register(
         "create_dataset_manifest",
         "Create a dataset manifest.",
-        _placeholder("create_dataset_manifest"),
+        _create_dataset_manifest,
     )
-    registry.register("assist_annotation", "Prepare annotation assistance.", _placeholder("assist_annotation"))
+    registry.register("assist_annotation", "Prepare annotation assistance.", _assist_annotation)
     registry.register(
         "auto_label_with_model",
         "Generate model-assisted candidate labels.",
@@ -82,6 +85,25 @@ def _project_health_check(arguments: dict[str, Any]) -> dict[str, Any]:
         "checks": ["config", "mock_backend", "cli"],
         "dry_run": True,
     }
+
+
+def _validate_dataset(arguments: dict[str, Any]) -> dict[str, Any]:
+    path = Path(arguments.get("path") or arguments.get("task", "configs/dataset.example.yaml"))
+    if not path.exists():
+        path = Path("configs/dataset.example.yaml")
+    return validate_yolo_dataset(path).__dict__
+
+
+def _create_dataset_manifest(arguments: dict[str, Any]) -> dict[str, Any]:
+    images = Path(arguments.get("images", "data/raw"))
+    output = Path(arguments.get("output", "data/manifests/local.yaml"))
+    return create_dataset_manifest(images, output).model_dump(mode="json")
+
+
+def _assist_annotation(arguments: dict[str, Any]) -> dict[str, Any]:
+    images = Path(arguments.get("images", "examples/images"))
+    output = Path(arguments.get("output", "data/interim/labels"))
+    return assist_annotation(images, output)
 
 
 def _placeholder(name: str):

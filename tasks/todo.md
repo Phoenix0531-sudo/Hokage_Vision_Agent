@@ -8,7 +8,7 @@ This checklist tracks the staged migration from the legacy YOLOv5 + PySide6 proj
 - [x] Phase 3: Mock backend, rendering, and inference service
 - [x] Phase 4: CLI
 - [x] Phase 5: Agent tool registry and rule-based provider
-- [ ] Phase 6: Dataset manifest, validation, and annotation helpers
+- [x] Phase 6: Dataset manifest, validation, and annotation helpers
 - [ ] Phase 7: Training skeleton and smoke training
 - [ ] Phase 8: Model registry, evaluation, and comparison
 - [ ] Phase 9: Ultralytics and legacy YOLOv5 backends
@@ -81,3 +81,14 @@ This checklist tracks the staged migration from the legacy YOLOv5 + PySide6 proj
 - Added OpenAI and LangGraph provider placeholders without API key requirements.
 - Added tests for tool registration, allowlist enforcement, project-scoped routing, and out-of-scope refusal.
 - Verified `hokage-vision agent run "检测 examples/images 里的图片"`, targeted tests, and Ruff.
+
+### Phase 6
+
+- Added dataset manifest schema/load/create helpers with source, license, redistribution, classes, and annotation review fields.
+- Added YOLO dataset yaml loading and validation for split paths, labels, class ids, bbox ranges, missing labels, empty labels, class distribution, manifest presence, image count, and box count.
+- Added annotation assistance that writes candidate YOLO labels and a `review_required.yaml` file without overwriting existing labels by default.
+- Added data directory guidance and `.gitkeep` placeholders for manifests/raw/interim/processed.
+- Wired dataset validation, manifest creation, and annotation assistance into CLI and Agent tools.
+- Added scripts for dataset manifest creation, preparation, annotation assistance, auto-labeling, review, and splitting.
+- Added data governance and annotation docs.
+- Verified dataset validation CLI, targeted unit tests, and Ruff.
