@@ -12,6 +12,8 @@ from hokage_vision.core.errors import HokageVisionError
 from hokage_vision.data.annotation import assist_annotation
 from hokage_vision.data.manifest import create_dataset_manifest
 from hokage_vision.data.validation import validate_yolo_dataset
+from hokage_vision.training.smoke import run_smoke_training
+from hokage_vision.training.trainer import run_yolo_training
 from hokage_vision.vision.backends.mock import MockBackend
 from hokage_vision.vision.inference import InferenceService
 
@@ -146,18 +148,32 @@ def annotation_assist(
 
 @train_app.command("smoke")
 def train_smoke() -> None:
-    """Run a lightweight smoke training flow. Placeholder until Phase 7."""
-    _echo_json({"status": "placeholder", "training": "smoke", "dry_run": True})
+    """Run a lightweight smoke training flow."""
+    _echo_json(run_smoke_training())
 
 
 @train_app.command("yolo")
 def train_yolo(
     data: Path = typer.Option(..., "--data", help="YOLO dataset yaml."),
     epochs: int = typer.Option(1, "--epochs", min=1),
+    batch: int = typer.Option(1, "--batch", min=1),
+    image_size: int = typer.Option(640, "--imgsz", min=1),
+    device: str = typer.Option("cpu", "--device"),
     dry_run: bool = typer.Option(True, "--dry-run/--execute"),
 ) -> None:
-    """Plan or run YOLO training. Placeholder until Phase 7."""
-    _echo_json({"status": "placeholder", "data": str(data), "epochs": epochs, "dry_run": dry_run})
+    """Plan or run YOLO training."""
+    try:
+        result = run_yolo_training(
+            data,
+            epochs=epochs,
+            batch=batch,
+            image_size=image_size,
+            device=device,
+            dry_run=dry_run,
+        )
+    except HokageVisionError as exc:
+        raise typer.BadParameter(str(exc)) from exc
+    _echo_json(result)
 
 
 @model_app.command("list")

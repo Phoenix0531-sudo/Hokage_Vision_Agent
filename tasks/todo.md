@@ -9,7 +9,7 @@ This checklist tracks the staged migration from the legacy YOLOv5 + PySide6 proj
 - [x] Phase 4: CLI
 - [x] Phase 5: Agent tool registry and rule-based provider
 - [x] Phase 6: Dataset manifest, validation, and annotation helpers
-- [ ] Phase 7: Training skeleton and smoke training
+- [x] Phase 7: Training skeleton and smoke training
 - [ ] Phase 8: Model registry, evaluation, and comparison
 - [ ] Phase 9: Ultralytics and legacy YOLOv5 backends
 - [ ] Phase 10: Modern PySide6 desktop interface
@@ -92,3 +92,12 @@ This checklist tracks the staged migration from the legacy YOLOv5 + PySide6 proj
 - Added scripts for dataset manifest creation, preparation, annotation assistance, auto-labeling, review, and splitting.
 - Added data governance and annotation docs.
 - Verified dataset validation CLI, targeted unit tests, and Ruff.
+
+### Phase 7
+
+- Added training job dataclass, mock smoke training, and YOLO training dry-run planner.
+- Real YOLO training validates datasets first, refuses invalid datasets, refuses to overwrite existing output directories, and requires the `train` extra.
+- Wired CLI `train smoke` and `train yolo --dry-run` to the training layer.
+- Wired Agent `smoke_train` and `train_model` tools to safe training flows.
+- Added smoke training script and training docs.
+- Verified smoke training command, YOLO dry-run command, and Ruff.

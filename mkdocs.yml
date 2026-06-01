@@ -9,6 +9,7 @@ nav:
   - Docker: docker.md
   - CLI: usage/cli.md
   - Agent: usage/agent.md
+  - Training: usage/training.md
   - Data Governance: data-governance.md
   - Annotation: annotation.md
   - Migration: migration.md

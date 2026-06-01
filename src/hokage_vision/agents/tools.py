@@ -8,6 +8,8 @@ from hokage_vision.agents.registry import ToolRegistry
 from hokage_vision.data.annotation import assist_annotation
 from hokage_vision.data.manifest import create_dataset_manifest
 from hokage_vision.data.validation import validate_yolo_dataset
+from hokage_vision.training.smoke import run_smoke_training
+from hokage_vision.training.trainer import run_yolo_training
 from hokage_vision.vision.backends.mock import MockBackend
 from hokage_vision.vision.inference import InferenceService
 
@@ -47,8 +49,8 @@ def create_default_tool_registry() -> ToolRegistry:
         "Generate model-assisted candidate labels.",
         _placeholder("auto_label_with_model"),
     )
-    registry.register("train_model", "Plan or run model training.", _placeholder("train_model"))
-    registry.register("smoke_train", "Run smoke training.", _placeholder("smoke_train"))
+    registry.register("train_model", "Plan or run model training.", _train_model)
+    registry.register("smoke_train", "Run smoke training.", _smoke_train)
     registry.register("evaluate_model", "Evaluate a model.", _placeholder("evaluate_model"))
     registry.register("compare_models", "Compare model weights.", _placeholder("compare_models"))
     registry.register("list_models", "List registered models.", _placeholder("list_models"))
@@ -104,6 +106,15 @@ def _assist_annotation(arguments: dict[str, Any]) -> dict[str, Any]:
     images = Path(arguments.get("images", "examples/images"))
     output = Path(arguments.get("output", "data/interim/labels"))
     return assist_annotation(images, output)
+
+
+def _smoke_train(arguments: dict[str, Any]) -> dict[str, Any]:
+    return run_smoke_training(epochs=int(arguments.get("epochs", 1)))
+
+
+def _train_model(arguments: dict[str, Any]) -> dict[str, Any]:
+    data = Path(arguments.get("data", "configs/dataset.example.yaml"))
+    return run_yolo_training(data, dry_run=True)
 
 
 def _placeholder(name: str):
