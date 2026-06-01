@@ -5,7 +5,7 @@ This checklist tracks the staged migration from the legacy YOLOv5 + PySide6 proj
 - [x] Phase 0: Project audit and license audit
 - [x] Phase 1: Docker-first project skeleton
 - [x] Phase 2: Configuration system and core detection types
-- [ ] Phase 3: Mock backend, rendering, and inference service
+- [x] Phase 3: Mock backend, rendering, and inference service
 - [ ] Phase 4: CLI
 - [ ] Phase 5: Agent tool registry and rule-based provider
 - [ ] Phase 6: Dataset manifest, validation, and annotation helpers
@@ -53,3 +53,12 @@ This checklist tracks the staged migration from the legacy YOLOv5 + PySide6 proj
 - Added base project exceptions, logger helper, project root discovery, and a minimal i18n dictionary.
 - Added unit tests for config loading and core detection types.
 - Verified the Phase 2 test command in Docker.
+
+### Phase 3
+
+- Added the `VisionBackend` interface and deterministic `MockBackend`.
+- Added `InferenceService` for image, folder, and video entrypoints, with folder progress callbacks and optional rendered/JSON output.
+- Added PIL-based detection rendering.
+- Added lightweight vision placeholders for future video, batch, evaluation, and model comparison work.
+- Added unit tests for mock prediction, folder inference, and rendering.
+- Verified Ruff on the new vision code and the Phase 3 Docker test command.
