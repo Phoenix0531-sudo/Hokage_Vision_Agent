@@ -7,7 +7,7 @@ This checklist tracks the staged migration from the legacy YOLOv5 + PySide6 proj
 - [x] Phase 2: Configuration system and core detection types
 - [x] Phase 3: Mock backend, rendering, and inference service
 - [x] Phase 4: CLI
-- [ ] Phase 5: Agent tool registry and rule-based provider
+- [x] Phase 5: Agent tool registry and rule-based provider
 - [ ] Phase 6: Dataset manifest, validation, and annotation helpers
 - [ ] Phase 7: Training skeleton and smoke training
 - [ ] Phase 8: Model registry, evaluation, and comparison
@@ -71,3 +71,13 @@ This checklist tracks the staged migration from the legacy YOLOv5 + PySide6 proj
 - Added a generated, non-copyright sample image for mock CLI tests.
 - Added CLI usage docs and integration tests for help and mock image detection.
 - Verified CLI commands, integration tests, and Ruff.
+
+### Phase 5
+
+- Added agent state dataclasses, allowlisted tool registry, default project-scoped tools, safety refusals, and RuleBasedAgent.
+- Wired CLI `hokage-vision agent run` to the rule-based provider.
+- Registered detect image/folder/video, smoke training, model comparison, project health, reporting, dataset, annotation, training, and model-management tools.
+- Kept non-implemented tools as explicit dry-run placeholders.
+- Added OpenAI and LangGraph provider placeholders without API key requirements.
+- Added tests for tool registration, allowlist enforcement, project-scoped routing, and out-of-scope refusal.
+- Verified `hokage-vision agent run "检测 examples/images 里的图片"`, targeted tests, and Ruff.

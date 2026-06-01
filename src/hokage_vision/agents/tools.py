@@ -1,0 +1,91 @@
+from __future__ import annotations
+
+from dataclasses import asdict
+from pathlib import Path
+from typing import Any
+
+from hokage_vision.agents.registry import ToolRegistry
+from hokage_vision.vision.backends.mock import MockBackend
+from hokage_vision.vision.inference import InferenceService
+
+DEFAULT_ALLOWED_TOOLS = [
+    "detect_image",
+    "detect_video",
+    "detect_folder",
+    "validate_dataset",
+    "create_dataset_manifest",
+    "assist_annotation",
+    "auto_label_with_model",
+    "train_model",
+    "smoke_train",
+    "evaluate_model",
+    "compare_models",
+    "list_models",
+    "register_model",
+    "generate_report",
+    "project_health_check",
+]
+
+
+def create_default_tool_registry() -> ToolRegistry:
+    registry = ToolRegistry(allowed_tools=DEFAULT_ALLOWED_TOOLS)
+    registry.register("detect_image", "Detect objects in one image.", _detect_image)
+    registry.register("detect_folder", "Detect objects in a local folder.", _detect_folder)
+    registry.register("detect_video", "Detect objects in a local video.", _detect_video)
+    registry.register("validate_dataset", "Validate a YOLO dataset.", _placeholder("validate_dataset"))
+    registry.register(
+        "create_dataset_manifest",
+        "Create a dataset manifest.",
+        _placeholder("create_dataset_manifest"),
+    )
+    registry.register("assist_annotation", "Prepare annotation assistance.", _placeholder("assist_annotation"))
+    registry.register(
+        "auto_label_with_model",
+        "Generate model-assisted candidate labels.",
+        _placeholder("auto_label_with_model"),
+    )
+    registry.register("train_model", "Plan or run model training.", _placeholder("train_model"))
+    registry.register("smoke_train", "Run smoke training.", _placeholder("smoke_train"))
+    registry.register("evaluate_model", "Evaluate a model.", _placeholder("evaluate_model"))
+    registry.register("compare_models", "Compare model weights.", _placeholder("compare_models"))
+    registry.register("list_models", "List registered models.", _placeholder("list_models"))
+    registry.register("register_model", "Register a model.", _placeholder("register_model"))
+    registry.register("generate_report", "Generate a report on explicit request.", _placeholder("generate_report"))
+    registry.register("project_health_check", "Check project health.", _project_health_check)
+    return registry
+
+
+def _service() -> InferenceService:
+    return InferenceService(MockBackend())
+
+
+def _detect_image(arguments: dict[str, Any]) -> dict[str, Any]:
+    path = Path(arguments["path"])
+    return asdict(_service().detect_image(path))
+
+
+def _detect_folder(arguments: dict[str, Any]) -> dict[str, Any]:
+    path = Path(arguments["path"])
+    results = _service().detect_folder(path)
+    return {"count": len(results), "results": [asdict(result) for result in results]}
+
+
+def _detect_video(arguments: dict[str, Any]) -> dict[str, Any]:
+    path = Path(arguments["path"])
+    return asdict(_service().detect_video(path))
+
+
+def _project_health_check(arguments: dict[str, Any]) -> dict[str, Any]:
+    return {
+        "status": "ok",
+        "scope": "project",
+        "checks": ["config", "mock_backend", "cli"],
+        "dry_run": True,
+    }
+
+
+def _placeholder(name: str):
+    def handler(arguments: dict[str, Any]) -> dict[str, Any]:
+        return {"status": "placeholder", "tool": name, "arguments": arguments, "dry_run": True}
+
+    return handler
