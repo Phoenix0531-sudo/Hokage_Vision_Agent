@@ -14,7 +14,7 @@ This checklist tracks the staged migration from the legacy YOLOv5 + PySide6 proj
 - [x] Phase 9: Ultralytics and legacy YOLOv5 backends
 - [x] Phase 10: Modern PySide6 desktop interface
 - [x] Phase 11: FastAPI service
-- [ ] Phase 12: Python package build workflow
+- [x] Phase 12: Python package build workflow
 - [ ] Phase 13: Desktop executable build workflow
 - [ ] Phase 14: CI, documentation, release, and governance
 - [ ] Phase 15: Final portfolio polish
@@ -139,3 +139,12 @@ This checklist tracks the staged migration from the legacy YOLOv5 + PySide6 proj
 - Wired `apps/api/main.py`, `hokage-vision api`, and Docker Compose `api` to the same app.
 - Added API usage docs and integration tests for `/health` and mock image detection.
 - Verified API tests, full unit/integration tests, Ruff checks, and Docker Compose API health response.
+
+### Phase 12
+
+- Added `scripts/build_package.py` as a thin wrapper around `python -m build`.
+- Added package build documentation and MkDocs navigation.
+- Added a package workflow that builds sdist/wheel, installs the wheel, checks `hokage-vision --help`, and uploads artifacts.
+- Added a packaging test that builds sdist/wheel, installs the wheel in a temporary venv, and validates the console script.
+- Added package build tooling to the Docker test dependency layer and included packaging tests in the `test` service.
+- Verified Docker package build, packaging test, Ruff checks, and full unit/integration/packaging tests.
