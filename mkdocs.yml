@@ -7,5 +7,6 @@ nav:
   - Home: index.md
   - Getting Started: getting-started.md
   - Docker: docker.md
+  - CLI: usage/cli.md
   - Migration: migration.md
   - License Audit: license-audit.md
