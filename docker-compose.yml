@@ -1,0 +1,64 @@
+services:
+  test:
+    build:
+      context: .
+    image: hokage-vision-agent:dev
+    command: pytest
+    volumes:
+      - .:/workspace
+    environment:
+      HOKAGE_VISION_BACKEND: mock
+      PYTHONPATH: /workspace/src
+      PYTEST_DISABLE_PLUGIN_AUTOLOAD: "1"
+      QT_QPA_PLATFORM: offscreen
+
+  gui-test:
+    build:
+      context: .
+    image: hokage-vision-agent:dev
+    command: sh -lc "apt-get update && apt-get install -y --no-install-recommends libegl1 libgl1 libglib2.0-0 libxkbcommon-x11-0 libxcb-cursor0 libxcb-icccm4 libxcb-image0 libxcb-keysyms1 libxcb-randr0 libxcb-render-util0 libxcb-xinerama0 libxcb-xinput0 xvfb && python -m pip install -e '.[gui]' && pytest tests/gui"
+    volumes:
+      - .:/workspace
+    environment:
+      HOKAGE_VISION_BACKEND: mock
+      PYTHONPATH: /workspace/src
+      QT_QPA_PLATFORM: offscreen
+
+  api:
+    build:
+      context: .
+    image: hokage-vision-agent:dev
+    command: sh -lc "python -m pip install -e '.[api]' && hokage-vision --help"
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/workspace
+    environment:
+      HOKAGE_VISION_BACKEND: mock
+      PYTHONPATH: /workspace/src
+
+  package:
+    build:
+      context: .
+    image: hokage-vision-agent:dev
+    command: sh -lc "python -m pip install -e '.[package]' && python -m build"
+    volumes:
+      - .:/workspace
+
+  desktop-build:
+    build:
+      context: .
+    image: hokage-vision-agent:dev
+    command: sh -lc "apt-get update && apt-get install -y --no-install-recommends libegl1 libgl1 libglib2.0-0 libxkbcommon-x11-0 libxcb-cursor0 libxcb-icccm4 libxcb-image0 libxcb-keysyms1 libxcb-randr0 libxcb-render-util0 libxcb-xinerama0 libxcb-xinput0 xvfb && python -m pip install -e '.[desktop-build,gui]' && python scripts/build_desktop.py"
+    volumes:
+      - .:/workspace
+    environment:
+      QT_QPA_PLATFORM: offscreen
+
+  docs:
+    build:
+      context: .
+    image: hokage-vision-agent:dev
+    command: sh -lc "python -m pip install -e '.[docs]' && mkdocs build"
+    volumes:
+      - .:/workspace

@@ -1,0 +1,11 @@
+site_name: Hokage Vision Agent
+site_description: An agentic computer vision workbench for anime character detection.
+repo_url: https://github.com/Phoenix0531-sudo/YOLOv5-PySide6_Hokage_Recognition
+theme:
+  name: material
+nav:
+  - Home: index.md
+  - Getting Started: getting-started.md
+  - Docker: docker.md
+  - Migration: migration.md
+  - License Audit: license-audit.md
