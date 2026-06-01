@@ -4,7 +4,7 @@ This file records third-party components and license boundaries for Hokage Visio
 
 ## Legacy YOLOv5 Code
 
-The current repository contains upstream-like YOLOv5 code in the root tree, including training, validation, export, model, utility, classification, and segmentation modules. Local evidence points to a GPL-3.0-era YOLOv5 import, while current upstream YOLOv5 uses AGPL-3.0. Until provenance is fully confirmed, this code is treated as legacy YOLOv5 code governed by the applicable upstream YOLOv5 license for the imported version.
+The repository contains upstream-like YOLOv5 code isolated under `legacy/old_project/`, including training, validation, export, model, utility, classification, and segmentation modules. Local evidence points to a GPL-3.0-era YOLOv5 import, while current upstream YOLOv5 uses AGPL-3.0. Until provenance is fully confirmed, this code is treated as legacy YOLOv5 code governed by the applicable upstream YOLOv5 license for the imported version.
 
 The new `src/hokage_vision` package must not copy or mix this code directly.
 

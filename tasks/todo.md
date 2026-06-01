@@ -17,7 +17,7 @@ This checklist tracks the staged migration from the legacy YOLOv5 + PySide6 proj
 - [x] Phase 12: Python package build workflow
 - [x] Phase 13: Desktop executable build workflow
 - [x] Phase 14: CI, documentation, release, and governance
-- [ ] Phase 15: Final portfolio polish
+- [x] Phase 15: Final portfolio polish
 
 ## Working Rules
 
@@ -154,7 +154,7 @@ This checklist tracks the staged migration from the legacy YOLOv5 + PySide6 proj
 - Added a PyInstaller desktop build script that targets the PySide6 desktop entrypoint and excludes large model frameworks from the executable bundle.
 - Added a desktop build workflow with Linux as the required target and Windows/macOS as best-effort matrix targets.
 - Added desktop executable documentation and clarified that model weights remain external runtime assets.
-- Added the `binutils` system dependency to the GUI/desktop Docker layer so PyInstaller can inspect Linux shared libraries.
+- Added the `binutils` system dependency for desktop builds so PyInstaller can inspect Linux shared libraries.
 - Verified Ruff checks, Docker desktop build, and headless GUI smoke tests.
 
 ### Phase 14
@@ -167,3 +167,14 @@ This checklist tracks the staged migration from the legacy YOLOv5 + PySide6 proj
 - Adjusted Docker docs service so `docker compose run --rm docs mkdocs build` works without runtime dependency installation.
 - Scoped Ruff away from legacy YOLOv5 files and made default pytest skip GUI tests by test path, while GUI tests run in the dedicated PySide6 image.
 - Verified Ruff checks, default pytest, headless GUI tests, MkDocs build, workflow YAML parsing, and docs Docker target build.
+
+### Phase 15
+
+- Moved the tracked legacy YOLOv5/PySide6 root tree into `legacy/old_project/` while keeping new `data/` and `models/` workspaces at the root.
+- Added GUI and CLI placeholder screenshot assets and updated bilingual README project structure notes.
+- Updated migration, license audit, third-party notices, and legacy docs to reflect the completed legacy isolation.
+- Added cached API and desktop-build Docker stages so API startup and PyInstaller builds do not install runtime tooling on every command.
+- Pinned Docker-only Python requirements to reduce pip resolver backtracking and make container builds more repeatable.
+- Checked local Markdown links and confirmed the docs site builds.
+- Verified final Docker build, Ruff check, Ruff format check, default pytest, GUI smoke tests, CLI help, mock image detection, Agent run, MkDocs build, package build, desktop build, and API health.
+- Remaining manual confirmations: exact legacy YOLOv5 upstream version, old dataset/image redistribution rights, old `libEGL.dll` redistribution terms, and real model/data licenses.

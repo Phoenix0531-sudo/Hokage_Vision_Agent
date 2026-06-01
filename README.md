@@ -31,6 +31,8 @@ Placeholder screenshots live under `assets/screenshots/` until the final GUI cap
 
 ![GUI placeholder](assets/screenshots/gui-placeholder.svg)
 
+![CLI placeholder](assets/screenshots/cli-placeholder.svg)
+
 ## Docker-first Quick Start
 
 ```bash
@@ -120,6 +122,7 @@ docs/                MkDocs static documentation site
 tests/               Unit, integration, GUI, and packaging tests
 models/              Local registry metadata and external weight placement notes
 data/                Local data workspace with manifest and license guidance
+legacy/old_project/  Isolated legacy YOLOv5 + PySide6 tree for audit and compatibility
 ```
 
 ## Architecture

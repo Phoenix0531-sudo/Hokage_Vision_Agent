@@ -14,6 +14,8 @@ docker compose run --rm desktop-build
 
 The Dockerfile uses `python:3.12-slim-bookworm` and keeps dependency layers separate from source code layers. The normal `test` image does not install PySide6 or Qt system libraries. The `gui-test` image installs the headless Qt dependencies and `PySide6-Essentials` before copying source files, so changing application code should not invalidate the expensive GUI dependency layers.
 
+API, docs, and desktop build dependencies also live in their own cached stages. The runtime commands do not install Uvicorn, MkDocs, or PyInstaller on every container start.
+
 BuildKit cache mounts are used for apt and pip caches. If the default Debian mirror is unstable in your network, pass a mirror through environment variables:
 
 ```bash

@@ -31,6 +31,8 @@
 
 ![GUI 占位图](assets/screenshots/gui-placeholder.svg)
 
+![CLI 占位图](assets/screenshots/cli-placeholder.svg)
+
 ## Docker-first 快速开始
 
 ```bash
@@ -120,6 +122,7 @@ docs/                MkDocs 静态文档站
 tests/               单元、集成、GUI、打包测试
 models/              本地模型注册元数据和外部权重放置说明
 data/                本地数据工作区与 manifest/license 约束
+legacy/old_project/  已隔离的旧 YOLOv5 + PySide6 代码树，用于审计和兼容
 ```
 
 ## 架构
