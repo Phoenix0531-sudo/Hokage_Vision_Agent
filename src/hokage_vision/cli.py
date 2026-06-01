@@ -9,13 +9,17 @@ import typer
 from hokage_vision import __version__
 from hokage_vision.agents.providers.rule_based import RuleBasedAgent
 from hokage_vision.core.errors import HokageVisionError
+from hokage_vision.core.types import ModelInfo
 from hokage_vision.data.annotation import assist_annotation
 from hokage_vision.data.manifest import create_dataset_manifest
 from hokage_vision.data.validation import validate_yolo_dataset
+from hokage_vision.training.registry import ModelRegistry
 from hokage_vision.training.smoke import run_smoke_training
 from hokage_vision.training.trainer import run_yolo_training
 from hokage_vision.vision.backends.mock import MockBackend
+from hokage_vision.vision.evaluation import evaluate_model
 from hokage_vision.vision.inference import InferenceService
+from hokage_vision.vision.model_compare import compare_model_paths
 
 app = typer.Typer(
     name="hokage-vision",
@@ -178,8 +182,8 @@ def train_yolo(
 
 @model_app.command("list")
 def model_list() -> None:
-    """List registered models. Placeholder until Phase 8."""
-    _echo_json({"models": [], "status": "placeholder"})
+    """List registered models."""
+    _echo_json({"models": ModelRegistry().list_models()})
 
 
 @model_app.command("register")
@@ -188,8 +192,9 @@ def model_register(
     path: Path = typer.Option(..., "--path"),
     backend: str = typer.Option("ultralytics", "--backend"),
 ) -> None:
-    """Register a model. Placeholder until Phase 8."""
-    _echo_json({"status": "placeholder", "name": name, "path": str(path), "backend": backend})
+    """Register a model."""
+    model = ModelInfo(name=name, version="0.1.0", path=path, backend=backend, classes=["obito", "naruto", "gaara"])
+    _echo_json(ModelRegistry().register(model))
 
 
 @model_app.command("evaluate")
@@ -197,17 +202,21 @@ def model_evaluate(
     model: Path = typer.Option(..., "--model"),
     data: Path = typer.Option(..., "--data"),
 ) -> None:
-    """Evaluate one model. Placeholder until Phase 8."""
-    _echo_json({"status": "placeholder", "model": str(model), "data": str(data)})
+    """Evaluate one model."""
+    _echo_json(evaluate_model(model, data, mock=True))
 
 
-@model_app.command("compare")
+@model_app.command("compare", context_settings={"allow_extra_args": True, "ignore_unknown_options": True})
 def model_compare(
-    models: list[Path] = typer.Option(..., "--models"),
+    ctx: typer.Context,
+    models: list[Path] | None = typer.Option(None, "--models"),
     mock: bool = typer.Option(False, "--mock"),
 ) -> None:
-    """Compare multiple model weights. Placeholder until Phase 8."""
-    _echo_json({"status": "placeholder", "models": [str(model) for model in models], "mock": mock})
+    """Compare multiple model weights."""
+    selected_models = list(models or []) + [Path(arg) for arg in ctx.args]
+    if not selected_models:
+        raise typer.BadParameter("At least one model path is required.")
+    _echo_json({"models": compare_model_paths(selected_models, mock=mock)})
 
 
 @agent_app.command("run")

@@ -5,13 +5,17 @@ from pathlib import Path
 from typing import Any
 
 from hokage_vision.agents.registry import ToolRegistry
+from hokage_vision.core.types import ModelInfo
 from hokage_vision.data.annotation import assist_annotation
 from hokage_vision.data.manifest import create_dataset_manifest
 from hokage_vision.data.validation import validate_yolo_dataset
+from hokage_vision.training.registry import ModelRegistry
 from hokage_vision.training.smoke import run_smoke_training
 from hokage_vision.training.trainer import run_yolo_training
 from hokage_vision.vision.backends.mock import MockBackend
+from hokage_vision.vision.evaluation import evaluate_model
 from hokage_vision.vision.inference import InferenceService
+from hokage_vision.vision.model_compare import compare_model_paths
 
 DEFAULT_ALLOWED_TOOLS = [
     "detect_image",
@@ -51,10 +55,10 @@ def create_default_tool_registry() -> ToolRegistry:
     )
     registry.register("train_model", "Plan or run model training.", _train_model)
     registry.register("smoke_train", "Run smoke training.", _smoke_train)
-    registry.register("evaluate_model", "Evaluate a model.", _placeholder("evaluate_model"))
-    registry.register("compare_models", "Compare model weights.", _placeholder("compare_models"))
-    registry.register("list_models", "List registered models.", _placeholder("list_models"))
-    registry.register("register_model", "Register a model.", _placeholder("register_model"))
+    registry.register("evaluate_model", "Evaluate a model.", _evaluate_model)
+    registry.register("compare_models", "Compare model weights.", _compare_models)
+    registry.register("list_models", "List registered models.", _list_models)
+    registry.register("register_model", "Register a model.", _register_model)
     registry.register("generate_report", "Generate a report on explicit request.", _placeholder("generate_report"))
     registry.register("project_health_check", "Check project health.", _project_health_check)
     return registry
@@ -115,6 +119,30 @@ def _smoke_train(arguments: dict[str, Any]) -> dict[str, Any]:
 def _train_model(arguments: dict[str, Any]) -> dict[str, Any]:
     data = Path(arguments.get("data", "configs/dataset.example.yaml"))
     return run_yolo_training(data, dry_run=True)
+
+
+def _list_models(arguments: dict[str, Any]) -> dict[str, Any]:
+    return {"models": ModelRegistry().list_models()}
+
+
+def _register_model(arguments: dict[str, Any]) -> dict[str, Any]:
+    model = ModelInfo(
+        name=str(arguments.get("name", "hokage-yolo-local")),
+        version=str(arguments.get("version", "0.1.0")),
+        path=Path(arguments["path"]) if arguments.get("path") else None,
+        backend=str(arguments.get("backend", "ultralytics")),
+        classes=["obito", "naruto", "gaara"],
+    )
+    return ModelRegistry().register(model)
+
+
+def _evaluate_model(arguments: dict[str, Any]) -> dict[str, Any]:
+    return evaluate_model(Path(arguments.get("model", "models/sample.pt")), mock=True)
+
+
+def _compare_models(arguments: dict[str, Any]) -> dict[str, Any]:
+    models = [Path(item) for item in arguments.get("models", ["models/a.pt", "models/b.pt"])]
+    return {"models": compare_model_paths(models, mock=True)}
 
 
 def _placeholder(name: str):
