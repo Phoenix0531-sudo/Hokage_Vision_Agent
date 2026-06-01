@@ -10,3 +10,11 @@ hokage-vision model compare --models models/a.pt models/b.pt --mock
 ```
 
 Before publishing weights, confirm training data rights, model license, class list, metrics, and release notes.
+
+Real backends:
+
+- `mock`: default for tests and demos.
+- `ultralytics`: modern Ultralytics YOLO weights, requires `pip install -e ".[train]"`.
+- `yolov5_legacy`: compatibility boundary for old YOLOv5 weights after legacy source isolation.
+
+No backend hardcodes `runs/train/exp/weights/best.pt`.
