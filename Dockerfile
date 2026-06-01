@@ -67,6 +67,7 @@ RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
     set -eux; \
     apt-get update -o Acquire::Retries=5; \
     apt-get install -y -o Acquire::Retries=5 --no-install-recommends \
+        binutils \
         libdbus-1-3 \
         libegl1 \
         libfontconfig1 \
