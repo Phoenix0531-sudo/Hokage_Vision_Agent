@@ -8,5 +8,6 @@ nav:
   - Getting Started: getting-started.md
   - Docker: docker.md
   - CLI: usage/cli.md
+  - Agent: usage/agent.md
   - Migration: migration.md
   - License Audit: license-audit.md

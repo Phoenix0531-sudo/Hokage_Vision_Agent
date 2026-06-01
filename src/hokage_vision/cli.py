@@ -7,6 +7,7 @@ from pathlib import Path
 import typer
 
 from hokage_vision import __version__
+from hokage_vision.agents.providers.rule_based import RuleBasedAgent
 from hokage_vision.core.errors import HokageVisionError
 from hokage_vision.vision.backends.mock import MockBackend
 from hokage_vision.vision.inference import InferenceService
@@ -175,8 +176,9 @@ def model_compare(
 
 @agent_app.command("run")
 def agent_run(task: str) -> None:
-    """Run the rule-based agent. Placeholder until Phase 5."""
-    _echo_json({"status": "placeholder", "task": task, "provider": "rule_based"})
+    """Run the default rule-based agent."""
+    response = RuleBasedAgent().run(task)
+    _echo_json(asdict(response))
 
 
 @app.command("gui")
