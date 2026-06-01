@@ -15,5 +15,6 @@ nav:
   - Data Governance: data-governance.md
   - Annotation: annotation.md
   - Model Zoo: model-zoo.md
+  - Packaging: packaging.md
   - Migration: migration.md
   - License Audit: license-audit.md

@@ -10,7 +10,7 @@ services:
       target: test
       args: *build-args
     image: hokage-vision-agent:dev
-    command: pytest tests/unit tests/integration
+    command: pytest tests/unit tests/integration tests/packaging
     volumes:
       - .:/workspace
     environment:
