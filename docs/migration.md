@@ -4,9 +4,9 @@
 
 Hokage Vision Agent will replace the current root-level YOLOv5 + PySide6 layout with a modern Python package, Docker-first developer workflow, documented data governance, a safe rule-based agent layer, a FastAPI service, and a redesigned PySide6 desktop GUI.
 
-## Current Repository Shape
+## Legacy Repository Shape
 
-The current repository is mostly a YOLOv5-style tree at the repository root:
+The original repository was mostly a YOLOv5-style tree at the repository root:
 
 - Upstream-like YOLOv5 entrypoints: `detect.py`, `train.py`, `val.py`, `export.py`, `benchmarks.py`, `hubconf.py`.
 - Upstream-like YOLOv5 packages and configs: `models/`, `utils/`, `classify/`, `segment/`, `data/*.yaml`, `data/hyps/`, `data/scripts/`.
@@ -14,7 +14,7 @@ The current repository is mostly a YOLOv5-style tree at the repository root:
 - Project-specific dataset labels/classes: `datasets/classes.txt`, `datasets/labels/`.
 - Demo/readme assets: `readme_images.png`, `readme_images/`.
 
-The new project must not import YOLOv5 legacy modules directly into `src/hokage_vision`. A compatibility backend may call legacy code only through an explicit boundary.
+The legacy tree is now isolated under `legacy/old_project/`. The new project must not import YOLOv5 legacy modules directly into `src/hokage_vision`. A compatibility backend may call legacy code only through an explicit boundary.
 
 ## Migration Strategy
 
@@ -39,6 +39,7 @@ The new project must not import YOLOv5 legacy modules directly into `src/hokage_
 
 - Legacy code remains available for reference, license audit, and compatibility.
 - New code lives under `src/hokage_vision`.
+- Root-level `data/` and `models/` now contain only the new project workspace and registry metadata; old YOLOv5 assets were moved to `legacy/old_project/`.
 - The default backend is `mock`.
 - CI, GUI smoke tests, API tests, and agent tests do not depend on GPU, private data, real YOLO weights, or external LLM APIs.
 - Documentation clearly separates source code, legacy code, documentation, model weights, dataset images, and annotations.

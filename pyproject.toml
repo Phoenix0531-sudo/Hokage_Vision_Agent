@@ -127,6 +127,7 @@ exclude = [
   "untitled.py",
   "utils",
   "val.py",
+  "legacy/old_project",
 ]
 
 [tool.ruff.lint]

@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="560" viewBox="0 0 1280 560" role="img" aria-label="Hokage Vision Agent CLI placeholder">
+  <rect width="1280" height="560" fill="#0f141a"/>
+  <rect x="64" y="56" width="1152" height="448" rx="16" fill="#151b22" stroke="#2c3642" stroke-width="2"/>
+  <text x="104" y="120" fill="#8be9fd" font-family="Consolas, monospace" font-size="28">hokage-vision detect image examples/images/sample.jpg --backend mock</text>
+  <text x="104" y="178" fill="#d8dee9" font-family="Consolas, monospace" font-size="24">{</text>
+  <text x="136" y="224" fill="#d8dee9" font-family="Consolas, monospace" font-size="24">"source": "examples/images/sample.jpg",</text>
+  <text x="136" y="270" fill="#d8dee9" font-family="Consolas, monospace" font-size="24">"detections": ["obito", "naruto", "gaara"],</text>
+  <text x="136" y="316" fill="#d8dee9" font-family="Consolas, monospace" font-size="24">"backend": "mock"</text>
+  <text x="104" y="362" fill="#d8dee9" font-family="Consolas, monospace" font-size="24">}</text>
+  <text x="104" y="440" fill="#7f8c9a" font-family="Arial, sans-serif" font-size="22">Final terminal capture will be added after release polish.</text>
+</svg>

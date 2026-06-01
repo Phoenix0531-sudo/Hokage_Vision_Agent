@@ -37,10 +37,10 @@ services:
   api:
     build:
       context: .
-      target: test
+      target: api
       args: *build-args
-    image: hokage-vision-agent:dev
-    command: sh -lc "python -m pip install -e '.[api]' && hokage-vision api --host 0.0.0.0 --port 8000"
+    image: hokage-vision-agent:api
+    command: hokage-vision api --host 0.0.0.0 --port 8000
     ports:
       - "8000:8000"
     volumes:
@@ -62,10 +62,10 @@ services:
   desktop-build:
     build:
       context: .
-      target: gui-test
+      target: desktop-build
       args: *build-args
-    image: hokage-vision-agent:gui
-    command: sh -lc "python -m pip install -e '.[desktop-build]' && python scripts/build_desktop.py"
+    image: hokage-vision-agent:desktop-build
+    command: python scripts/build_desktop.py
     volumes:
       - .:/workspace
     environment:
