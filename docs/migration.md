@@ -31,12 +31,13 @@ The new project must not import YOLOv5 legacy modules directly into `src/hokage_
 - `base_ui.py` and `hub_detect.ipynb` hardcode `runs/train/exp/weights/best.pt`.
 - Legacy YOLOv5 scripts include webcam examples and download helpers; Hokage Vision Agent must not expose camera support and must not auto-download copyrighted data.
 - No root `LICENSE` file was found during the initial audit.
+- Git history indicates a GPL-3.0 `LICENSE` existed in the first commit and was later deleted; legacy YOLOv5 provenance must be preserved before choosing a final main project license.
 - The repository contains dataset label files and caches, but no dataset manifest or license provenance.
 - `libEGL.dll` is committed at the repository root and needs review before any packaging decision.
 
 ## Acceptance Criteria
 
-- Legacy code remains available for reference and compatibility.
+- Legacy code remains available for reference, license audit, and compatibility.
 - New code lives under `src/hokage_vision`.
 - The default backend is `mock`.
 - CI, GUI smoke tests, API tests, and agent tests do not depend on GPU, private data, real YOLO weights, or external LLM APIs.
