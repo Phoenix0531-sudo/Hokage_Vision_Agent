@@ -13,7 +13,7 @@ This checklist tracks the staged migration from the legacy YOLOv5 + PySide6 proj
 - [x] Phase 8: Model registry, evaluation, and comparison
 - [x] Phase 9: Ultralytics and legacy YOLOv5 backends
 - [x] Phase 10: Modern PySide6 desktop interface
-- [ ] Phase 11: FastAPI service
+- [x] Phase 11: FastAPI service
 - [ ] Phase 12: Python package build workflow
 - [ ] Phase 13: Desktop executable build workflow
 - [ ] Phase 14: CI, documentation, release, and governance
@@ -130,3 +130,12 @@ This checklist tracks the staged migration from the legacy YOLOv5 + PySide6 proj
 - Reworked Docker GUI testing around `python:3.12-slim-bookworm`, separate test/gui dependency stages, BuildKit apt/pip caches, and optional Debian mirror build args.
 - Added Docker-specific requirement files without replacing the legacy YOLOv5 `requirements.txt`.
 - Verified GUI tests, targeted Ruff checks, and normal Docker package import.
+
+### Phase 11
+
+- Added a FastAPI app package with shared route handlers and request schemas.
+- Implemented local JSON endpoints for health, models, image detection, folder detection, agent run, dataset validation, smoke training, and model comparison.
+- Kept the API mock-backed by default and left real training out of the exposed API surface.
+- Wired `apps/api/main.py`, `hokage-vision api`, and Docker Compose `api` to the same app.
+- Added API usage docs and integration tests for `/health` and mock image detection.
+- Verified API tests, full unit/integration tests, Ruff checks, and Docker Compose API health response.
