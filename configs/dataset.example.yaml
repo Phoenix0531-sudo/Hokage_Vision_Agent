@@ -1,0 +1,9 @@
+path: examples/dataset
+train: images/train
+val: images/val
+test: images/test
+names:
+  0: obito
+  1: naruto
+  2: gaara
+manifest: data/manifests/hokage-vision-sample.yaml

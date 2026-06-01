@@ -1,0 +1,22 @@
+agent:
+  provider: rule_based
+  enable_llm: false
+  allowed_tools:
+    - detect_image
+    - detect_video
+    - detect_folder
+    - validate_dataset
+    - create_dataset_manifest
+    - assist_annotation
+    - auto_label_with_model
+    - train_model
+    - smoke_train
+    - evaluate_model
+    - compare_models
+    - list_models
+    - register_model
+    - generate_report
+    - project_health_check
+  max_steps: 8
+  shell_access: false
+  dry_run_by_default: true

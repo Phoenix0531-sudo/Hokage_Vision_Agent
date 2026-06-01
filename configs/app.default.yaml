@@ -1,0 +1,63 @@
+app:
+  name: Hokage Vision Agent
+  language: zh-CN
+  output_dir: runs
+  portfolio_mode: true
+
+model:
+  backend: mock
+  path: null
+  device: auto
+  conf_threshold: 0.25
+  iou_threshold: 0.45
+  image_size: 640
+  classes:
+    - obito
+    - naruto
+    - gaara
+
+agent:
+  provider: rule_based
+  enable_llm: false
+  allowed_tools:
+    - detect_image
+    - detect_video
+    - detect_folder
+    - validate_dataset
+    - create_dataset_manifest
+    - assist_annotation
+    - auto_label_with_model
+    - train_model
+    - smoke_train
+    - evaluate_model
+    - compare_models
+    - list_models
+    - register_model
+    - generate_report
+    - project_health_check
+  max_steps: 8
+  shell_access: false
+  dry_run_by_default: true
+
+ui:
+  language: zh-CN
+  theme: dark
+  allow_theme_switch: true
+  allow_language_switch: true
+  window_width: 1280
+  window_height: 860
+
+api:
+  host: 0.0.0.0
+  port: 8000
+
+training:
+  default_epochs: 1
+  smoke_test_epochs: 1
+  dry_run_by_default: true
+
+data:
+  allow_web_download: false
+  require_manifest: true
+  require_license_review: true
+  allow_redistribution_by_default: false
