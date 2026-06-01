@@ -11,7 +11,7 @@ This checklist tracks the staged migration from the legacy YOLOv5 + PySide6 proj
 - [x] Phase 6: Dataset manifest, validation, and annotation helpers
 - [x] Phase 7: Training skeleton and smoke training
 - [x] Phase 8: Model registry, evaluation, and comparison
-- [ ] Phase 9: Ultralytics and legacy YOLOv5 backends
+- [x] Phase 9: Ultralytics and legacy YOLOv5 backends
 - [ ] Phase 10: Modern PySide6 desktop interface
 - [ ] Phase 11: FastAPI service
 - [ ] Phase 12: Python package build workflow
@@ -110,3 +110,13 @@ This checklist tracks the staged migration from the legacy YOLOv5 + PySide6 proj
 - Wired Agent model list, register, evaluate, and compare tools to actual logic.
 - Added model README, registry example, model-zoo docs, and model registry/comparison tests.
 - Verified `hokage-vision model list`, `hokage-vision model compare --models models/a.pt models/b.pt --mock`, targeted tests, and Ruff.
+
+### Phase 9
+
+- Added `UltralyticsBackend` with explicit model path, conf/iou/device/imgsz settings, lazy import, and clear missing dependency/path errors.
+- Added `YOLOv5LegacyBackend` as a compatibility boundary that requires explicit weights and isolated legacy source, with no hardcoded `best.pt` path.
+- Added reserved `ONNXBackend` placeholder with clear unsupported errors.
+- Added `download_model.py` helper restricted to reviewed GitHub Release URLs.
+- Updated model docs with backend guidance and no-hardcoded-weight statement.
+- Added lightweight backend tests that do not download weights or require GPU.
+- Verified mock flow still passes, missing weight errors are readable, and Ruff passes.
