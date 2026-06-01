@@ -9,6 +9,9 @@ import typer
 from hokage_vision import __version__
 from hokage_vision.agents.providers.rule_based import RuleBasedAgent
 from hokage_vision.core.errors import HokageVisionError
+from hokage_vision.data.annotation import assist_annotation
+from hokage_vision.data.manifest import create_dataset_manifest
+from hokage_vision.data.validation import validate_yolo_dataset
 from hokage_vision.vision.backends.mock import MockBackend
 from hokage_vision.vision.inference import InferenceService
 
@@ -20,6 +23,7 @@ app = typer.Typer(
 detect_app = typer.Typer(help="Run image, video, or folder detection.")
 dataset_app = typer.Typer(help="Dataset management commands.")
 dataset_manifest_app = typer.Typer(help="Dataset manifest commands.")
+annotation_app = typer.Typer(help="Annotation assistance commands.")
 train_app = typer.Typer(help="Training commands.")
 model_app = typer.Typer(help="Model registry, evaluation, and comparison commands.")
 agent_app = typer.Typer(help="Agent assistant commands.")
@@ -27,6 +31,7 @@ agent_app = typer.Typer(help="Agent assistant commands.")
 app.add_typer(detect_app, name="detect")
 app.add_typer(dataset_app, name="dataset")
 dataset_app.add_typer(dataset_manifest_app, name="manifest")
+app.add_typer(annotation_app, name="annotation")
 app.add_typer(train_app, name="train")
 app.add_typer(model_app, name="model")
 app.add_typer(agent_app, name="agent")
@@ -111,8 +116,8 @@ def detect_video(
 
 @dataset_app.command("validate")
 def dataset_validate(dataset_yaml: Path) -> None:
-    """Validate a YOLO dataset configuration. Placeholder until Phase 6."""
-    _echo_json({"status": "placeholder", "dataset": str(dataset_yaml), "valid": None})
+    """Validate a YOLO dataset configuration."""
+    _echo_json(asdict(validate_yolo_dataset(dataset_yaml)))
 
 
 @dataset_manifest_app.command("create")
@@ -120,8 +125,23 @@ def dataset_manifest_create(
     images: Path = typer.Option(..., "--images", help="Local image folder."),
     output: Path = typer.Option(..., "--output", help="Manifest output path."),
 ) -> None:
-    """Create a dataset manifest. Placeholder until Phase 6."""
-    _echo_json({"status": "placeholder", "images": str(images), "output": str(output)})
+    """Create a dataset manifest."""
+    manifest = create_dataset_manifest(images, output)
+    _echo_json(manifest.model_dump(mode="json"))
+
+
+@annotation_app.command("assist")
+def annotation_assist(
+    images: Path = typer.Option(..., "--images", help="Local image folder."),
+    model: Path | None = typer.Option(None, "--model", help="Optional model path for future real labeling."),
+    output: Path = typer.Option(..., "--output", help="Candidate label output folder."),
+    review_required: bool = typer.Option(True, "--review-required/--no-review-required"),
+) -> None:
+    """Generate candidate YOLO labels for human review."""
+    result = assist_annotation(images, output)
+    result["model"] = str(model) if model else None
+    result["review_required"] = review_required
+    _echo_json(result)
 
 
 @train_app.command("smoke")

@@ -9,5 +9,7 @@ nav:
   - Docker: docker.md
   - CLI: usage/cli.md
   - Agent: usage/agent.md
+  - Data Governance: data-governance.md
+  - Annotation: annotation.md
   - Migration: migration.md
   - License Audit: license-audit.md
