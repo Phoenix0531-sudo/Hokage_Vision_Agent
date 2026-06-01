@@ -1,0 +1,11 @@
+model:
+  backend: mock
+  path: null
+  device: auto
+  conf_threshold: 0.25
+  iou_threshold: 0.45
+  image_size: 640
+  classes:
+    - obito
+    - naruto
+    - gaara

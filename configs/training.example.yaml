@@ -1,0 +1,9 @@
+training:
+  data: configs/dataset.example.yaml
+  base_model: null
+  epochs: 1
+  batch: 1
+  image_size: 640
+  device: cpu
+  output_dir: runs/train
+  dry_run: true
