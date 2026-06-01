@@ -6,7 +6,7 @@ This checklist tracks the staged migration from the legacy YOLOv5 + PySide6 proj
 - [x] Phase 1: Docker-first project skeleton
 - [x] Phase 2: Configuration system and core detection types
 - [x] Phase 3: Mock backend, rendering, and inference service
-- [ ] Phase 4: CLI
+- [x] Phase 4: CLI
 - [ ] Phase 5: Agent tool registry and rule-based provider
 - [ ] Phase 6: Dataset manifest, validation, and annotation helpers
 - [ ] Phase 7: Training skeleton and smoke training
@@ -62,3 +62,12 @@ This checklist tracks the staged migration from the legacy YOLOv5 + PySide6 proj
 - Added lightweight vision placeholders for future video, batch, evaluation, and model comparison work.
 - Added unit tests for mock prediction, folder inference, and rendering.
 - Verified Ruff on the new vision code and the Phase 3 Docker test command.
+
+### Phase 4
+
+- Expanded `hokage-vision` into a Typer CLI with detect, dataset, train, model, agent, GUI, and API command groups.
+- Wired mock image and folder detection to `InferenceService`; video command is present and reports missing OpenCV cleanly until video dependencies are introduced.
+- Added stable placeholders for dataset validation, manifest creation, smoke training, YOLO training dry-run, model list/register/evaluate/compare, agent run, GUI, and API.
+- Added a generated, non-copyright sample image for mock CLI tests.
+- Added CLI usage docs and integration tests for help and mock image detection.
+- Verified CLI commands, integration tests, and Ruff.

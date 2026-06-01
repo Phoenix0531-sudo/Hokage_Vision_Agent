@@ -113,7 +113,7 @@ src = ["src", "tests", "apps", "scripts"]
 
 [tool.ruff.lint]
 select = ["E", "F", "I", "B", "UP", "SIM"]
-ignore = ["E501"]
+ignore = ["B008", "E501"]
 
 [tool.ruff.format]
 quote-style = "double"
