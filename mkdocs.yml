@@ -9,6 +9,7 @@ nav:
   - Docker: docker.md
   - CLI: usage/cli.md
   - GUI: usage/gui.md
+  - API: usage/api.md
   - Agent: usage/agent.md
   - Training: usage/training.md
   - Data Governance: data-governance.md

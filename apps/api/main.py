@@ -1,5 +1,6 @@
-from hokage_vision.cli import main
-
+from hokage_vision.api.app import app
 
 if __name__ == "__main__":
-    main()
+    import uvicorn
+
+    uvicorn.run(app, host="0.0.0.0", port=8000)

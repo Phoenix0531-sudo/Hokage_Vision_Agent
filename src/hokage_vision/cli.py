@@ -235,9 +235,17 @@ def gui() -> None:
 
 
 @app.command("api")
-def api() -> None:
-    """Launch the FastAPI service. Placeholder until Phase 11."""
-    _echo_json({"status": "placeholder", "app": "api"})
+def api(
+    host: str = typer.Option("0.0.0.0", "--host"),
+    port: int = typer.Option(8000, "--port", min=1, max=65535),
+) -> None:
+    """Launch the FastAPI service."""
+    try:
+        import uvicorn
+    except ImportError as exc:
+        raise typer.BadParameter("Install the API extra with: pip install -e '.[api]'") from exc
+
+    uvicorn.run("hokage_vision.api.app:app", host=host, port=port)
 
 
 def main() -> None:
