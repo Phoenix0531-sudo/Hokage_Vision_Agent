@@ -4,7 +4,7 @@ pydantic==2.13.4
 pydantic-core==2.46.4
 pyyaml==6.0.3
 rich==15.0.0
-typer==0.26.4
+typer==0.26.5
 pytest==9.0.3
 pytest-cov==7.1.0
 ruff==0.15.15
