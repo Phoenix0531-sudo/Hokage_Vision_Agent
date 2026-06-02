@@ -4,3 +4,5 @@
 - For portfolio/open-source cleanup, keep `tests/` in the repository because CI, GUI smoke tests, and reproducible demos are part of the deliverable. Reduce clutter by consolidating docs and old template files instead of deleting tests.
 - Preserve legacy visibility explicitly. If a refactor keeps old code only in git history, create or document an archive branch before pruning branch clutter so the original version is easy to find.
 - Portfolio projects need visible identity, not only scaffolding. GUI, docs, README, and About pages should carry the project theme while avoiding copyrighted official logos or redistributed fan assets.
+- GitHub repository About is repository metadata, not a README section. Use the repo description/homepage/topics for the right sidebar and keep README content focused on usage.
+- Release workflows should upload packaged artifacts, not raw PyInstaller directories. Zip desktop bundles first so GitHub Releases contain a small, readable asset set.

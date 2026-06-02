@@ -19,12 +19,6 @@ This is a fan-made research and portfolio project and is not affiliated with Nar
 
 [中文 README](README.zh-CN.md) · [Documentation](https://phoenix0531-sudo.github.io/YOLOv5-PySide6_Hokage_Recognition/)
 
-## About
-
-这是一个面向学习、研究与作品集展示的火影角色检测 Agent 工作台。
-
-This is a fan-made computer vision and Agent engineering workbench for portfolio demos.
-
 ## Features
 
 - Shared detection types and inference service for CLI, GUI, API, and Agent workflows.

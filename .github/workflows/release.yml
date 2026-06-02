@@ -67,8 +67,15 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           path: release-artifacts
+      - name: Prepare release assets
+        run: |
+          mkdir -p release-upload
+          cp release-artifacts/python-package/* release-upload/
+          if [ -d release-artifacts/desktop-linux ]; then
+            (cd release-artifacts/desktop-linux && zip -r ../../release-upload/desktop-linux.zip .)
+          fi
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
-          files: release-artifacts/**
+          files: release-upload/*
           generate_release_notes: true
