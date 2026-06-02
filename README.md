@@ -4,12 +4,12 @@
   <img src="assets/logo/hokage-vision-agent.svg" alt="Hokage Vision Agent logo" width="760">
 </p>
 
-[![CI](https://github.com/Phoenix0531-sudo/YOLOv5-PySide6_Hokage_Recognition/actions/workflows/ci.yml/badge.svg)](https://github.com/Phoenix0531-sudo/YOLOv5-PySide6_Hokage_Recognition/actions/workflows/ci.yml)
-[![GUI Tests](https://github.com/Phoenix0531-sudo/YOLOv5-PySide6_Hokage_Recognition/actions/workflows/gui-tests.yml/badge.svg)](https://github.com/Phoenix0531-sudo/YOLOv5-PySide6_Hokage_Recognition/actions/workflows/gui-tests.yml)
-[![Docker](https://github.com/Phoenix0531-sudo/YOLOv5-PySide6_Hokage_Recognition/actions/workflows/docker.yml/badge.svg)](https://github.com/Phoenix0531-sudo/YOLOv5-PySide6_Hokage_Recognition/actions/workflows/docker.yml)
-[![Docs](https://github.com/Phoenix0531-sudo/YOLOv5-PySide6_Hokage_Recognition/actions/workflows/docs.yml/badge.svg)](https://github.com/Phoenix0531-sudo/YOLOv5-PySide6_Hokage_Recognition/actions/workflows/docs.yml)
-[![Package](https://github.com/Phoenix0531-sudo/YOLOv5-PySide6_Hokage_Recognition/actions/workflows/package.yml/badge.svg)](https://github.com/Phoenix0531-sudo/YOLOv5-PySide6_Hokage_Recognition/actions/workflows/package.yml)
-[![Desktop Build](https://github.com/Phoenix0531-sudo/YOLOv5-PySide6_Hokage_Recognition/actions/workflows/desktop-build.yml/badge.svg)](https://github.com/Phoenix0531-sudo/YOLOv5-PySide6_Hokage_Recognition/actions/workflows/desktop-build.yml)
+[![CI](https://github.com/Phoenix0531-sudo/Hokage-Vision-Agent/actions/workflows/ci.yml/badge.svg)](https://github.com/Phoenix0531-sudo/Hokage-Vision-Agent/actions/workflows/ci.yml)
+[![GUI Tests](https://github.com/Phoenix0531-sudo/Hokage-Vision-Agent/actions/workflows/gui-tests.yml/badge.svg)](https://github.com/Phoenix0531-sudo/Hokage-Vision-Agent/actions/workflows/gui-tests.yml)
+[![Docker](https://github.com/Phoenix0531-sudo/Hokage-Vision-Agent/actions/workflows/docker.yml/badge.svg)](https://github.com/Phoenix0531-sudo/Hokage-Vision-Agent/actions/workflows/docker.yml)
+[![Docs](https://github.com/Phoenix0531-sudo/Hokage-Vision-Agent/actions/workflows/docs.yml/badge.svg)](https://github.com/Phoenix0531-sudo/Hokage-Vision-Agent/actions/workflows/docs.yml)
+[![Package](https://github.com/Phoenix0531-sudo/Hokage-Vision-Agent/actions/workflows/package.yml/badge.svg)](https://github.com/Phoenix0531-sudo/Hokage-Vision-Agent/actions/workflows/package.yml)
+[![Desktop Build](https://github.com/Phoenix0531-sudo/Hokage-Vision-Agent/actions/workflows/desktop-build.yml/badge.svg)](https://github.com/Phoenix0531-sudo/Hokage-Vision-Agent/actions/workflows/desktop-build.yml)
 ![Python 3.12](https://img.shields.io/badge/python-3.12-blue)
 ![License](https://img.shields.io/badge/license-Apache--2.0%20%2B%20legacy%20audit-informational)
 
@@ -17,7 +17,7 @@ An agentic computer vision workbench for anime character detection, powered by Y
 
 This is a fan-made research and portfolio project and is not affiliated with Naruto, Shueisha, Pierrot, or related copyright holders.
 
-[中文 README](README.zh-CN.md) · [Documentation](https://phoenix0531-sudo.github.io/YOLOv5-PySide6_Hokage_Recognition/)
+[中文 README](README.zh-CN.md) · [Documentation](https://phoenix0531-sudo.github.io/Hokage-Vision-Agent/)
 
 ## Project Status
 

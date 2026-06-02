@@ -90,10 +90,10 @@ all = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/Phoenix0531-sudo/YOLOv5-PySide6_Hokage_Recognition"
-Documentation = "https://phoenix0531-sudo.github.io/YOLOv5-PySide6_Hokage_Recognition/"
-Repository = "https://github.com/Phoenix0531-sudo/YOLOv5-PySide6_Hokage_Recognition"
-Issues = "https://github.com/Phoenix0531-sudo/YOLOv5-PySide6_Hokage_Recognition/issues"
+Homepage = "https://github.com/Phoenix0531-sudo/Hokage-Vision-Agent"
+Documentation = "https://phoenix0531-sudo.github.io/Hokage-Vision-Agent/"
+Repository = "https://github.com/Phoenix0531-sudo/Hokage-Vision-Agent"
+Issues = "https://github.com/Phoenix0531-sudo/Hokage-Vision-Agent/issues"
 
 [project.scripts]
 hokage-vision = "hokage_vision.cli:main"
