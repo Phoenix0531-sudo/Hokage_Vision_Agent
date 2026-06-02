@@ -186,3 +186,11 @@ This checklist tracks the staged migration from the legacy YOLOv5 + PySide6 proj
 - Replaced the empty About page with one Chinese sentence and one English sentence plus scope notes.
 - Stabilized Docker requirement ranges so CI is less likely to fail on unavailable exact package versions.
 - Made release workflow manually runnable and tolerant of first-pass desktop build instability.
+
+### Current Optimization Pass
+
+- [x] Identify demo gaps that make the project look unfinished.
+- [x] Wire real backend selection into CLI and API entrypoints without weakening the mock default.
+- [x] Replace remaining weak GUI About copy with product-grade Chinese and English lines.
+- [x] Run local visible CLI/API/GUI checks.
+- [x] Commit and push the optimization pass.

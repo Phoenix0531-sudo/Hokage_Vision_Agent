@@ -13,5 +13,5 @@ def test_main_window_smoke(qtbot) -> None:
     assert window.windowTitle() == "Hokage Vision Agent"
     assert window.tabs.count() == 7
     about_text = "\n".join(label.text() for label in window.tabs.widget(6).findChildren(QLabel))
-    assert "火影角色检测" in about_text
-    assert "fan-made computer vision" in about_text
+    assert "火影风格动漫角色目标检测工作台" in about_text
+    assert "YOLO-powered anime character detection workbench" in about_text

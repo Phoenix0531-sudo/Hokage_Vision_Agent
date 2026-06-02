@@ -19,19 +19,26 @@ from hokage_vision.core.errors import HokageVisionError
 from hokage_vision.data.validation import validate_yolo_dataset
 from hokage_vision.training.registry import ModelRegistry
 from hokage_vision.training.smoke import run_smoke_training
-from hokage_vision.vision.backends.mock import MockBackend
+from hokage_vision.vision.backends.factory import create_backend
 from hokage_vision.vision.inference import InferenceService
 from hokage_vision.vision.model_compare import compare_model_paths
 
 router = APIRouter()
 
 
-def _service_for_backend(backend: str) -> InferenceService:
-    if backend != "mock":
-        raise HTTPException(
-            status_code=400, detail="API currently supports the mock backend by default."
+def _service_for_backend(request: ImageDetectRequest | FolderDetectRequest) -> InferenceService:
+    try:
+        backend = create_backend(
+            request.backend,
+            model_path=request.model_path,
+            conf_threshold=request.conf_threshold,
+            iou_threshold=request.iou_threshold,
+            image_size=request.image_size,
+            device=request.device,
         )
-    return InferenceService(MockBackend())
+    except HokageVisionError as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
+    return InferenceService(backend)
 
 
 def _encode(value: object) -> object:
@@ -56,7 +63,7 @@ def models() -> dict[str, object]:
 @router.post("/detect/image")
 def detect_image(request: ImageDetectRequest) -> object:
     try:
-        result = _service_for_backend(request.backend).detect_image(
+        result = _service_for_backend(request).detect_image(
             request.image_path,
             save_rendered=request.save_rendered,
             save_json=request.save_json,
@@ -69,7 +76,7 @@ def detect_image(request: ImageDetectRequest) -> object:
 @router.post("/detect/folder")
 def detect_folder(request: FolderDetectRequest) -> object:
     try:
-        results = _service_for_backend(request.backend).detect_folder(
+        results = _service_for_backend(request).detect_folder(
             request.folder,
             recursive=request.recursive,
         )

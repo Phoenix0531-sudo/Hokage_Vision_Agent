@@ -16,7 +16,7 @@ from hokage_vision.data.validation import validate_yolo_dataset
 from hokage_vision.training.registry import ModelRegistry
 from hokage_vision.training.smoke import run_smoke_training
 from hokage_vision.training.trainer import run_yolo_training
-from hokage_vision.vision.backends.mock import MockBackend
+from hokage_vision.vision.backends.factory import create_backend
 from hokage_vision.vision.evaluation import evaluate_model
 from hokage_vision.vision.inference import InferenceService
 from hokage_vision.vision.model_compare import compare_model_paths
@@ -62,11 +62,27 @@ def root(
     """Run Hokage Vision Agent commands."""
 
 
-def _service_for_backend(backend: str) -> InferenceService:
-    if backend != "mock":
-        msg = f"Backend '{backend}' is not available yet. Use --backend mock in this phase."
-        raise typer.BadParameter(msg)
-    return InferenceService(MockBackend())
+def _service_for_backend(
+    backend: str,
+    *,
+    model_path: Path | None = None,
+    conf_threshold: float = 0.25,
+    iou_threshold: float = 0.45,
+    device: str = "auto",
+    image_size: int = 640,
+) -> InferenceService:
+    try:
+        vision_backend = create_backend(
+            backend,
+            model_path=model_path,
+            conf_threshold=conf_threshold,
+            iou_threshold=iou_threshold,
+            device=device,
+            image_size=image_size,
+        )
+    except HokageVisionError as exc:
+        raise typer.BadParameter(str(exc)) from exc
+    return InferenceService(vision_backend)
 
 
 def _echo_json(value: object) -> None:
@@ -77,6 +93,13 @@ def _echo_json(value: object) -> None:
 def detect_image(
     image_path: Path,
     backend: str = typer.Option("mock", "--backend", help="Vision backend to use."),
+    model_path: Path | None = typer.Option(
+        None, "--model-path", help="External model weight path."
+    ),
+    conf_threshold: float = typer.Option(0.25, "--conf", min=0.0, max=1.0),
+    iou_threshold: float = typer.Option(0.45, "--iou", min=0.0, max=1.0),
+    image_size: int = typer.Option(640, "--imgsz", min=1),
+    device: str = typer.Option("auto", "--device", help="auto, cpu, or cuda."),
     save_rendered: bool = typer.Option(
         False, "--save-rendered", help="Save a rendered result image."
     ),
@@ -84,7 +107,14 @@ def detect_image(
 ) -> None:
     """Detect anime character boxes in one image."""
     try:
-        result = _service_for_backend(backend).detect_image(
+        result = _service_for_backend(
+            backend,
+            model_path=model_path,
+            conf_threshold=conf_threshold,
+            iou_threshold=iou_threshold,
+            image_size=image_size,
+            device=device,
+        ).detect_image(
             image_path,
             save_rendered=save_rendered,
             save_json=save_json,
@@ -98,11 +128,25 @@ def detect_image(
 def detect_folder(
     folder: Path,
     backend: str = typer.Option("mock", "--backend", help="Vision backend to use."),
+    model_path: Path | None = typer.Option(
+        None, "--model-path", help="External model weight path."
+    ),
+    conf_threshold: float = typer.Option(0.25, "--conf", min=0.0, max=1.0),
+    iou_threshold: float = typer.Option(0.45, "--iou", min=0.0, max=1.0),
+    image_size: int = typer.Option(640, "--imgsz", min=1),
+    device: str = typer.Option("auto", "--device", help="auto, cpu, or cuda."),
     recursive: bool = typer.Option(False, "--recursive", help="Scan nested folders."),
 ) -> None:
     """Detect anime character boxes in supported images from a folder."""
     try:
-        results = _service_for_backend(backend).detect_folder(folder, recursive=recursive)
+        results = _service_for_backend(
+            backend,
+            model_path=model_path,
+            conf_threshold=conf_threshold,
+            iou_threshold=iou_threshold,
+            image_size=image_size,
+            device=device,
+        ).detect_folder(folder, recursive=recursive)
     except HokageVisionError as exc:
         raise typer.BadParameter(str(exc)) from exc
     _echo_json([asdict(result) for result in results])
@@ -112,11 +156,25 @@ def detect_folder(
 def detect_video(
     video_path: Path,
     backend: str = typer.Option("mock", "--backend", help="Vision backend to use."),
+    model_path: Path | None = typer.Option(
+        None, "--model-path", help="External model weight path."
+    ),
+    conf_threshold: float = typer.Option(0.25, "--conf", min=0.0, max=1.0),
+    iou_threshold: float = typer.Option(0.45, "--iou", min=0.0, max=1.0),
+    image_size: int = typer.Option(640, "--imgsz", min=1),
+    device: str = typer.Option("auto", "--device", help="auto, cpu, or cuda."),
     frame_stride: int = typer.Option(30, "--frame-stride", min=1, help="Process every Nth frame."),
 ) -> None:
     """Detect anime character boxes in a video file."""
     try:
-        summary = _service_for_backend(backend).detect_video(video_path, frame_stride=frame_stride)
+        summary = _service_for_backend(
+            backend,
+            model_path=model_path,
+            conf_threshold=conf_threshold,
+            iou_threshold=iou_threshold,
+            image_size=image_size,
+            device=device,
+        ).detect_video(video_path, frame_stride=frame_stride)
     except HokageVisionError as exc:
         raise typer.BadParameter(str(exc)) from exc
     _echo_json(asdict(summary))

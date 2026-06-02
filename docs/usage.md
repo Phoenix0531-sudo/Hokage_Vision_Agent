@@ -9,6 +9,13 @@ hokage-vision detect folder examples/images --backend mock
 hokage-vision agent run "检测 examples/images 里的图片"
 ```
 
+Real model weights stay external. After placing a reviewed weight file under `models/`,
+run it explicitly:
+
+```bash
+hokage-vision detect image examples/images/sample.jpg --backend ultralytics --model-path models/your-model.pt --device cpu
+```
+
 ## GUI
 
 The PySide6 desktop app includes Overview, Image Detection, Video Detection, Batch Detection, Agent Assistant, Settings, and About pages. GUI smoke tests use the mock backend and run headlessly.

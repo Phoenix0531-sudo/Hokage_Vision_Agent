@@ -1,7 +1,15 @@
+from __future__ import annotations
+
+from PySide6.QtGui import QFont, QFontDatabase
+from PySide6.QtWidgets import QApplication
+
+FONT_FAMILY = '"Microsoft YaHei UI", "Segoe UI", "Noto Sans CJK SC", "Noto Sans", "DejaVu Sans"'
+
 DARK_STYLE = """
 QWidget {
   background: #111111;
   color: #f7f2e8;
+  font-family: FONT_FAMILY_PLACEHOLDER;
   font-size: 13px;
 }
 QMainWindow {
@@ -36,6 +44,17 @@ QFrame#heroCard, QFrame#aboutCard {
   background: #1a1715;
   border: 1px solid #7c2d12;
   border-radius: 8px;
+}
+QFrame#statusCard {
+  background: #15110d;
+  border: 1px solid #3b2417;
+  border-left: 4px solid #f97316;
+  border-radius: 8px;
+}
+QLabel#statusTitle {
+  color: #22d3ee;
+  font-size: 17px;
+  font-weight: 700;
 }
 QPushButton {
   background: #f97316;
@@ -85,6 +104,7 @@ LIGHT_STYLE = """
 QWidget {
   background: #fff7ed;
   color: #1c1917;
+  font-family: FONT_FAMILY_PLACEHOLDER;
   font-size: 13px;
 }
 QTabWidget::pane {
@@ -116,6 +136,17 @@ QFrame#heroCard, QFrame#aboutCard {
   border: 1px solid #fdba74;
   border-radius: 8px;
 }
+QFrame#statusCard {
+  background: white;
+  border: 1px solid #fed7aa;
+  border-left: 4px solid #f97316;
+  border-radius: 8px;
+}
+QLabel#statusTitle {
+  color: #0e7490;
+  font-size: 17px;
+  font-weight: 700;
+}
 QPushButton {
   background: #f97316;
   color: #111111;
@@ -134,4 +165,27 @@ QLineEdit, QTextEdit, QPlainTextEdit, QComboBox, QDoubleSpinBox, QSpinBox {
 
 
 def stylesheet(theme: str) -> str:
-    return LIGHT_STYLE if theme == "light" else DARK_STYLE
+    style = LIGHT_STYLE if theme == "light" else DARK_STYLE
+    return style.replace("FONT_FAMILY_PLACEHOLDER", FONT_FAMILY)
+
+
+def apply_application_font(app: QApplication | None = None) -> str:
+    app = app or QApplication.instance()
+    if app is None:
+        return ""
+
+    available = set(QFontDatabase.families())
+    candidates = [
+        "Microsoft YaHei UI",
+        "Microsoft YaHei",
+        "Segoe UI",
+        "Noto Sans CJK SC",
+        "Noto Sans",
+        "DejaVu Sans",
+        "Arial",
+    ]
+    for family in candidates:
+        if family in available:
+            app.setFont(QFont(family, 10))
+            return family
+    return ""

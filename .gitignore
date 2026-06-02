@@ -17,6 +17,7 @@ site/
 
 # Test, lint, and coverage output
 .pytest_cache/
+.pytest-tmp/
 .ruff_cache/
 .mypy_cache/
 .coverage

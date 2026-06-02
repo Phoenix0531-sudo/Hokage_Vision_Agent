@@ -4,7 +4,7 @@ from pathlib import Path
 from typing import Any
 
 from hokage_vision.core.errors import VisionBackendError
-from hokage_vision.core.types import DetectionResult
+from hokage_vision.core.types import BoundingBox, Detection, DetectionResult
 from hokage_vision.vision.backends.base import VisionBackend
 
 
@@ -43,13 +43,53 @@ class YOLOv5LegacyBackend(VisionBackend):
         )
 
     def predict_image(self, image_path: Path) -> DetectionResult:
-        raise VisionBackendError("YOLOv5 legacy prediction is available after legacy isolation.")
+        self._ensure_loaded()
+        result = self.model(str(image_path))
+        return self._convert_result(str(image_path), result)
 
     def predict_frame(self, frame: Any) -> DetectionResult:
-        raise VisionBackendError("YOLOv5 legacy prediction is available after legacy isolation.")
+        self._ensure_loaded()
+        result = self.model(frame)
+        return self._convert_result("<frame>", result)
 
     def batch_predict(self, paths) -> list[DetectionResult]:
         return [self.predict_image(Path(path)) for path in paths]
 
     def close(self) -> None:
         self.model = None
+
+    def _ensure_loaded(self) -> None:
+        if self.model is None:
+            self.load()
+
+    def _convert_result(self, source: str, result: Any) -> DetectionResult:
+        rows = []
+        if getattr(result, "xyxy", None):
+            rows = result.xyxy[0].detach().cpu().tolist()
+
+        names = getattr(result, "names", None) or getattr(self.model, "names", {}) or {}
+        width = height = None
+        images = getattr(result, "ims", None)
+        if images:
+            shape = getattr(images[0], "shape", None)
+            if shape is not None and len(shape) >= 2:
+                height, width = int(shape[0]), int(shape[1])
+
+        detections: list[Detection] = []
+        for row in rows:
+            x1, y1, x2, y2, confidence, class_id = row[:6]
+            detections.append(
+                Detection(
+                    label=str(names.get(int(class_id), int(class_id))),
+                    confidence=float(confidence),
+                    box=BoundingBox(float(x1), float(y1), float(x2), float(y2)),
+                )
+            )
+
+        return DetectionResult(
+            source=source,
+            detections=detections,
+            width=width,
+            height=height,
+            metadata={"backend": "yolov5_legacy"},
+        )

@@ -5,6 +5,8 @@ import subprocess
 import sys
 from pathlib import Path
 
+import pytest
+
 
 def _venv_python(venv: Path) -> Path:
     if os.name == "nt":
@@ -19,6 +21,7 @@ def _venv_console(venv: Path, name: str) -> Path:
 
 
 def test_wheel_build_and_console_script(tmp_path: Path) -> None:
+    pytest.importorskip("build")
     dist_dir = tmp_path / "dist"
     venv_dir = tmp_path / "venv"
 

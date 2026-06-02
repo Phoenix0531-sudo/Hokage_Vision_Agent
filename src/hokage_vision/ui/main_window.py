@@ -1,8 +1,16 @@
 from PySide6.QtCore import Qt
-from PySide6.QtWidgets import QFrame, QLabel, QMainWindow, QTabWidget, QVBoxLayout, QWidget
+from PySide6.QtWidgets import (
+    QFrame,
+    QGridLayout,
+    QLabel,
+    QMainWindow,
+    QTabWidget,
+    QVBoxLayout,
+    QWidget,
+)
 
 from hokage_vision.ui.i18n import label
-from hokage_vision.ui.theme import stylesheet
+from hokage_vision.ui.theme import apply_application_font, stylesheet
 from hokage_vision.ui.widgets.agent_chat_panel import AgentChatPanel
 from hokage_vision.ui.widgets.batch_detection_panel import BatchDetectionPanel
 from hokage_vision.ui.widgets.image_detection_panel import ImageDetectionPanel
@@ -13,6 +21,7 @@ from hokage_vision.ui.widgets.video_detection_panel import VideoDetectionPanel
 class MainWindow(QMainWindow):
     def __init__(self, language: str = "zh-CN", theme: str = "dark") -> None:
         super().__init__()
+        apply_application_font()
         self.setWindowTitle("Hokage Vision Agent")
         self.resize(1280, 860)
         self.setStyleSheet(stylesheet(theme))
@@ -50,7 +59,27 @@ def _overview_panel() -> QWidget:
     card_layout.addWidget(subtitle)
     card_layout.addWidget(body)
     layout.addWidget(card)
+
+    grid = QGridLayout()
+    grid.addWidget(_status_card("Image", "Mock detection is ready for local demos."), 0, 0)
+    grid.addWidget(_status_card("Batch", "Folder detection shares the same inference service."), 0, 1)
+    grid.addWidget(_status_card("Agent", "Rule-based tools run without API keys or shell access."), 1, 0)
+    grid.addWidget(_status_card("API", "FastAPI health and mock detection endpoints are wired."), 1, 1)
+    layout.addLayout(grid)
     return panel
+
+
+def _status_card(title: str, body: str) -> QFrame:
+    card = QFrame()
+    card.setObjectName("statusCard")
+    layout = QVBoxLayout(card)
+    heading = QLabel(title)
+    heading.setObjectName("statusTitle")
+    text = QLabel(body)
+    text.setWordWrap(True)
+    layout.addWidget(heading)
+    layout.addWidget(text)
+    return card
 
 
 def _about_panel() -> QWidget:
@@ -64,8 +93,11 @@ def _about_panel() -> QWidget:
 
     title = QLabel("About Hokage Vision Agent")
     title.setObjectName("heroTitle")
-    zh = QLabel("这是一个面向学习、研究与作品集展示的火影角色检测 Agent 工作台。")
-    en = QLabel("This is a fan-made computer vision and Agent engineering workbench for portfolio demos.")
+    zh = QLabel("火影风格动漫角色目标检测工作台，集成 YOLO 视觉推理、PySide6 桌面端与安全 Agent 工具编排。")
+    en = QLabel(
+        "A YOLO-powered anime character detection workbench with PySide6 desktop UI "
+        "and safe Agent workflows."
+    )
     note = QLabel(
         "YOLO/CV backends perform detection; the Agent only plans and calls project-scoped tools."
     )
