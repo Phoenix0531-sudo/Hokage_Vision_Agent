@@ -19,13 +19,19 @@ This is a fan-made research and portfolio project and is not affiliated with Nar
 
 [中文 README](README.zh-CN.md) · [Documentation](https://phoenix0531-sudo.github.io/YOLOv5-PySide6_Hokage_Recognition/)
 
+## Project Status
+
+Hokage Vision Agent is positioned as a **training-ready and model-ready computer vision workbench**. The repository ships the engineering platform: desktop GUI, CLI, API, Agent tool orchestration, dataset validation, annotation assistance, training dry-runs, model registry, evaluation, packaging, CI, and documentation.
+
+It does **not** publish Naruto/Hokage screenshots, private datasets, or real character-detection weights. Any such artifacts are intentionally external because image sources, redistribution rights, model license, and non-commercial research scope must be reviewed before release. The committed demo uses a deterministic mock backend and a tiny synthetic YOLO smoke dataset so the full project can be tested without copyrighted media, GPU, private data, or API keys.
+
 ## Features
 
 - Shared detection types and inference service for CLI, GUI, API, and Agent workflows.
 - Deterministic mock backend for CI, demos, and headless GUI tests without GPU or model downloads.
 - PySide6 desktop GUI with image, video, batch, settings, statistics, and agent assistant panels.
 - Rule-based Agent with allowlisted project tools and optional LLM provider extension points.
-- Dataset manifest, YOLO dataset validation, annotation assistance, smoke training, evaluation, and model comparison foundations.
+- Synthetic smoke dataset, dataset manifest, YOLO validation, annotation assistance, training dry-runs, evaluation, and model comparison foundations.
 - FastAPI service for health, model listing, mock detection, agent runs, dataset validation, smoke training, and model comparison.
 - Docker-first development, CI, package build, desktop executable build, and MkDocs documentation.
 
@@ -61,6 +67,20 @@ docker compose run --rm desktop-build
 
 Docker is the primary workflow. Local Python installation is optional.
 
+## Interview Demo Path
+
+This is the shortest reproducible demo path for an interview or portfolio walkthrough:
+
+```bash
+docker compose run --rm test hokage-vision dataset validate configs/dataset.example.yaml
+docker compose run --rm test hokage-vision detect image examples/images/sample.jpg --backend mock
+docker compose run --rm test hokage-vision agent run "训练模型"
+docker compose run --rm gui-test pytest tests/gui -m gui
+docker compose up api
+```
+
+The story to tell is simple: the project is not claiming a public Naruto model release; it demonstrates the production workflow around such a model: safe data governance, model-pluggable inference, repeatable Docker validation, and Agent-controlled training/evaluation orchestration.
+
 ## Local Optional Install
 
 ```bash
@@ -83,6 +103,7 @@ hokage-vision --help
 hokage-vision detect image examples/images/sample.jpg --backend mock
 hokage-vision detect folder examples/images --backend mock
 hokage-vision dataset validate configs/dataset.example.yaml
+hokage-vision train yolo --data configs/dataset.example.yaml --epochs 1 --dry-run
 hokage-vision model compare --models models/a.pt models/b.pt --mock
 ```
 
@@ -114,6 +135,8 @@ OpenAPI docs are available at `http://localhost:8000/docs`.
 6. Execute real training only after explicit confirmation.
 7. Register, evaluate, and compare models before release.
 
+The included `examples/dataset/` fixture is synthetic and exists only to prove dataset validation and training planning. A real character model requires user-provided or otherwise licensed images, reviewed annotations, and external weight storage.
+
 Adding a new character class requires new images, verified rights, bounding-box annotations, updated class names, dataset YAML changes, retraining or fine-tuning, evaluation, registry updates, and documentation updates.
 
 ## Project Structure
@@ -135,10 +158,10 @@ The GUI, CLI, API, and Agent layers all call shared services. YOLO/CV backends p
 
 ## Roadmap
 
-- Complete legacy source isolation under `legacy/old_project/`.
-- Add real model release metadata after license and data review.
-- Expand GUI polish and final screenshots.
-- Harden real training, evaluation, and desktop packaging across platforms.
+- Add a Docker `train` profile for CPU-safe real training once training dependencies are separated from the default test image.
+- Add model cards and release metadata for any reviewed external weights.
+- Expand evaluation reports with real metrics after data rights are approved.
+- Harden desktop packaging across Linux, Windows, and macOS.
 
 ## License
 

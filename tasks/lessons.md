@@ -8,3 +8,4 @@
 - Release workflows should upload packaged artifacts, not raw PyInstaller directories. Zip desktop bundles first so GitHub Releases contain a small, readable asset set.
 - For this project, Docker is the primary validation environment. Local Python or Anaconda checks are only supplementary and must not be presented as the main acceptance result.
 - Remove unused reserved backends instead of keeping placeholder code when the user is asking for a polished, runnable portfolio project.
+- Do not claim real trained weights exist unless they are verifiable. For portfolio positioning, frame undistributed model/data assets as external artifacts and emphasize the reproducible training-ready workflow.

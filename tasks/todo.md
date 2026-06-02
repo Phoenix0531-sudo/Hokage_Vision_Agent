@@ -229,3 +229,18 @@ This checklist tracks the staged migration from the legacy YOLOv5 + PySide6 proj
 - `hokage-vision dataset validate configs/dataset.example.yaml` reports 9 images, 9 boxes, no issues, and recorded redistribution fields.
 - `hokage-vision train yolo --data configs/dataset.example.yaml --epochs 1 --dry-run` produces a valid dry-run training plan.
 - `hokage-vision agent run "训练模型"` calls the allowlisted `train_model` tool and returns the same safe dry-run plan.
+
+### Portfolio Positioning Pass
+
+- [x] Reframe README/docs as a training-ready workbench without claiming undistributed real weights.
+- [x] Add interview-ready project status and demo script.
+- [x] Clarify model/data release boundaries and synthetic smoke dataset purpose.
+- [x] Run Docker docs/test checks.
+- [x] Commit and push portfolio positioning updates.
+
+#### Review
+
+- README and docs now position the project as a training-ready/model-ready workbench rather than claiming unverifiable trained weights.
+- Added a reproducible interview demo path built around Docker, dataset validation, mock inference, Agent training dry-run, GUI tests, and API startup.
+- Clarified that real screenshots, private datasets, and weights are external artifacts pending rights, metrics, license, and release review.
+- Verified docs build, Ruff check, Ruff format check, dataset validation, and risky wording search.

@@ -16,6 +16,12 @@ An agentic computer vision workbench for anime character detection, powered by Y
 
 This is a fan-made research and portfolio project and is not affiliated with Naruto, Shueisha, Pierrot, or related copyright holders.
 
+## Project Positioning
+
+Hokage Vision Agent is a training-ready and model-ready workbench, not a public redistribution of Naruto/Hokage datasets or weights. The repository demonstrates the production workflow around an anime character detector: controlled data governance, pluggable YOLO backends, desktop/API/CLI surfaces, Docker validation, and Agent-scoped orchestration.
+
+The default demo uses a mock backend and a tiny synthetic YOLO smoke dataset. Any real character data or trained weights are external artifacts that require source, license, redistribution, metrics, and release review before publication.
+
 ## What This Project Demonstrates
 
 - Modern Python package structure.
@@ -32,4 +38,13 @@ The default backend is `mock`. It does not download model weights, use GPU, or r
 docker compose build
 docker compose run --rm test
 docker compose run --rm gui-test
+```
+
+## Portfolio Demo
+
+```bash
+docker compose run --rm test hokage-vision dataset validate configs/dataset.example.yaml
+docker compose run --rm test hokage-vision detect image examples/images/sample.jpg --backend mock
+docker compose run --rm test hokage-vision agent run "训练模型"
+docker compose up api
 ```

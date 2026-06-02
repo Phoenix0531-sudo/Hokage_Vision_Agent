@@ -2,6 +2,12 @@
 
 Hokage Vision Agent does not download, scrape, or redistribute copyrighted anime images by default.
 
+## Current Release Status
+
+The public repository ships a training-ready workflow, not a public Naruto/Hokage model release. Any real screenshots, private captures, or trained weights are treated as external research artifacts until their source, license, redistribution scope, evaluation metrics, and release notes are reviewed.
+
+The committed dataset fixture under `examples/dataset/` is synthetic. It uses project-generated geometric images and YOLO labels so dataset validation, training dry-runs, and Agent training orchestration can be demonstrated without copyrighted media.
+
 ## Dataset Governance
 
 Dataset work must start from a manifest that records local source paths, license status, redistribution permission, classes, and annotation review state. Unknown licenses are treated as not redistributable.
@@ -41,6 +47,12 @@ Validate a dataset:
 hokage-vision dataset validate configs/dataset.example.yaml
 ```
 
+Generate the synthetic smoke dataset again if needed:
+
+```bash
+python scripts/prepare_dataset.py smoke --overwrite
+```
+
 ## Annotation Assistance
 
 Annotation assistance generates candidate YOLO labels and always marks them as requiring human review.
@@ -59,6 +71,15 @@ hokage-vision model compare --models models/a.pt models/b.pt --mock
 ```
 
 Before publishing weights, confirm training data rights, model license, class list, metrics, and release notes.
+
+Recommended model-card fields for an external weight release:
+
+- Training data source summary and redistribution status.
+- Class list and dataset version.
+- Base model and training configuration.
+- Evaluation metrics and known failure modes.
+- License and non-commercial/research restrictions.
+- Download URL, checksum, and registry metadata.
 
 ## Adding Classes
 
