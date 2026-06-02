@@ -193,5 +193,22 @@ This checklist tracks the staged migration from the legacy YOLOv5 + PySide6 proj
 - [x] Wire real backend selection into CLI and API entrypoints without weakening the mock default.
 - [x] Replace remaining weak GUI About copy with product-grade Chinese and English lines.
 - [x] Replace placeholder Batch and Video GUI pages with runnable service-backed panels.
+- [x] Remove unused reserved ONNX backend placeholder.
 - [x] Run local visible CLI/API/GUI checks.
 - [x] Commit and push the optimization pass.
+
+### Docker-First Verification Pass
+
+- [x] Confirm local Docker Desktop and Compose are available.
+- [x] Confirm root `data/` and `models/` do not contain a complete training dataset or real weights.
+- [x] Rebuild Docker test and GUI-test images with cached dependency layers.
+- [x] Run Docker default tests and headless GUI tests.
+- [x] Run Docker docs, package, API, CLI, and Agent demo checks.
+- [x] Commit and push Docker-first cleanup.
+
+#### Review
+
+- Docker default tests passed with 33 tests.
+- Docker GUI headless tests passed with 6 tests.
+- Docker docs build, package build, API health, CLI help, mock image detection, Agent folder detection, Ruff check, Ruff format check, and desktop build all passed.
+- Local root `data/` and `models/` do not contain a complete Hokage training dataset or real model weights; legacy contains old labels and YOLO sample images only.

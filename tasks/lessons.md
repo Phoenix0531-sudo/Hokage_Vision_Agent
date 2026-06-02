@@ -6,3 +6,5 @@
 - Portfolio projects need visible identity, not only scaffolding. GUI, docs, README, and About pages should carry the project theme while avoiding copyrighted official logos or redistributed fan assets.
 - GitHub repository About is repository metadata, not a README section. Use the repo description/homepage/topics for the right sidebar and keep README content focused on usage.
 - Release workflows should upload packaged artifacts, not raw PyInstaller directories. Zip desktop bundles first so GitHub Releases contain a small, readable asset set.
+- For this project, Docker is the primary validation environment. Local Python or Anaconda checks are only supplementary and must not be presented as the main acceptance result.
+- Remove unused reserved backends instead of keeping placeholder code when the user is asking for a polished, runnable portfolio project.
