@@ -1,0 +1,65 @@
+:root {
+  --hokage-ink: #111111;
+  --hokage-panel: #1c1917;
+  --hokage-orange: #f97316;
+  --hokage-gold: #facc15;
+  --hokage-blue: #06b6d4;
+}
+
+.md-header, .md-tabs {
+  background: linear-gradient(90deg, var(--hokage-ink), #2a160b 60%, #7c2d12);
+}
+
+.md-typeset a {
+  color: #ea580c;
+}
+
+.hero {
+  background:
+    radial-gradient(circle at 12% 20%, rgba(249, 115, 22, 0.35), transparent 28%),
+    radial-gradient(circle at 82% 24%, rgba(6, 182, 212, 0.22), transparent 28%),
+    linear-gradient(135deg, #111111, #1c1917 58%, #3b1608);
+  border: 1px solid rgba(249, 115, 22, 0.35);
+  border-radius: 16px;
+  color: #fff7ed;
+  margin: 1.2rem 0 1.6rem;
+  overflow: hidden;
+  padding: 2rem;
+}
+
+.hero h1 {
+  color: #ffedd5;
+  font-size: 2.6rem;
+  font-weight: 800;
+  margin: 0 0 0.4rem;
+}
+
+.hero .tagline {
+  color: var(--hokage-gold);
+  font-size: 1.05rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.hero .grid {
+  display: grid;
+  gap: 0.9rem;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  margin-top: 1.3rem;
+}
+
+.hero .pill {
+  background: rgba(255, 247, 237, 0.08);
+  border: 1px solid rgba(251, 191, 36, 0.35);
+  border-radius: 12px;
+  padding: 0.8rem;
+}
+
+.hero .pill strong {
+  color: #67e8f9;
+  display: block;
+}
+
+.md-typeset code {
+  border-radius: 6px;
+}

@@ -3,6 +3,12 @@ site_description: An agentic computer vision workbench for anime character detec
 repo_url: https://github.com/Phoenix0531-sudo/YOLOv5-PySide6_Hokage_Recognition
 theme:
   name: material
+  palette:
+    scheme: slate
+    primary: deep orange
+    accent: cyan
+extra_css:
+  - stylesheets/hokage.css
 nav:
   - Home: index.md
   - Getting Started: getting-started.md

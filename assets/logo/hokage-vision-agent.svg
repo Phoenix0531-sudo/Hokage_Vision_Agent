@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="320" viewBox="0 0 960 320" role="img" aria-labelledby="title desc">
+  <title id="title">Hokage Vision Agent logo</title>
+  <desc id="desc">Original flame and camera lens logo for an anime character detection workbench.</desc>
+  <defs>
+    <linearGradient id="flame" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#facc15"/>
+      <stop offset="0.45" stop-color="#f97316"/>
+      <stop offset="1" stop-color="#dc2626"/>
+    </linearGradient>
+    <linearGradient id="chakra" x1="0" x2="1" y1="1" y2="0">
+      <stop offset="0" stop-color="#06b6d4"/>
+      <stop offset="1" stop-color="#2563eb"/>
+    </linearGradient>
+  </defs>
+  <rect width="960" height="320" rx="34" fill="#111111"/>
+  <circle cx="150" cy="160" r="94" fill="#1c1917" stroke="#7c2d12" stroke-width="5"/>
+  <path d="M151 62c35 34 20 65 6 86 34-20 61-2 61 38 0 44-35 76-78 76-46 0-81-34-81-78 0-35 18-58 43-82 4 30 17 45 32 55-2-31 4-63 17-95z" fill="url(#flame)"/>
+  <circle cx="150" cy="172" r="45" fill="#0f172a" stroke="#fed7aa" stroke-width="8"/>
+  <circle cx="150" cy="172" r="23" fill="url(#chakra)"/>
+  <circle cx="162" cy="158" r="8" fill="#eff6ff"/>
+  <text x="280" y="136" fill="#ffedd5" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="52" font-weight="800">Hokage Vision Agent</text>
+  <text x="282" y="188" fill="#fbbf24" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="24" font-weight="600">YOLO detection workbench + safe Agent workflows</text>
+  <text x="282" y="230" fill="#94a3b8" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="18">Mock-first demos, external model weights, and research-only data governance.</text>
+</svg>

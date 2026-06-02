@@ -1,2 +1,2 @@
-PySide6-Essentials==6.11.1
-pytest-qt==4.5.0
+PySide6-Essentials>=6.7,<6.10
+pytest-qt>=4.4,<5

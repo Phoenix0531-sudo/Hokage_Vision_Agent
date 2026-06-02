@@ -1,5 +1,9 @@
 # Hokage Vision Agent
 
+<p align="center">
+  <img src="assets/logo/hokage-vision-agent.svg" alt="Hokage Vision Agent 标识" width="760">
+</p>
+
 [![CI](https://github.com/Phoenix0531-sudo/YOLOv5-PySide6_Hokage_Recognition/actions/workflows/ci.yml/badge.svg)](https://github.com/Phoenix0531-sudo/YOLOv5-PySide6_Hokage_Recognition/actions/workflows/ci.yml)
 [![GUI Tests](https://github.com/Phoenix0531-sudo/YOLOv5-PySide6_Hokage_Recognition/actions/workflows/gui-tests.yml/badge.svg)](https://github.com/Phoenix0531-sudo/YOLOv5-PySide6_Hokage_Recognition/actions/workflows/gui-tests.yml)
 [![Docker](https://github.com/Phoenix0531-sudo/YOLOv5-PySide6_Hokage_Recognition/actions/workflows/docker.yml/badge.svg)](https://github.com/Phoenix0531-sudo/YOLOv5-PySide6_Hokage_Recognition/actions/workflows/docker.yml)

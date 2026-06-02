@@ -178,3 +178,11 @@ This checklist tracks the staged migration from the legacy YOLOv5 + PySide6 proj
 - Checked local Markdown links and confirmed the docs site builds.
 - Verified final Docker build, Ruff check, Ruff format check, default pytest, GUI smoke tests, CLI help, mock image detection, Agent run, MkDocs build, package build, desktop build, and API health.
 - Remaining manual confirmations: exact legacy YOLOv5 upstream version, old dataset/image redistribution rights, old `libEGL.dll` redistribution terms, and real model/data licenses.
+
+### Post Phase 15 Cleanup
+
+- Restored a visible `archive/legacy-original` branch at pre-refactor commit `dd93b20`.
+- Added Hokage-themed original logo, MkDocs hero styling, and stronger PySide6 dark/light theme colors.
+- Replaced the empty About page with one Chinese sentence and one English sentence plus scope notes.
+- Stabilized Docker requirement ranges so CI is less likely to fail on unavailable exact package versions.
+- Made release workflow manually runnable and tolerant of first-pass desktop build instability.

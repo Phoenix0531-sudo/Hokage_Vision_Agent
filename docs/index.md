@@ -1,4 +1,16 @@
-# Hokage Vision Agent
+<section class="hero">
+  <h1>Hokage Vision Agent</h1>
+  <div class="tagline">Anime character detection with YOLO, PySide6, Docker, and safe Agent workflows.</div>
+  <p>
+    A portfolio-grade computer vision workbench: mock-first demos, external model weights,
+    dataset license guardrails, and project-scoped Agent tools.
+  </p>
+  <div class="grid">
+    <div class="pill"><strong>Vision</strong>Image, video, and folder detection through shared services.</div>
+    <div class="pill"><strong>Agent</strong>Rule-based tool orchestration without API keys by default.</div>
+    <div class="pill"><strong>DevOps</strong>Docker-first tests, docs, API, package, and desktop builds.</div>
+  </div>
+</section>
 
 An agentic computer vision workbench for anime character detection, powered by YOLO, PySide6, Docker, and tool-calling workflows.
 
