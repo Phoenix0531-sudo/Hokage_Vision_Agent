@@ -19,6 +19,12 @@
 
 [English README](README.md) · [文档站](https://phoenix0531-sudo.github.io/YOLOv5-PySide6_Hokage_Recognition/)
 
+## About / 关于
+
+这是一个面向学习、研究与作品集展示的火影角色检测 Agent 工作台。
+
+This is a fan-made computer vision and Agent engineering workbench for portfolio demos.
+
 ## 功能亮点
 
 - CLI、GUI、API、Agent 共用统一检测数据结构与推理服务。

@@ -11,7 +11,7 @@ jobs:
       DOCKER_BUILDKIT: "1"
       COMPOSE_DOCKER_CLI_BUILD: "1"
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - name: Build Docker targets
         run: docker compose build
       - name: Run core tests
