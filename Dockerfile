@@ -102,6 +102,31 @@ COPY mkdocs.yml ./
 
 CMD ["mkdocs", "build"]
 
+FROM test-deps AS train-deps
+
+COPY requirements-train.txt ./
+
+RUN --mount=type=cache,target=/root/.cache/pip \
+    python -m pip install -r requirements-train.txt
+
+FROM train-deps AS train
+
+COPY pyproject.toml README.md ./
+COPY src ./src
+
+RUN --mount=type=cache,target=/root/.cache/pip \
+    python -m pip install --no-deps -e .
+
+COPY apps ./apps
+COPY configs ./configs
+COPY data ./data
+COPY examples ./examples
+COPY models ./models
+COPY scripts ./scripts
+COPY mkdocs.yml ./
+
+CMD ["hokage-vision", "train", "yolo", "--data", "configs/dataset.example.yaml", "--epochs", "1", "--dry-run"]
+
 FROM base AS gui-system-deps
 
 ENV QT_QPA_PLATFORM=offscreen \
@@ -111,14 +136,18 @@ ENV QT_QPA_PLATFORM=offscreen \
 RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
     --mount=type=cache,target=/var/lib/apt/lists,sharing=locked \
     set -eux; \
-    apt-get update -o Acquire::Retries=5; \
-    apt-get install -y -o Acquire::Retries=5 --no-install-recommends \
-        libdbus-1-3 \
-        libegl1 \
-        libfontconfig1 \
-        libgl1 \
-        libglib2.0-0 \
-        libxkbcommon0; \
+    for attempt in 1 2 3; do \
+        apt-get update -o Acquire::Retries=5; \
+        apt-get install -y -o Acquire::Retries=5 --no-install-recommends \
+            libdbus-1-3 \
+            libegl1 \
+            libfontconfig1 \
+            libgl1 \
+            libglib2.0-0 \
+            libxkbcommon0 && break; \
+        if [ "$attempt" = "3" ]; then exit 1; fi; \
+        sleep 5; \
+    done; \
     mkdir -p /tmp/runtime-root; \
     chmod 700 /tmp/runtime-root; \
     apt-get clean

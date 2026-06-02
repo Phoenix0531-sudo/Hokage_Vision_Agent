@@ -244,3 +244,20 @@ This checklist tracks the staged migration from the legacy YOLOv5 + PySide6 proj
 - Added a reproducible interview demo path built around Docker, dataset validation, mock inference, Agent training dry-run, GUI tests, and API startup.
 - Clarified that real screenshots, private datasets, and weights are external artifacts pending rights, metrics, license, and release review.
 - Verified docs build, Ruff check, Ruff format check, dataset validation, and risky wording search.
+
+### Portfolio Finalization Pass
+
+- [x] Add Docker `train` profile so real training dependencies are isolated from default test images.
+- [x] Add model card template and stronger registry example for external weight releases.
+- [x] Generate stronger GUI and CLI preview assets and wire them into README.
+- [x] Verify default Docker checks remain lightweight and green.
+- [x] Commit and push portfolio finalization updates.
+
+#### Review
+
+- Added `requirements-train.txt`, Docker `train` stage, and Compose `train` service behind `--profile train`.
+- Verified default Compose services exclude `train`; `--profile train` includes it.
+- Built the training profile successfully and verified its default safe dry-run command.
+- Added `models/model-card.template.md` and upgraded `models/registry.example.json` so external weight releases have a professional metadata path.
+- Replaced placeholder GUI/CLI screenshots with themed portfolio preview SVGs.
+- Verified default tests, GUI tests, docs build, Ruff check, and Ruff format check.

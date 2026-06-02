@@ -39,4 +39,5 @@ models/*.engine
 *.mov
 *.avi
 !examples/images/sample.jpg
+!examples/dataset/**/*.jpg
 !assets/**/*.svg

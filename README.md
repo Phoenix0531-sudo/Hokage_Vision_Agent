@@ -37,7 +37,7 @@ It does **not** publish Naruto/Hokage screenshots, private datasets, or real cha
 
 ## Screenshots
 
-Lightweight preview assets live under `assets/screenshots/`.
+Portfolio preview assets live under `assets/screenshots/`. They are generated project visuals, not Naruto screenshots or redistributed anime media.
 
 ![GUI preview](assets/screenshots/gui-preview.svg)
 
@@ -65,7 +65,15 @@ docker compose run --rm package
 docker compose run --rm desktop-build
 ```
 
+Build the optional training image only when real YOLO training dependencies are needed:
+
+```bash
+docker compose --profile train build train
+docker compose --profile train run --rm train
+```
+
 Docker is the primary workflow. Local Python installation is optional.
+Docker Compose defaults to a Debian mirror for more stable local builds; override `DEBIAN_MIRROR` and `DEBIAN_SECURITY_MIRROR` if another mirror is faster for your network.
 
 ## Interview Demo Path
 

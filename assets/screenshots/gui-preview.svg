@@ -1,13 +1,83 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720" role="img" aria-label="Hokage Vision Agent GUI placeholder">
-  <rect width="1280" height="720" fill="#101419"/>
-  <rect x="64" y="56" width="1152" height="608" rx="18" fill="#171d24" stroke="#2a3440" stroke-width="2"/>
-  <rect x="88" y="88" width="224" height="544" rx="12" fill="#202833"/>
-  <rect x="344" y="104" width="504" height="360" rx="12" fill="#26313d" stroke="#3b4654"/>
-  <rect x="880" y="104" width="288" height="360" rx="12" fill="#1f2832" stroke="#3b4654"/>
-  <rect x="344" y="496" width="824" height="96" rx="12" fill="#1f2832" stroke="#3b4654"/>
-  <text x="104" y="130" fill="#d8dee9" font-family="Arial, sans-serif" font-size="28" font-weight="700">Hokage Vision Agent</text>
-  <text x="384" y="286" fill="#d8dee9" font-family="Arial, sans-serif" font-size="34" font-weight="700">Image Detection</text>
-  <text x="384" y="332" fill="#9aa7b5" font-family="Arial, sans-serif" font-size="22">YOLO backend + mock CI mode</text>
-  <text x="912" y="160" fill="#d8dee9" font-family="Arial, sans-serif" font-size="24" font-weight="700">Results</text>
-  <text x="384" y="554" fill="#9aa7b5" font-family="Arial, sans-serif" font-size="22">Final screenshots will be added after GUI polish.</text>
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="900" viewBox="0 0 1440 900" role="img" aria-label="Hokage Vision Agent desktop workbench preview">
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#0b0f14"/>
+      <stop offset="0.55" stop-color="#15110d"/>
+      <stop offset="1" stop-color="#26130b"/>
+    </linearGradient>
+    <linearGradient id="fire" x1="0" x2="1">
+      <stop offset="0" stop-color="#ff7a1a"/>
+      <stop offset="1" stop-color="#ffd166"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="18" stdDeviation="20" flood-color="#000000" flood-opacity="0.45"/>
+    </filter>
+  </defs>
+
+  <rect width="1440" height="900" fill="url(#bg)"/>
+  <circle cx="1130" cy="130" r="170" fill="#ff7a1a" opacity="0.08"/>
+  <circle cx="118" cy="752" r="220" fill="#f04a24" opacity="0.07"/>
+
+  <rect x="70" y="58" width="1300" height="784" rx="22" fill="#111820" stroke="#2c3540" stroke-width="2" filter="url(#shadow)"/>
+  <rect x="70" y="58" width="1300" height="62" rx="22" fill="#151f2a"/>
+  <rect x="70" y="96" width="1300" height="24" fill="#151f2a"/>
+  <circle cx="106" cy="90" r="8" fill="#ff5f57"/>
+  <circle cx="132" cy="90" r="8" fill="#ffbd2e"/>
+  <circle cx="158" cy="90" r="8" fill="#28c840"/>
+  <text x="198" y="98" fill="#f8fafc" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="22" font-weight="800">Hokage Vision Agent</text>
+  <text x="1110" y="98" fill="#ffbd2e" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="16" font-weight="700">backend: mock · device: cpu</text>
+
+  <rect x="94" y="144" width="246" height="694" rx="16" fill="#0d131a" stroke="#27313b"/>
+  <text x="120" y="190" fill="#f97316" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="15" font-weight="800">WORKBENCH</text>
+  <g font-family="Inter, Segoe UI, Arial, sans-serif" font-size="18" font-weight="700">
+    <rect x="112" y="222" width="206" height="44" rx="10" fill="url(#fire)" opacity="0.95"/>
+    <text x="136" y="250" fill="#111820">Image Detection</text>
+    <text x="136" y="316" fill="#cbd5e1">Video Detection</text>
+    <text x="136" y="374" fill="#cbd5e1">Batch Detection</text>
+    <text x="136" y="432" fill="#cbd5e1">Agent Assistant</text>
+    <text x="136" y="490" fill="#cbd5e1">Model Registry</text>
+    <text x="136" y="548" fill="#cbd5e1">Settings</text>
+  </g>
+  <rect x="118" y="636" width="194" height="112" rx="14" fill="#151f2a" stroke="#2c3540"/>
+  <text x="138" y="672" fill="#f8fafc" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="18" font-weight="800">Training-ready</text>
+  <text x="138" y="704" fill="#94a3b8" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="14">Data manifest</text>
+  <text x="138" y="728" fill="#94a3b8" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="14">Dry-run safe</text>
+
+  <rect x="370" y="144" width="610" height="470" rx="18" fill="#121922" stroke="#303b46"/>
+  <text x="402" y="188" fill="#f8fafc" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="24" font-weight="900">Detection Canvas</text>
+  <text x="402" y="218" fill="#94a3b8" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="15">Synthetic demo image · YOLO-style boxes · no copyrighted media</text>
+  <rect x="412" y="246" width="528" height="310" rx="16" fill="#1c2530" stroke="#3b4654"/>
+  <rect x="470" y="300" width="160" height="188" rx="18" fill="#5b46b4"/>
+  <rect x="686" y="318" width="146" height="174" rx="18" fill="#e86f1c"/>
+  <rect x="476" y="296" width="164" height="194" rx="20" fill="none" stroke="#ffd166" stroke-width="5"/>
+  <rect x="680" y="312" width="158" height="184" rx="20" fill="none" stroke="#22c55e" stroke-width="5"/>
+  <rect x="510" y="276" width="88" height="28" rx="8" fill="#ffd166"/>
+  <text x="522" y="296" fill="#111820" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="14" font-weight="900">obito .91</text>
+  <rect x="712" y="292" width="98" height="28" rx="8" fill="#22c55e"/>
+  <text x="724" y="312" fill="#06120a" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="14" font-weight="900">naruto .84</text>
+
+  <rect x="1006" y="144" width="318" height="272" rx="18" fill="#121922" stroke="#303b46"/>
+  <text x="1034" y="188" fill="#f8fafc" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="22" font-weight="900">Results</text>
+  <g font-family="Inter, Segoe UI, Arial, sans-serif" font-size="15">
+    <text x="1034" y="230" fill="#94a3b8">class</text><text x="1170" y="230" fill="#94a3b8">conf</text>
+    <rect x="1028" y="248" width="268" height="42" rx="9" fill="#182331"/>
+    <text x="1048" y="275" fill="#f8fafc">obito</text><text x="1176" y="275" fill="#ffd166">0.91</text>
+    <rect x="1028" y="302" width="268" height="42" rx="9" fill="#182331"/>
+    <text x="1048" y="329" fill="#f8fafc">naruto</text><text x="1176" y="329" fill="#22c55e">0.84</text>
+    <rect x="1028" y="356" width="268" height="42" rx="9" fill="#182331"/>
+    <text x="1048" y="383" fill="#f8fafc">gaara</text><text x="1176" y="383" fill="#f97316">0.77</text>
+  </g>
+
+  <rect x="1006" y="438" width="318" height="176" rx="18" fill="#121922" stroke="#303b46"/>
+  <text x="1034" y="480" fill="#f8fafc" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="22" font-weight="900">Class Stats</text>
+  <rect x="1036" y="508" width="236" height="14" rx="7" fill="#263241"/><rect x="1036" y="508" width="198" height="14" rx="7" fill="#ffd166"/>
+  <rect x="1036" y="540" width="236" height="14" rx="7" fill="#263241"/><rect x="1036" y="540" width="174" height="14" rx="7" fill="#22c55e"/>
+  <rect x="1036" y="572" width="236" height="14" rx="7" fill="#263241"/><rect x="1036" y="572" width="144" height="14" rx="7" fill="#f97316"/>
+
+  <rect x="370" y="638" width="954" height="154" rx="18" fill="#121922" stroke="#303b46"/>
+  <text x="402" y="684" fill="#f8fafc" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="22" font-weight="900">Agent Assistant</text>
+  <text x="402" y="722" fill="#cbd5e1" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="17">User: 训练模型</text>
+  <text x="402" y="754" fill="#ffbd2e" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="17">Agent: calls train_model → returns safe dry-run plan · no shell · no API key</text>
+  <rect x="1044" y="678" width="250" height="58" rx="14" fill="#1f2937" stroke="#f97316"/>
+  <text x="1070" y="714" fill="#f8fafc" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="18" font-weight="800">Docker-first verified</text>
 </svg>

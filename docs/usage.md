@@ -72,6 +72,15 @@ hokage-vision train yolo --data configs/dataset.example.yaml --epochs 1 --dry-ru
 
 Real training requires a valid YOLO dataset, reviewed data rights, and the training extra. Historical Hokage/Naruto weights are research and portfolio artifacts only, non-commercial, and not redistributed by default.
 
+Docker keeps real training dependencies out of the default test image. Build the optional training profile only when needed:
+
+```bash
+docker compose --profile train build train
+docker compose --profile train run --rm train
+```
+
+To execute a real run after data review, pass `--execute` explicitly and use an external output path that will not overwrite existing runs.
+
 ## Interview Walkthrough
 
 Use this sequence to demonstrate the project as an engineering system:

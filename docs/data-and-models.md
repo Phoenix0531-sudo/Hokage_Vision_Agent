@@ -70,7 +70,7 @@ hokage-vision model list
 hokage-vision model compare --models models/a.pt models/b.pt --mock
 ```
 
-Before publishing weights, confirm training data rights, model license, class list, metrics, and release notes.
+Before publishing weights, confirm training data rights, model license, class list, metrics, checksum, and release notes. Use `models/model-card.template.md` and `models/registry.example.json` as the release checklist.
 
 Recommended model-card fields for an external weight release:
 

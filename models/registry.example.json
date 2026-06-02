@@ -1,20 +1,48 @@
 {
   "models": [
     {
-      "name": "hokage-yolo-smoke",
+      "name": "hokage-yolo-smoke-plan",
       "version": "0.1.0",
-      "path": "models/hokage-yolo-smoke.pt",
+      "path": null,
+      "backend": "mock",
+      "classes": ["obito", "naruto", "gaara"],
+      "metrics": {
+        "map50": null,
+        "map50_95": null,
+        "precision": null,
+        "recall": null,
+        "latency_ms": null,
+        "model_size_mb": null
+      },
+      "created_at": "2026-06-02T00:00:00Z",
+      "license": "Apache-2.0 for synthetic fixture metadata",
+      "release_status": "workflow-fixture",
+      "download_url": null,
+      "sha256": null,
+      "model_card": "models/model-card.template.md",
+      "notes": "No real weights are published for this entry. It documents the smoke dataset and dry-run training workflow."
+    },
+    {
+      "name": "hokage-yolo-reviewed-external",
+      "version": "TBD",
+      "path": "models/<external-reviewed-weight>.pt",
       "backend": "ultralytics",
       "classes": ["obito", "naruto", "gaara"],
       "metrics": {
         "map50": null,
         "map50_95": null,
         "precision": null,
-        "recall": null
+        "recall": null,
+        "latency_ms": null,
+        "model_size_mb": null
       },
-      "created_at": "2026-01-01T00:00:00Z",
-      "license": "TBD",
-      "notes": "Tiny smoke test model for demo and CI."
+      "created_at": null,
+      "license": "TBD after data and weight review",
+      "release_status": "external-artifact-template",
+      "download_url": null,
+      "sha256": null,
+      "model_card": "models/model-card.template.md",
+      "notes": "Template entry for a future reviewed external weight. Do not publish until source, license, metrics, and scope are documented."
     }
   ]
 }

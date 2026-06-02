@@ -1,7 +1,7 @@
 x-build-args: &build-args
   PYTHON_IMAGE: ${PYTHON_IMAGE:-python:3.12-slim-bookworm}
-  DEBIAN_MIRROR: ${DEBIAN_MIRROR:-}
-  DEBIAN_SECURITY_MIRROR: ${DEBIAN_SECURITY_MIRROR:-}
+  DEBIAN_MIRROR: ${DEBIAN_MIRROR:-http://mirrors.ustc.edu.cn/debian}
+  DEBIAN_SECURITY_MIRROR: ${DEBIAN_SECURITY_MIRROR:-http://mirrors.ustc.edu.cn/debian-security}
 
 services:
   test:
@@ -80,3 +80,18 @@ services:
     command: mkdocs build
     volumes:
       - .:/workspace
+
+  train:
+    profiles:
+      - train
+    build:
+      context: .
+      target: train
+      args: *build-args
+    image: hokage-vision-agent:train
+    command: hokage-vision train yolo --data configs/dataset.example.yaml --epochs 1 --dry-run
+    volumes:
+      - .:/workspace
+    environment:
+      HOKAGE_VISION_BACKEND: mock
+      PYTHONPATH: /workspace/src
