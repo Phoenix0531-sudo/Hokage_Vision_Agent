@@ -6,3 +6,5 @@ This project does not commit raw copyrighted anime images or private datasets.
 - `interim/`: candidate labels and intermediate files, human review required.
 - `processed/`: reviewed local datasets, commit only when rights are verified.
 - `manifests/`: dataset manifests that record source, license, and redistribution status.
+
+The committed smoke dataset manifest describes synthetic geometric images only. Real Naruto/anime screenshots remain local-only unless rights and redistribution terms are reviewed.

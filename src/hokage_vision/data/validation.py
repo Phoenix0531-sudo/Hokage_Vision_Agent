@@ -4,6 +4,8 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any
 
+import yaml
+
 from hokage_vision.data.yolo_dataset import class_names, load_yolo_dataset_yaml
 
 IMAGE_EXTENSIONS = {".jpg", ".jpeg", ".png", ".bmp", ".webp"}
@@ -45,10 +47,12 @@ def validate_yolo_dataset(dataset_yaml: Path) -> DatasetValidationReport:
         report.manifest_exists = manifest_path.exists()
         if not manifest_path.exists():
             report.issues.append(f"manifest does not exist: {manifest}")
+        else:
+            report.redistribution_allowed_recorded = _redistribution_allowed_recorded(manifest_path)
     else:
         report.manifest_exists = False
         report.issues.append("manifest is not recorded")
-    report.redistribution_allowed_recorded = False
+        report.redistribution_allowed_recorded = False
 
     for split in ("train", "val", "test"):
         split_value = data.get(split)
@@ -76,6 +80,21 @@ def _dataset_root(dataset_yaml: Path, data: dict[str, Any]) -> Path:
 def _resolve_path(root: Path, value: str) -> Path:
     path = Path(value)
     return path if path.is_absolute() else root / path
+
+
+def _redistribution_allowed_recorded(manifest_path: Path) -> bool:
+    data = yaml.safe_load(manifest_path.read_text(encoding="utf-8")) or {}
+    if not isinstance(data, dict):
+        return False
+    dataset = data.get("dataset", {})
+    sources = data.get("sources", [])
+    if not isinstance(dataset, dict) or "redistribution_allowed" not in dataset:
+        return False
+    if not isinstance(sources, list):
+        return False
+    return all(
+        isinstance(source, dict) and "redistribution_allowed" in source for source in sources
+    )
 
 
 def _validate_image_dir(image_dir: Path, names: list[str], report: DatasetValidationReport) -> None:

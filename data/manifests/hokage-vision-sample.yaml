@@ -1,0 +1,23 @@
+dataset:
+  name: hokage-vision-synthetic-smoke
+  version: 0.1.0
+  description: Synthetic geometric YOLO dataset for CI, dataset validation, and training dry-runs.
+  redistribution_allowed: true
+
+sources:
+  - id: synthetic-smoke-001
+    type: project_generated
+    path: examples/dataset
+    license: Apache-2.0
+    redistribution_allowed: true
+    notes: Synthetic shapes only. These images are not Naruto screenshots and do not represent real character data.
+
+classes:
+  - obito
+  - naruto
+  - gaara
+
+annotations:
+  format: yolo
+  reviewed: true
+  reviewer: project

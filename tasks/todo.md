@@ -212,3 +212,20 @@ This checklist tracks the staged migration from the legacy YOLOv5 + PySide6 proj
 - Docker GUI headless tests passed with 6 tests.
 - Docker docs build, package build, API health, CLI help, mock image detection, Agent folder detection, Ruff check, Ruff format check, and desktop build all passed.
 - Local root `data/` and `models/` do not contain a complete Hokage training dataset or real model weights; legacy contains old labels and YOLO sample images only.
+
+### Dataset And Training Reality Check
+
+- [x] Re-check local dataset and model weight availability.
+- [x] Re-check Docker-first environment status.
+- [x] Check GitHub Pages public site status.
+- [x] Decide whether a compliant smoke dataset can be generated locally.
+- [x] Verify whether Agent-triggered training works with the current training layer.
+
+#### Review
+
+- Root `data/raw`, `data/interim`, and `data/processed` remain empty; no real weights are present under `models/`.
+- GitHub Pages returns HTTP 200 and contains `Hokage Vision Agent`.
+- Added a tiny synthetic YOLO smoke dataset under `examples/dataset` and a reviewed manifest under `data/manifests`.
+- `hokage-vision dataset validate configs/dataset.example.yaml` reports 9 images, 9 boxes, no issues, and recorded redistribution fields.
+- `hokage-vision train yolo --data configs/dataset.example.yaml --epochs 1 --dry-run` produces a valid dry-run training plan.
+- `hokage-vision agent run "训练模型"` calls the allowlisted `train_model` tool and returns the same safe dry-run plan.
