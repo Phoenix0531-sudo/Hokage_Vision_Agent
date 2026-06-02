@@ -1,0 +1,20 @@
+{
+  "name": "Hokage Vision Agent",
+  "build": {
+    "dockerfile": "Dockerfile",
+    "context": ".."
+  },
+  "workspaceFolder": "/workspace",
+  "remoteEnv": {
+    "QT_QPA_PLATFORM": "offscreen",
+    "HOKAGE_VISION_BACKEND": "mock"
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-python.python",
+        "charliermarsh.ruff"
+      ]
+    }
+  }
+}

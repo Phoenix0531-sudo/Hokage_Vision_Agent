@@ -33,7 +33,7 @@ The legacy tree is now isolated under `legacy/old_project/`. The new project mus
 - No root `LICENSE` file was found during the initial audit.
 - Git history indicates a GPL-3.0 `LICENSE` existed in the first commit and was later deleted; legacy YOLOv5 provenance must be preserved before choosing a final main project license.
 - The repository contains dataset label files and caches, but no dataset manifest or license provenance.
-- `libEGL.dll` is committed at the repository root and needs review before any packaging decision.
+- The old GUI/runtime previously depended on local Qt/OpenGL binary components. Undocumented binary artifacts such as `libEGL.dll` are no longer redistributed in the current tree.
 
 ## Acceptance Criteria
 

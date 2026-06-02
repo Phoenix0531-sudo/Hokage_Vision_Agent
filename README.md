@@ -20,18 +20,18 @@ This is a fan-made research and portfolio project and is not affiliated with Nar
 - Shared detection types and inference service for CLI, GUI, API, and Agent workflows.
 - Deterministic mock backend for CI, demos, and headless GUI tests without GPU or model downloads.
 - PySide6 desktop GUI with image, video, batch, settings, statistics, and agent assistant panels.
-- Rule-based Agent with allowlisted project tools and optional LLM provider placeholders.
+- Rule-based Agent with allowlisted project tools and optional LLM provider extension points.
 - Dataset manifest, YOLO dataset validation, annotation assistance, smoke training, evaluation, and model comparison foundations.
 - FastAPI service for health, model listing, mock detection, agent runs, dataset validation, smoke training, and model comparison.
 - Docker-first development, CI, package build, desktop executable build, and MkDocs documentation.
 
 ## Screenshots
 
-Placeholder screenshots live under `assets/screenshots/` until the final GUI capture pass.
+Lightweight preview assets live under `assets/screenshots/`.
 
-![GUI placeholder](assets/screenshots/gui-placeholder.svg)
+![GUI preview](assets/screenshots/gui-preview.svg)
 
-![CLI placeholder](assets/screenshots/cli-placeholder.svg)
+![CLI preview](assets/screenshots/cli-preview.svg)
 
 ## Docker-first Quick Start
 

@@ -27,11 +27,11 @@
 
 ## 截图
 
-最终 GUI 截图会在打磨阶段补齐；当前提供占位图。
+轻量预览图位于 `assets/screenshots/`。
 
-![GUI 占位图](assets/screenshots/gui-placeholder.svg)
+![GUI 预览图](assets/screenshots/gui-preview.svg)
 
-![CLI 占位图](assets/screenshots/cli-placeholder.svg)
+![CLI 预览图](assets/screenshots/cli-preview.svg)
 
 ## Docker-first 快速开始
 

@@ -9,6 +9,7 @@ from hokage_vision.core.types import ModelInfo
 from hokage_vision.data.annotation import assist_annotation
 from hokage_vision.data.manifest import create_dataset_manifest
 from hokage_vision.data.validation import validate_yolo_dataset
+from hokage_vision.reports.markdown import generate_markdown_report, summarize_detections
 from hokage_vision.training.registry import ModelRegistry
 from hokage_vision.training.smoke import run_smoke_training
 from hokage_vision.training.trainer import run_yolo_training
@@ -51,7 +52,7 @@ def create_default_tool_registry() -> ToolRegistry:
     registry.register(
         "auto_label_with_model",
         "Generate model-assisted candidate labels.",
-        _placeholder("auto_label_with_model"),
+        _auto_label_with_model,
     )
     registry.register("train_model", "Plan or run model training.", _train_model)
     registry.register("smoke_train", "Run smoke training.", _smoke_train)
@@ -59,9 +60,7 @@ def create_default_tool_registry() -> ToolRegistry:
     registry.register("compare_models", "Compare model weights.", _compare_models)
     registry.register("list_models", "List registered models.", _list_models)
     registry.register("register_model", "Register a model.", _register_model)
-    registry.register(
-        "generate_report", "Generate a report on explicit request.", _placeholder("generate_report")
-    )
+    registry.register("generate_report", "Generate a report on explicit request.", _generate_report)
     registry.register("project_health_check", "Check project health.", _project_health_check)
     return registry
 
@@ -114,6 +113,17 @@ def _assist_annotation(arguments: dict[str, Any]) -> dict[str, Any]:
     return assist_annotation(images, output)
 
 
+def _auto_label_with_model(arguments: dict[str, Any]) -> dict[str, Any]:
+    images = Path(arguments.get("images", "examples/images"))
+    output = Path(arguments.get("output", "data/interim/auto_labels"))
+    confidence = float(arguments.get("confidence_threshold", 0.25))
+    result = assist_annotation(images, output, confidence_threshold=confidence)
+    result["model"] = str(arguments.get("model")) if arguments.get("model") else "mock"
+    result["review_required"] = True
+    result["note"] = "Candidate labels require human review and do not prove dataset rights."
+    return result
+
+
 def _smoke_train(arguments: dict[str, Any]) -> dict[str, Any]:
     return run_smoke_training(epochs=int(arguments.get("epochs", 1)))
 
@@ -147,8 +157,15 @@ def _compare_models(arguments: dict[str, Any]) -> dict[str, Any]:
     return {"models": compare_model_paths(models, mock=True)}
 
 
-def _placeholder(name: str):
-    def handler(arguments: dict[str, Any]) -> dict[str, Any]:
-        return {"status": "placeholder", "tool": name, "arguments": arguments, "dry_run": True}
-
-    return handler
+def _generate_report(arguments: dict[str, Any]) -> dict[str, Any]:
+    output = Path(arguments.get("output", "reports/agent-report.md"))
+    title = str(arguments.get("title", "Hokage Vision Agent Report"))
+    folder = arguments.get("folder")
+    tool_results: list[dict[str, Any]] = []
+    summary: dict[str, Any] = {"requested": True}
+    if folder:
+        results = _detect_folder({"path": folder}).get("results", [])
+        if isinstance(results, list):
+            tool_results = results
+            summary.update(summarize_detections(results))
+    return generate_markdown_report(title, output, summary=summary, tool_results=tool_results)
