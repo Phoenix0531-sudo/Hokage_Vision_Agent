@@ -9,7 +9,7 @@ hokage-vision model list
 hokage-vision model compare --models models/a.pt models/b.pt --mock
 ```
 
-Before publishing weights, confirm training data rights, model license, class list, metrics, and release notes.
+Before publishing weights, confirm training data rights, model license, class list, metrics, and release notes. Historical Hokage/Naruto weights are research and portfolio artifacts only, non-commercial, and not redistributed by default because their training data provenance is not fully documented.
 
 Real backends:
 
