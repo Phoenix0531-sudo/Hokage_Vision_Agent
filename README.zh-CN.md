@@ -4,12 +4,12 @@
   <img src="assets/logo/hokage-vision-agent.svg" alt="Hokage Vision Agent 标识" width="760">
 </p>
 
-[![CI](https://github.com/Phoenix0531-sudo/Hokage-Vision-Agent/actions/workflows/ci.yml/badge.svg)](https://github.com/Phoenix0531-sudo/Hokage-Vision-Agent/actions/workflows/ci.yml)
-[![GUI Tests](https://github.com/Phoenix0531-sudo/Hokage-Vision-Agent/actions/workflows/gui-tests.yml/badge.svg)](https://github.com/Phoenix0531-sudo/Hokage-Vision-Agent/actions/workflows/gui-tests.yml)
-[![Docker](https://github.com/Phoenix0531-sudo/Hokage-Vision-Agent/actions/workflows/docker.yml/badge.svg)](https://github.com/Phoenix0531-sudo/Hokage-Vision-Agent/actions/workflows/docker.yml)
-[![Docs](https://github.com/Phoenix0531-sudo/Hokage-Vision-Agent/actions/workflows/docs.yml/badge.svg)](https://github.com/Phoenix0531-sudo/Hokage-Vision-Agent/actions/workflows/docs.yml)
-[![Package](https://github.com/Phoenix0531-sudo/Hokage-Vision-Agent/actions/workflows/package.yml/badge.svg)](https://github.com/Phoenix0531-sudo/Hokage-Vision-Agent/actions/workflows/package.yml)
-[![Desktop Build](https://github.com/Phoenix0531-sudo/Hokage-Vision-Agent/actions/workflows/desktop-build.yml/badge.svg)](https://github.com/Phoenix0531-sudo/Hokage-Vision-Agent/actions/workflows/desktop-build.yml)
+[![CI](https://github.com/Phoenix0531-sudo/Hokage_Vision_Agent/actions/workflows/ci.yml/badge.svg)](https://github.com/Phoenix0531-sudo/Hokage_Vision_Agent/actions/workflows/ci.yml)
+[![GUI Tests](https://github.com/Phoenix0531-sudo/Hokage_Vision_Agent/actions/workflows/gui-tests.yml/badge.svg)](https://github.com/Phoenix0531-sudo/Hokage_Vision_Agent/actions/workflows/gui-tests.yml)
+[![Docker](https://github.com/Phoenix0531-sudo/Hokage_Vision_Agent/actions/workflows/docker.yml/badge.svg)](https://github.com/Phoenix0531-sudo/Hokage_Vision_Agent/actions/workflows/docker.yml)
+[![Docs](https://github.com/Phoenix0531-sudo/Hokage_Vision_Agent/actions/workflows/docs.yml/badge.svg)](https://github.com/Phoenix0531-sudo/Hokage_Vision_Agent/actions/workflows/docs.yml)
+[![Package](https://github.com/Phoenix0531-sudo/Hokage_Vision_Agent/actions/workflows/package.yml/badge.svg)](https://github.com/Phoenix0531-sudo/Hokage_Vision_Agent/actions/workflows/package.yml)
+[![Desktop Build](https://github.com/Phoenix0531-sudo/Hokage_Vision_Agent/actions/workflows/desktop-build.yml/badge.svg)](https://github.com/Phoenix0531-sudo/Hokage_Vision_Agent/actions/workflows/desktop-build.yml)
 ![Python 3.12](https://img.shields.io/badge/python-3.12-blue)
 ![License](https://img.shields.io/badge/license-Apache--2.0%20%2B%20legacy%20audit-informational)
 
@@ -17,7 +17,7 @@
 
 本项目是个人学习、研究与作品集展示项目，与《火影忍者》、集英社、Pierrot 或相关版权方无官方关联。
 
-[English README](README.md) · [文档站](https://phoenix0531-sudo.github.io/Hokage-Vision-Agent/)
+[English README](README.md) · [文档站](https://phoenix0531-sudo.github.io/Hokage_Vision_Agent/)
 
 ## 项目状态
 

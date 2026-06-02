@@ -1,6 +1,6 @@
 site_name: Hokage Vision Agent
 site_description: An agentic computer vision workbench for anime character detection.
-repo_url: https://github.com/Phoenix0531-sudo/Hokage-Vision-Agent
+repo_url: https://github.com/Phoenix0531-sudo/Hokage_Vision_Agent
 theme:
   name: material
   palette:

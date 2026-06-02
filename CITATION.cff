@@ -5,6 +5,6 @@ version: "0.1.0"
 date-released: "2026-06-01"
 authors:
   - name: "Hokage Vision Agent Contributors"
-repository-code: "https://github.com/Phoenix0531-sudo/Hokage-Vision-Agent"
+repository-code: "https://github.com/Phoenix0531-sudo/Hokage_Vision_Agent"
 license: "Apache-2.0"
 abstract: "An agentic computer vision workbench for anime character detection, powered by YOLO, PySide6, Docker, and tool-calling workflows."
