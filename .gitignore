@@ -79,3 +79,4 @@ models/registry.json
 !examples/images/sample.jpg
 !examples/dataset/**/*.jpg
 !assets/**/*.svg
+tasks/
