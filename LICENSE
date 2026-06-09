@@ -2,10 +2,6 @@ Apache License
 Version 2.0, January 2004
 http://www.apache.org/licenses/
 
-License scope note for this repository:
-
-This Apache-2.0 license applies to newly written Hokage Vision Agent project source code and documentation authored for this migration, unless a file states otherwise. Legacy YOLOv5-derived code, model weights, datasets, generated artifacts, and third-party assets are excluded from this grant and remain governed by their respective licenses. See LICENSES/README.md and docs/license-audit.md for the current license boundaries.
-
 TERMS AND CONDITIONS FOR USE, REPRODUCTION, AND DISTRIBUTION
 
 1. Definitions.
