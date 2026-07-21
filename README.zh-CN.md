@@ -1,5 +1,9 @@
 # Hokage Vision Agent
 
+**基于 YOLO 与 PySide6 的 Agent 风格动漫角色检测工作台**
+
+[English](README.md) | [中文](README.zh-CN.md)
+
 <p align="center">
   <img src="assets/logo/hokage-vision-agent.svg" alt="Hokage Vision Agent 标识" width="760">
 </p>

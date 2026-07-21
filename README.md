@@ -1,5 +1,9 @@
 # Hokage Vision Agent
 
+**Agentic anime character detection workbench powered by YOLO and PySide6**
+
+[English](README.md) | [中文](README.zh-CN.md)
+
 <p align="center">
   <img src="assets/logo/hokage-vision-agent.svg" alt="Hokage Vision Agent logo" width="760">
 </p>
