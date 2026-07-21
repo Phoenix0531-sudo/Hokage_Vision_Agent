@@ -15,48 +15,41 @@ concurrency:
 
 jobs:
   test:
-    name: Tests
+    name: Lint & tests
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
-      - name: Check out repository
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Set up Python
-        uses: actions/setup-python@v5
+      - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
           cache: pip
+          cache-dependency-path: |
+            requirements.txt
+            requirements-dev.txt
+            pyproject.toml
 
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
           if [ -f requirements-dev.txt ]; then
-            python -m pip install -r requirements-dev.txt
+            pip install -r requirements-dev.txt
           elif [ -f requirements.txt ]; then
-            python -m pip install -r requirements.txt
-          elif [ -f pyproject.toml ]; then
-            python -m pip install -e . || python -m pip install .
+            pip install -r requirements.txt
           fi
-          python -m pip install pytest ruff || true
+          if [ -f pyproject.toml ]; then
+            pip install -e ".[dev]" || pip install -e . || pip install .
+          fi
+          pip install pytest ruff
 
-      - name: Lint (best effort)
+      - name: Required project files
         run: |
-          if command -v ruff >/dev/null 2>&1; then
-            ruff check . || true
-          fi
+          test -f README.md
+          test -f LICENSE || test -f LICENSE.md
 
-      - name: Run tests (best effort)
-        run: |
-          if [ -d tests ] || ls test_*.py >/dev/null 2>&1; then
-            python -m pytest -q || true
-          else
-            echo "No tests directory; smoke import check"
-            python - <<'PY'
-import importlib, pathlib, sys
-root = pathlib.Path('.')
-cands = [p for p in root.iterdir() if p.is_dir() and (p/ '__init__.py').exists()]
-print('packages', [c.name for c in cands[:10]])
-PY
-          fi
+      - name: Ruff (non-blocking style)
+        run: ruff check . || true
 
+      - name: Pytest (hard fail)
+        run: python -m pytest -q

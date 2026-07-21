@@ -8,7 +8,8 @@
   <img src="assets/logo/hokage-vision-agent.svg" alt="Hokage Vision Agent logo" width="760">
 </p>
 
-[![CI](https://github.com/Phoenix0531-sudo/Hokage_Vision_Agent/actions/workflows/ci.yml/badge.svg)](https://github.com/Phoenix0531-sudo/Hokage_Vision_Agent/actions/workflows/ci.yml)
+[![CI](https://github.com/Phoenix0531-sudo/Hokage_Vision_Agent/actions/workflows/ci.yml/badge.svg)
+![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://github.com/Phoenix0531-sudo/Hokage_Vision_Agent/actions/workflows/ci.yml)
 [![GUI Tests](https://github.com/Phoenix0531-sudo/Hokage_Vision_Agent/actions/workflows/gui-tests.yml/badge.svg)](https://github.com/Phoenix0531-sudo/Hokage_Vision_Agent/actions/workflows/gui-tests.yml)
 [![Docker](https://github.com/Phoenix0531-sudo/Hokage_Vision_Agent/actions/workflows/docker.yml/badge.svg)](https://github.com/Phoenix0531-sudo/Hokage_Vision_Agent/actions/workflows/docker.yml)
 [![Docs](https://github.com/Phoenix0531-sudo/Hokage_Vision_Agent/actions/workflows/docs.yml/badge.svg)](https://github.com/Phoenix0531-sudo/Hokage_Vision_Agent/actions/workflows/docs.yml)
@@ -177,7 +178,8 @@ The GUI, CLI, API, and Agent layers all call shared services. YOLO/CV backends p
 
 ## License
 
-New Hokage Vision Agent code is intended to be Apache-2.0. Legacy YOLOv5-derived code remains governed by the applicable upstream YOLOv5 license. Model weights, datasets, annotations, and documentation may have separate license terms. See `LICENSES/README.md` and `docs/license-audit.md`.
+[MIT](LICENSE) — free for commercial use with attribution.
+
 
 ## Acknowledgements
 
