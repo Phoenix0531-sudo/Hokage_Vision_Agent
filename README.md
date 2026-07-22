@@ -12,28 +12,38 @@ Portfolio-grade CV workbench. Detection is performed by a **vision backend** (mo
 
 Docs site (MkDocs): <https://phoenix0531-sudo.github.io/Hokage_Vision_Agent/>
 
-## Screenshots / evidence
+## Screenshots (real Qt grab)
 
 <table>
   <tr>
     <td width="50%">
-      <img src="docs/screenshots/evidence.png" alt="Mock backend detection evidence">
-      <br><strong>Mock detection evidence</strong> — deterministic boxes from <code>MockBackend.predict_image</code>
+      <img src="docs/screenshots/gui_hero.png" alt="Hokage home overview GUI">
+      <br><strong>Home overview</strong> — real PySide6 window (<code>MainWindow.grab()</code>)
+    </td>
+    <td width="50%">
+      <img src="docs/screenshots/gui_detect_hero.png" alt="Image detection with mock boxes and table">
+      <br><strong>Image detection</strong> — mock boxes + results table (obito/naruto/gaara)
+    </td>
+  </tr>
+  <tr>
+    <td width="50%">
+      <img src="docs/screenshots/evidence.png" alt="Mock backend evidence figure">
+      <br><strong>Backend evidence figure</strong> — reproducible matplotlib card
     </td>
     <td width="50%">
       <img src="docs/screenshots/preview.png" alt="Architecture schematic">
-      <br><strong>Architecture schematic</strong> — CLI / GUI / API → InferenceService → backends
+      <br><strong>Architecture schematic</strong> — CLI / GUI / API → backends
     </td>
   </tr>
 </table>
 
 ```bash
-# reproducible, no private weights / GPU
+# real window grab + mock detect on demo fixture
+PYTHONPATH=src python scripts/capture_real_shots.py
 PYTHONPATH=src python scripts/generate_evidence.py
-# writes docs/screenshots/evidence.png + fixtures/demo_scene.png
 ```
 
-Default demo classes: `obito`, `naruto`, `gaara` with fixed confidence schedule (`0.91`, `0.84`, `0.77`) and relative boxes — same path CI uses.
+Default demo classes: `obito`, `naruto`, `gaara` with confidences `0.91 / 0.84 / 0.77` — same mock path CI uses. No private YOLO weights required.
 
 ## Design boundaries
 

@@ -12,27 +12,27 @@
 
 文档站：<https://phoenix0531-sudo.github.io/Hokage_Vision_Agent/>
 
-## 截图 / 证据
+## 截图（真实 Qt 窗口）
 
 <table>
   <tr>
     <td width="50%">
-      <img src="docs/screenshots/evidence.png" alt="Mock 检测证据">
-      <br><strong>Mock 检测证据</strong> — <code>MockBackend.predict_image</code> 确定性框
+      <img src="docs/screenshots/gui_hero.png" alt="首页概览">
+      <br><strong>首页概览</strong>
     </td>
     <td width="50%">
-      <img src="docs/screenshots/preview.png" alt="架构示意图">
-      <br><strong>架构示意图</strong> — CLI / GUI / API → InferenceService → backends
+      <img src="docs/screenshots/gui_detect_hero.png" alt="图片检测">
+      <br><strong>图片检测</strong> — mock 框 + 结果表
     </td>
   </tr>
 </table>
 
 ```bash
+PYTHONPATH=src python scripts/capture_real_shots.py
 PYTHONPATH=src python scripts/generate_evidence.py
 ```
 
-默认演示类：`obito` / `naruto` / `gaara`，固定置信度与相对框 — 与 CI mock 路径一致，无需 GPU / 私有权重。
-
+演示类：`obito` / `naruto` / `gaara`（0.91 / 0.84 / 0.77），无需 GPU / 私有权重。
 ## 设计边界
 
 - 默认 backend = **`mock`**，CI 与演示零权重
