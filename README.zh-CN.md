@@ -1,44 +1,66 @@
 # Hokage Vision Agent
 
-**动漫角色检测工作台（YOLO + PySide6）**
+**Agent 风格动漫角色检测工作台 — YOLO · PySide6 · Docker · 工具工作流。**
 
 [English](README.md) | [中文](README.zh-CN.md)
 
-![CI](https://github.com/Phoenix0531-sudo/Hokage_Vision_Agent/actions/workflows/ci.yml/badge.svg)
-![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)
+[![CI](https://github.com/Phoenix0531-sudo/Hokage_Vision_Agent/actions/workflows/ci.yml/badge.svg)](https://github.com/Phoenix0531-sudo/Hokage_Vision_Agent/actions/workflows/ci.yml)
+[![License: Apache_2.0](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](LICENSE)
+[![Python](https://img.shields.io/badge/python-3.10%2B-blue.svg)](https://www.python.org/)
 
-面向**动漫角色检测**的 Agent 工作台：YOLO 系模型、PySide6 桌面流程、`configs/` 配置、`apps/` 应用入口。
+Agent 风格动漫角色检测工作台 — YOLO · PySide6 · Docker · 工具工作流。
 
-## 为什么做这个
+桌面 + API · 配置驱动 · CI 硬化。
 
-粉丝 / 科研 CV 演示需要的不只是 notebook：模型配置、桌面标注/推理 UI、非 GUI 部分的 CI。
+
+## Screenshots
+
+![Sample image](docs/screenshots/sample-detect.jpg)
 
 ## 功能
 
-- `apps/` 多应用布局  
-- `configs/` 实验配置  
-- `assets/` / `examples/` 演示  
-- 多套 requirements（api / desktop-build / docker）  
+- 🥷 面向动漫角色的 YOLO 系检测
+- 🖥️ `apps/` 下 PySide6 桌面流程
+- ⚙️ `configs/` 配置驱动实验
+- 🐳 Docker + 多套 requirements（api / desktop / docker）
+- 🧪 unit + integration；GUI 走独立 workflow
+- 📦 Hatch `src/hokage_vision` 布局，CI 可编辑安装
 
-## 安装
+## 快速开始
+
+### 安装
 
 ```bash
 git clone https://github.com/Phoenix0531-sudo/Hokage_Vision_Agent.git
 cd Hokage_Vision_Agent
-pip install -r requirements-api.txt
+python -m pip install -e ".[dev,api]"
+# desktop extras / docker: see requirements-*.txt and docs/
 ```
 
-## 使用
+### 使用
 
-按 `apps/` 入口与 `docs/` 选择桌面或 API 路径。
+```bash
+# API 路径（示例，以 apps/ 与 docs 为准）
+uvicorn ...
 
-## 目录结构
+# 包可导入冒烟
+python -c "import hokage_vision; print('ok')"
+pytest -q tests/unit tests/integration
+```
+
+## 项目结构
 
 ```
-apps/ configs/ assets/ examples/ models/ data/
-docs/
+src/hokage_vision/
+apps/  configs/  assets/  examples/  models/
+tests/{unit,integration,gui,packaging}
+.github/workflows/{ci,gui-tests,docker,...}.yml
 ```
+
+## 说明
+
+作品集级 CV 工作台 — 非生产内容审核系统。
 
 ## 许可证
 
-MIT。可在署名前提下商用。见 [LICENSE](LICENSE)。
+Apache-2.0。在注明出处的前提下可商业使用（以 LICENSE 为准）。详见 [LICENSE](LICENSE)。

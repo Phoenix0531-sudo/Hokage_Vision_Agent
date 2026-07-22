@@ -1,44 +1,66 @@
 # Hokage Vision Agent
 
-**Anime character detection workbench (YOLO + PySide6)**
+**Agentic anime character detection workbench — YOLO, PySide6, Docker, tool workflows.**
 
 [English](README.md) | [中文](README.zh-CN.md)
 
-![CI](https://github.com/Phoenix0531-sudo/Hokage_Vision_Agent/actions/workflows/ci.yml/badge.svg)
-![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)
+[![CI](https://github.com/Phoenix0531-sudo/Hokage_Vision_Agent/actions/workflows/ci.yml/badge.svg)](https://github.com/Phoenix0531-sudo/Hokage_Vision_Agent/actions/workflows/ci.yml)
+[![License: Apache_2.0](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](LICENSE)
+[![Python](https://img.shields.io/badge/python-3.10%2B-blue.svg)](https://www.python.org/)
 
-Agentic **anime character detection** workbench: YOLO-family models, PySide6 desktop flows, configs under `configs/`, apps under `apps/`.
+Agentic anime character detection workbench — YOLO, PySide6, Docker, tool workflows.
 
-## Why this exists
+Desktop + API. Config-driven. CI-hardened.
 
-Fan / research CV demos need more than a notebook: model configs, desktop labeling / inference UI, and CI for non-GUI pieces.
+
+## Screenshots
+
+![Sample image](docs/screenshots/sample-detect.jpg)
 
 ## Features
 
-- Multi-app layout under `apps/`
-- Config-driven experiments in `configs/`
-- Assets / examples for demos
-- Multiple requirements flavors (api / desktop-build / docker)
+- 🥷 YOLO-family detection for anime characters
+- 🖥️ PySide6 desktop flows under `apps/`
+- ⚙️ Config-driven experiments in `configs/`
+- 🐳 Docker + multi-flavor requirements (api / desktop / docker)
+- 🧪 Unit + integration tests; GUI suite in dedicated workflow
+- 📦 Hatch `src/hokage_vision` layout, editable install on CI
 
-## Install
+## Get started
+
+### Install
 
 ```bash
 git clone https://github.com/Phoenix0531-sudo/Hokage_Vision_Agent.git
 cd Hokage_Vision_Agent
-pip install -r requirements-api.txt   # or desktop-build / docker variants
+python -m pip install -e ".[dev,api]"
+# desktop extras / docker: see requirements-*.txt and docs/
 ```
 
-## Usage
+### Usage
 
-Follow `apps/` entry modules and `docs/` for the desktop vs API path you need. Example scripts live under `examples/` when present.
+```bash
+# API-oriented path (example)
+uvicorn ...   # see apps/ and docs for current entrypoints
+
+# package smoke
+python -c "import hokage_vision; print('ok')"
+pytest -q tests/unit tests/integration
+```
 
 ## Project layout
 
 ```
-apps/ configs/ assets/ examples/ models/ data/
-docs/
+src/hokage_vision/
+apps/  configs/  assets/  examples/  models/
+tests/{unit,integration,gui,packaging}
+.github/workflows/{ci,gui-tests,docker,...}.yml
 ```
+
+## Notes
+
+Portfolio CV workbench — not a production content-moderation system.
 
 ## License
 
-MIT. Free for commercial use with attribution. See [LICENSE](LICENSE).
+Apache-2.0. Free for commercial use with attribution where applicable. See [LICENSE](LICENSE).
