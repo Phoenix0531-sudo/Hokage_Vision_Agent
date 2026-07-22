@@ -18,26 +18,39 @@ jobs:
     name: Lint & tests
     runs-on: ubuntu-latest
     timeout-minutes: 25
+    env:
+      QT_QPA_PLATFORM: offscreen
+      MPLBACKEND: Agg
     steps:
       - uses: actions/checkout@v4
 
       - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
-          cache: pip
+          # only cache when lock/deps files exist (avoids setup-python hard fail)
+          cache: ${{ hashFiles('**/requirements*.txt', '**/pyproject.toml', '**/uv.lock') != '' && 'pip' || '' }}
           cache-dependency-path: |
-            requirements.txt
-            requirements-dev.txt
-            pyproject.toml
-            **/requirements.txt
+            **/requirements*.txt
+            **/pyproject.toml
+            **/uv.lock
+
+      - name: System libs (headless Qt / OpenGL)
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends \
+            libegl1 libgl1 libxkbcommon0 libdbus-1-3 \
+            libxcb-cursor0 libxcb-xinerama0 libxkbcommon-x11-0 \
+            libxcb-icccm4 libxcb-image0 libxcb-keysyms1 libxcb-randr0 \
+            libxcb-render-util0 libxcb-shape0
 
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
           if [ -f requirements-dev.txt ]; then pip install -r requirements-dev.txt; fi
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-          # nested requirements (first few)
-          while IFS= read -r f; do pip install -r "$f" || true; done < <(find . -maxdepth 3 -name requirements.txt -not -path './.venv/*' | head -5)
+          while IFS= read -r f; do
+            pip install -r "$f" || true
+          done < <(find . -maxdepth 3 -name 'requirements*.txt' -not -path './.venv/*' | head -8)
           if [ -f pyproject.toml ]; then
             pip install -e ".[dev]" || pip install -e . || pip install . || true
           fi
@@ -48,10 +61,10 @@ jobs:
           test -f README.md
           test -f LICENSE || test -f LICENSE.md
 
-      - name: Ruff (non-blocking style)
+      - name: Ruff (non-blocking)
         run: ruff check . || true
 
-      - name: Pytest (hard fail, tests/ only)
+      - name: Pytest (hard, tests/ only)
         run: |
           set -e
           if [ -d tests ]; then
@@ -61,11 +74,10 @@ jobs:
           elif [ -d test ]; then
             python -m pytest -q test
           else
-            # no dedicated suite: only smoke-style files at repo root if any
             mapfile -t roots < <(ls test_*.py 2>/dev/null || true)
             if [ ${#roots[@]} -gt 0 ]; then
               python -m pytest -q "${roots[@]}"
             else
-              echo "No tests/ directory; structure checks only passed"
+              echo "No tests directory; structure checks only"
             fi
           fi
