@@ -80,3 +80,4 @@ models/registry.json
 !examples/dataset/**/*.jpg
 !assets/**/*.svg
 tasks/
+.venv/
