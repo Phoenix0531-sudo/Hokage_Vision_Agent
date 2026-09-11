@@ -4,6 +4,14 @@ on:
   push:
   pull_request:
 
+permissions:
+  contents: read
+  packages: write
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
+
 jobs:
   docker:
     runs-on: ubuntu-latest
@@ -32,3 +40,27 @@ jobs:
       - name: Stop services
         if: always()
         run: docker compose down --remove-orphans
+      - name: Log in to GHCR
+        if: github.event_name == 'push'
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Tag and push API image
+        if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+        run: |
+          IMAGE="${REGISTRY}/${IMAGE_NAME,,}"
+          docker tag hokage-vision-agent:api "$IMAGE:latest"
+          docker tag hokage-vision-agent:api "$IMAGE:${GITHUB_SHA::7}"
+          docker push "$IMAGE:latest"
+          docker push "$IMAGE:${GITHUB_SHA::7}"
+      - name: Tag and push release image
+        if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/v')
+        run: |
+          IMAGE="${REGISTRY}/${IMAGE_NAME,,}"
+          VERSION="${GITHUB_REF#refs/tags/v}"
+          docker tag hokage-vision-agent:api "$IMAGE:latest"
+          docker tag hokage-vision-agent:api "$IMAGE:v$VERSION"
+          docker push "$IMAGE:latest"
+          docker push "$IMAGE:v$VERSION"

@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "hokage-vision-agent"
-version = "0.1.1"
+version = "0.1.2"
 description = "An agentic computer vision workbench for anime character detection, powered by YOLO, PySide6, Docker, and tool-calling workflows."
 readme = "README.md"
 requires-python = ">=3.12"

@@ -28,14 +28,28 @@ jobs:
           path: dist/*
 
   desktop:
-    runs-on: ubuntu-latest
-    continue-on-error: true
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: ubuntu-latest
+            asset: desktop-linux
+            qt-libs: "true"
+          - os: windows-latest
+            asset: desktop-windows
+            qt-libs: "false"
+          - os: macos-latest
+            asset: desktop-macos
+            qt-libs: "false"
+    runs-on: ${{ matrix.os }}
+    continue-on-error: ${{ matrix.os != 'ubuntu-latest' }}
     steps:
       - uses: actions/checkout@v7
       - uses: actions/setup-python@v7
         with:
           python-version: "3.12"
       - name: Install Linux Qt runtime libraries
+        if: matrix.qt-libs == 'true'
         run: |
           sudo apt-get update
           sudo apt-get install -y --no-install-recommends \
@@ -55,7 +69,7 @@ jobs:
       - name: Upload desktop artifact
         uses: actions/upload-artifact@v7
         with:
-          name: desktop-linux
+          name: ${{ matrix.asset }}
           path: dist/desktop/**
 
   release:
@@ -71,11 +85,19 @@ jobs:
         run: |
           mkdir -p release-upload
           cp release-artifacts/python-package/* release-upload/
-          if [ -d release-artifacts/desktop-linux ]; then
-            (cd release-artifacts/desktop-linux && zip -r ../../release-upload/desktop-linux.zip .)
-          fi
+          for d in release-artifacts/desktop-*; do
+            if [ -d "$d" ]; then
+              (cd "$d" && zip -r "$(pwd)/../../release-upload/$(basename "$d").zip" .)
+            fi
+          done
+          ls -la release-upload/
+      - name: Prepare release notes
+        run: |
+          awk '/^## /{if (flag) exit; flag=1; next} flag' docs/changelog.md > release-notes.md
+          head -5 release-notes.md
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v3
         with:
           files: release-upload/*
+          body_path: release-notes.md
           generate_release_notes: true
