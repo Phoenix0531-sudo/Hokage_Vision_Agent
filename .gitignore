@@ -50,8 +50,10 @@ reports/*
 data/raw/*
 data/interim/*
 data/processed/*
+data/manifests/*
 !data/raw/.gitkeep
 !data/interim/.gitkeep
+!data/manifests/.gitkeep
 !data/processed/.gitkeep
 models/registry.json
 *.pt

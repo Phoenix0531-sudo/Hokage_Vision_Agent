@@ -36,3 +36,15 @@ def test_default_tools_auto_label_and_generate_report(tmp_path: Path) -> None:
     assert labels["model"] == "mock"
     assert report["status"] == "success"
     assert (tmp_path / "report.md").exists()
+
+
+def test_generate_report_with_folder_summarizes_detections(tmp_path: Path) -> None:
+    registry = create_default_tool_registry()
+    report = registry.call(
+        "generate_report",
+        {"output": str(tmp_path / "report.md"), "folder": "examples/images"},
+    )
+
+    assert report["status"] == "success"
+    text = (tmp_path / "report.md").read_text(encoding="utf-8")
+    assert "Detections" in text or "summary" in text.lower()

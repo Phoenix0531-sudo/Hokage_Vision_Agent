@@ -23,9 +23,9 @@ jobs:
       MPLBACKEND: Agg
       PYTHONPATH: src
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v7
         with:
           python-version: "3.12"
           cache: pip
@@ -60,15 +60,43 @@ jobs:
       - name: Ruff (critical rules, hard)
         run: ruff check src tests/unit tests/integration --select E9,F63,F7,F82
 
-      - name: Pytest unit + integration (coverage gate 60%)
+      - name: Pytest unit + integration (coverage gate 85%)
         run: |
           # packaging wheel/console-script test is flaky on runner isolation; covered by package.yml
-          python -m pytest -q tests/unit tests/integration --cov=hokage_vision --cov-report=term --cov-report=xml --cov-fail-under=60
+          python -m pytest -q tests/unit tests/integration --cov=hokage_vision --cov-report=term --cov-report=xml --cov-fail-under=85
 
       - name: Upload coverage artifact
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: coverage-xml
           path: coverage.xml
+          if-no-files-found: ignore
+
+  security-audit:
+    name: pip-audit dependency scan
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    # advisory job: reports known CVEs without blocking the pipeline
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+
+      - name: Install pip-audit
+        run: python -m pip install --upgrade pip pip-audit
+
+      - name: Audit project dependencies
+        run: pip-audit --skip-editable -r requirements-api.txt -r requirements-train.txt 2>&1 | tee pip-audit-report.txt || true
+        shell: bash
+
+      - name: Upload audit report
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: pip-audit-report
+          path: pip-audit-report.txt
           if-no-files-found: ignore

@@ -36,7 +36,7 @@ docker compose up api
 
 OpenAPI docs are available at `http://localhost:8000/docs`.
 
-Core endpoints:
+Core endpoints (full request/response details: [API Reference](api.md)):
 
 - `GET /health`
 - `GET /models`

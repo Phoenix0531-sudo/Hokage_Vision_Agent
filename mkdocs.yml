@@ -14,6 +14,7 @@ nav:
   - Getting Started: getting-started.md
   - Quickstart: quickstart.md
   - Usage: usage.md
+  - API Reference: api.md
   - Architecture: architecture.md
   - Data And Models: data-and-models.md
   - Development And Release: development.md

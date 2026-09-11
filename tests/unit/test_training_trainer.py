@@ -54,3 +54,30 @@ def test_run_yolo_training_refuses_invalid_dataset_before_model_load(tmp_path: P
 
     with pytest.raises(Exception, match="validation failed"):
         run_yolo_training(bad_yaml, dry_run=False)
+
+
+def test_run_yolo_training_refuses_existing_output_dir(tmp_path: Path) -> None:
+    pytest.importorskip("ultralytics")
+    dataset_yaml = _make_dataset(tmp_path)
+    output_dir = tmp_path / "runs" / "train"
+    output_dir.mkdir(parents=True)
+
+    with pytest.raises(Exception, match="refusing to overwrite"):
+        run_yolo_training(dataset_yaml, output_dir=output_dir, dry_run=False)
+
+
+def test_run_yolo_training_real_requires_train_extra(tmp_path: Path, monkeypatch) -> None:
+    import builtins
+
+    dataset_yaml = _make_dataset(tmp_path)
+    real_import = builtins.__import__
+
+    def fake_import(name, *args, **kwargs):
+        if name == "ultralytics":
+            raise ImportError("blocked")
+        return real_import(name, *args, **kwargs)
+
+    monkeypatch.setattr(builtins, "__import__", fake_import)
+
+    with pytest.raises(Exception, match="train extra"):
+        run_yolo_training(dataset_yaml, dry_run=False)
