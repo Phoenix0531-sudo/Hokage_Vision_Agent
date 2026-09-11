@@ -6,6 +6,8 @@ from fastapi import APIRouter, HTTPException
 from fastapi.encoders import jsonable_encoder
 
 from hokage_vision import __version__
+from hokage_vision.agents.providers.langgraph_provider import LangGraphProvider
+from hokage_vision.agents.providers.openai_provider import OpenAIProvider
 from hokage_vision.agents.providers.rule_based import RuleBasedAgent
 from hokage_vision.api.schemas import (
     AgentRunRequest,
@@ -87,7 +89,16 @@ def detect_folder(request: FolderDetectRequest) -> object:
 
 @router.post("/agent/run")
 def agent_run(request: AgentRunRequest) -> object:
-    return _encode(asdict(RuleBasedAgent().run(request.task)))
+    if request.provider == "rule_based":
+        return _encode(asdict(RuleBasedAgent().run(request.task)))
+    try:
+        if request.provider == "openai":
+            response = OpenAIProvider().run(request.task)
+        else:
+            response = LangGraphProvider().run(request.task)
+    except (ImportError, RuntimeError) as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
+    return _encode(asdict(response))
 
 
 @router.post("/dataset/validate")

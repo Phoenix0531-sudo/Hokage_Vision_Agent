@@ -37,31 +37,127 @@ DEFAULT_ALLOWED_TOOLS = [
 ]
 
 
+def _str(description: str) -> dict[str, str]:
+    return {"type": "string", "description": description}
+
+
+def _tool_parameters() -> dict[str, dict[str, Any]]:
+    """JSON Schemas matching each tool handler's argument names."""
+    return {
+        "detect_image": {
+            "type": "object",
+            "properties": {"path": _str("Image file path.")},
+            "required": ["path"],
+        },
+        "detect_folder": {
+            "type": "object",
+            "properties": {"path": _str("Folder containing images.")},
+            "required": ["path"],
+        },
+        "detect_video": {
+            "type": "object",
+            "properties": {"path": _str("Video file path.")},
+            "required": ["path"],
+        },
+        "validate_dataset": {
+            "type": "object",
+            "properties": {
+                "path": _str("Dataset yaml path; defaults to configs/dataset.example.yaml.")
+            },
+        },
+        "create_dataset_manifest": {
+            "type": "object",
+            "properties": {
+                "images": _str("Images folder; defaults to data/raw."),
+                "output": _str("Manifest output yaml path."),
+            },
+        },
+        "assist_annotation": {
+            "type": "object",
+            "properties": {
+                "images": _str("Images folder; defaults to examples/images."),
+                "output": _str("Label output folder."),
+            },
+        },
+        "auto_label_with_model": {
+            "type": "object",
+            "properties": {
+                "images": _str("Images folder."),
+                "output": _str("Label output folder."),
+                "confidence_threshold": {"type": "number", "description": "Confidence threshold."},
+                "model": _str("Model name recorded in the result metadata."),
+            },
+        },
+        "train_model": {
+            "type": "object",
+            "properties": {"data": _str("Dataset yaml path; training runs as dry-run plan.")},
+        },
+        "smoke_train": {
+            "type": "object",
+            "properties": {
+                "epochs": {"type": "integer", "description": "Smoke epochs (default 1)."}
+            },
+        },
+        "evaluate_model": {
+            "type": "object",
+            "properties": {"model": _str("Model weights path.")},
+        },
+        "compare_models": {
+            "type": "object",
+            "properties": {
+                "models": {
+                    "type": "array",
+                    "items": {"type": "string"},
+                    "description": "Weight paths to compare.",
+                }
+            },
+        },
+        "register_model": {
+            "type": "object",
+            "properties": {
+                "name": _str("Model name."),
+                "version": _str("Model version."),
+                "path": _str("Weight file path."),
+                "backend": _str("Backend name."),
+            },
+        },
+        "generate_report": {
+            "type": "object",
+            "properties": {
+                "title": _str("Report title."),
+                "output": _str("Report markdown output path."),
+                "folder": _str("Optional image folder to detect and summarize first."),
+            },
+        },
+    }
+
+
 def create_default_tool_registry() -> ToolRegistry:
     registry = ToolRegistry(allowed_tools=DEFAULT_ALLOWED_TOOLS)
-    registry.register("detect_image", "Detect objects in one image.", _detect_image)
-    registry.register("detect_folder", "Detect objects in a local folder.", _detect_folder)
-    registry.register("detect_video", "Detect objects in a local video.", _detect_video)
-    registry.register("validate_dataset", "Validate a YOLO dataset.", _validate_dataset)
-    registry.register(
-        "create_dataset_manifest",
-        "Create a dataset manifest.",
-        _create_dataset_manifest,
-    )
-    registry.register("assist_annotation", "Prepare annotation assistance.", _assist_annotation)
-    registry.register(
-        "auto_label_with_model",
-        "Generate model-assisted candidate labels.",
-        _auto_label_with_model,
-    )
-    registry.register("train_model", "Plan or run model training.", _train_model)
-    registry.register("smoke_train", "Run smoke training.", _smoke_train)
-    registry.register("evaluate_model", "Evaluate a model.", _evaluate_model)
-    registry.register("compare_models", "Compare model weights.", _compare_models)
-    registry.register("list_models", "List registered models.", _list_models)
-    registry.register("register_model", "Register a model.", _register_model)
-    registry.register("generate_report", "Generate a report on explicit request.", _generate_report)
-    registry.register("project_health_check", "Check project health.", _project_health_check)
+    params = _tool_parameters()
+    entries: list[tuple[str, str, Any]] = [
+        ("detect_image", "Detect objects in one image.", _detect_image),
+        ("detect_folder", "Detect objects in a local folder.", _detect_folder),
+        ("detect_video", "Detect objects in a local video.", _detect_video),
+        ("validate_dataset", "Validate a YOLO dataset.", _validate_dataset),
+        ("create_dataset_manifest", "Create a dataset manifest.", _create_dataset_manifest),
+        ("assist_annotation", "Prepare annotation assistance.", _assist_annotation),
+        (
+            "auto_label_with_model",
+            "Generate model-assisted candidate labels.",
+            _auto_label_with_model,
+        ),
+        ("train_model", "Plan or run model training.", _train_model),
+        ("smoke_train", "Run smoke training.", _smoke_train),
+        ("evaluate_model", "Evaluate a model.", _evaluate_model),
+        ("compare_models", "Compare model weights.", _compare_models),
+        ("list_models", "List registered models.", _list_models),
+        ("register_model", "Register a model.", _register_model),
+        ("generate_report", "Generate a report on explicit request.", _generate_report),
+        ("project_health_check", "Check project health.", _project_health_check),
+    ]
+    for name, description, handler in entries:
+        registry.register(name, description, handler, parameters=params.get(name))
     return registry
 
 

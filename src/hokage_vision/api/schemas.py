@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from pathlib import Path
+from typing import Literal
 
 from pydantic import BaseModel, Field
 
@@ -30,6 +31,7 @@ class FolderDetectRequest(BaseModel):
 
 class AgentRunRequest(BaseModel):
     task: str = Field(min_length=1)
+    provider: Literal["rule_based", "openai", "langgraph"] = "rule_based"
 
 
 class DatasetValidateRequest(BaseModel):

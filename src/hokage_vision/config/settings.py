@@ -37,6 +37,8 @@ class AgentConfig(BaseModel):
     max_steps: int = 8
     shell_access: bool = False
     dry_run_by_default: bool = True
+    llm_model: str = "gpt-4o-mini"
+    api_key_env: str = "OPENAI_API_KEY"
 
 
 class UiConfig(BaseModel):

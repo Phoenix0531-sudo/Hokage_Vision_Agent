@@ -30,3 +30,4 @@ class AgentResponse:
     tool_calls: list[ToolCall]
     artifacts: list[Path]
     suggestions: list[str]
+    errors: list[str] = field(default_factory=list)

@@ -46,7 +46,7 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           # editable install so hokage_vision is importable (src layout)
-          pip install -e ".[dev,api]"
+          pip install -e ".[dev,api,llm]"
           # GUI suite is covered by gui-tests.yml; unit suite should not require Qt
           # but pytest-qt is a dev dep — install essentials so collection is quiet
           pip install "PySide6-Essentials>=6.7" || true

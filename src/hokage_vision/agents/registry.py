@@ -12,6 +12,7 @@ class Tool:
     name: str
     description: str
     handler: ToolHandler
+    parameters: dict[str, Any] | None = None
 
 
 class ToolRegistry:
@@ -19,8 +20,16 @@ class ToolRegistry:
         self._tools: dict[str, Tool] = {}
         self.allowed_tools = set(allowed_tools or [])
 
-    def register(self, name: str, description: str, handler: ToolHandler) -> None:
-        self._tools[name] = Tool(name=name, description=description, handler=handler)
+    def register(
+        self,
+        name: str,
+        description: str,
+        handler: ToolHandler,
+        parameters: dict[str, Any] | None = None,
+    ) -> None:
+        self._tools[name] = Tool(
+            name=name, description=description, handler=handler, parameters=parameters
+        )
 
     def list_tools(self) -> list[str]:
         return sorted(self._tools)
@@ -36,3 +45,17 @@ class ToolRegistry:
 
     def call(self, name: str, arguments: dict[str, Any]) -> dict[str, Any]:
         return self.get(name).handler(arguments)
+
+    def list_function_schemas(self) -> list[dict[str, Any]]:
+        """OpenAI-style function-calling schemas for every registered tool."""
+        schemas: list[dict[str, Any]] = []
+        for name in sorted(self._tools):
+            tool = self._tools[name]
+            function: dict[str, Any] = {
+                "name": tool.name,
+                "description": tool.description,
+            }
+            if tool.parameters is not None:
+                function["parameters"] = tool.parameters
+            schemas.append({"type": "function", "function": function})
+        return schemas
