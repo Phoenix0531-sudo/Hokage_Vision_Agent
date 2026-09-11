@@ -9,8 +9,9 @@ The script proves the full workbench loop with zero external assets:
 1. Generate an expanded synthetic YOLO dataset (random colored rectangles, three classes).
 2. Fine-tune yolov8n on CPU for a few epochs (``runs/closed-loop/dataset`` is fully
    synthetic and Apache-2.0 redistributable).
-3. Export the trained weights to ONNX and run them through UltralyticsBackend.
-4. Render detections onto the validation image and save a README-ready figure.
+3. Validate with a real mAP evaluation and measure CPU FPS.
+4. Export the trained weights to ONNX and run them through UltralyticsBackend.
+5. Render detections onto the validation image and save a README-ready figure.
 
 Everything is written under ``runs/closed-loop/`` (git-ignored). The rendered
 detection figure is committed manually via ``--figure-out`` when updating the README.
@@ -94,7 +95,7 @@ def main() -> None:
     if WORK.exists():
         shutil.rmtree(WORK)
     dataset_yaml = build_dataset(WORK / "dataset", args.train_count, args.val_count)
-    print(f"[1/4] synthetic dataset ready: {dataset_yaml}")
+    print(f"[1/6] synthetic dataset ready: {dataset_yaml}")
 
     from ultralytics import YOLO
 
@@ -111,19 +112,39 @@ def main() -> None:
         verbose=False,
     )
     best_pt = WORK / "train" / "run" / "weights" / "best.pt"
-    print(f"[2/4] training done: {best_pt}")
-
-    onnx_path = Path(model.export(format="onnx", imgsz=320))
-    print(f"[3/4] exported: {onnx_path}")
+    print(f"[2/6] training done: {best_pt}")
 
     from hokage_vision.vision.backends.ultralytics_backend import UltralyticsBackend
+    from hokage_vision.vision.benchmark import benchmark_fps
+    from hokage_vision.vision.evaluation import evaluate_model
+
+    eval_payload = evaluate_model(best_pt, dataset_yaml, mock=False)
+    metrics = eval_payload["metrics"]
+    print(
+        "[3/6] real mAP evaluation: "
+        f"mAP50={metrics['map50']:.3f} mAP50-95={metrics['map50_95']:.3f} "
+        f"P={metrics['precision']:.3f} R={metrics['recall']:.3f}"
+    )
+
+    val_images = sorted((WORK / "dataset" / "images" / "val").glob("*.jpg"))[:5]
+    pt_backend = UltralyticsBackend(best_pt, conf_threshold=0.5, image_size=320)
+    fps_report = benchmark_fps(pt_backend, val_images, warmup=2, repeats=3)
+    print(
+        f"[4/6] CPU FPS benchmark: {fps_report['fps']:.1f} fps "
+        f"(mean latency {fps_report['latency_ms_mean']:.1f} ms, "
+        f"{len(val_images)} val images)"
+    )
+
+    onnx_path = Path(model.export(format="onnx", imgsz=320))
+    print(f"[5/6] exported: {onnx_path}")
+
     from hokage_vision.vision.rendering import render_detections
 
     probe = WORK / "dataset" / "images" / "val" / "naruto_000.jpg"
     backend = UltralyticsBackend(onnx_path, conf_threshold=0.5, image_size=320)
     backend.load()
     result = backend.predict_image(probe)
-    print(f"[4/4] real inference on {probe.name}:")
+    print(f"[6/6] real inference on {probe.name}:")
     for detection in result.detections:
         print(
             f"  {detection.label:<7} conf={detection.confidence:.2f} "

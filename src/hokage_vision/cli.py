@@ -17,6 +17,7 @@ from hokage_vision.training.registry import ModelRegistry
 from hokage_vision.training.smoke import run_smoke_training
 from hokage_vision.training.trainer import run_yolo_training
 from hokage_vision.vision.backends.factory import create_backend
+from hokage_vision.vision.benchmark import benchmark_fps
 from hokage_vision.vision.evaluation import evaluate_model
 from hokage_vision.vision.inference import InferenceService
 from hokage_vision.vision.model_compare import compare_model_paths
@@ -264,10 +265,38 @@ def model_register(
 @model_app.command("evaluate")
 def model_evaluate(
     model: Path = typer.Option(..., "--model"),
-    data: Path = typer.Option(..., "--data"),
+    data: Path = typer.Option(None, "--data", help="YOLO dataset yaml (required for --real)."),
+    mock: bool = typer.Option(True, "--mock/--real"),
 ) -> None:
-    """Evaluate one model."""
-    _echo_json(evaluate_model(model, data, mock=True))
+    """Evaluate one model (real val pass requires --real and --data)."""
+    try:
+        payload = evaluate_model(model, data, mock=mock)
+    except HokageVisionError as exc:
+        raise typer.BadParameter(str(exc)) from exc
+    _echo_json(payload)
+
+
+@model_app.command("benchmark")
+def model_benchmark(
+    model: Path = typer.Option(..., "--model"),
+    image: Path = typer.Option(..., "--image"),
+    warmup: int = typer.Option(3, "--warmup", min=0),
+    repeats: int = typer.Option(10, "--repeats", min=1),
+    conf_threshold: float = typer.Option(0.25, "--conf-threshold"),
+    image_size: int = typer.Option(640, "--image-size"),
+) -> None:
+    """Benchmark CPU inference speed (FPS) of an ultralytics model."""
+    from hokage_vision.vision.backends.ultralytics_backend import UltralyticsBackend
+
+    try:
+        backend = UltralyticsBackend(
+            model,
+            conf_threshold=conf_threshold,
+            image_size=image_size,
+        )
+        _echo_json(benchmark_fps(backend, [image], warmup=warmup, repeats=repeats))
+    except HokageVisionError as exc:
+        raise typer.BadParameter(str(exc)) from exc
 
 
 @model_app.command(
