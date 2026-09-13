@@ -1,5 +1,5 @@
 numpy>=1.26,<3
-opencv-python-headless>=4.10,<5
+opencv-python-headless>=4.10,<6
 pillow>=10,<13
 pydantic>=2.7,<3
 pyyaml>=6,<7
