@@ -49,6 +49,7 @@ llm = [
 ]
 train = [
   "ultralytics>=8.2",
+  "onnxruntime>=1.17",
 ]
 package = [
   "build>=1.2",

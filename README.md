@@ -39,7 +39,11 @@ Everything below ships in the repo — no downloads, no weights hunting:
 python examples/quickstart.py        # mock pipeline: detect → validate → smoke train → agent → report
 ```
 
-Want the real model instead of mock? It's bundled:
+Want the real model instead of mock? It's bundled (the Ultralytics backend needs the `train` extra for ONNX Runtime):
+
+```bash
+pip install -e ".[dev,train]"      # adds ultralytics + onnxruntime (CPU wheels)
+```
 
 ```bash
 # unzip the bundled synthetic dataset, then run REAL inference with the bundled ONNX model

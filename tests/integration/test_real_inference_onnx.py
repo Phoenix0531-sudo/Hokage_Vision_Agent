@@ -11,7 +11,11 @@ from hokage_vision.vision.backends.ultralytics_backend import UltralyticsBackend
 
 MODEL_PATH = Path("models/yolo11n.onnx")
 SAMPLE_IMAGE = Path("examples/images/sample.jpg")
-
+if not MODEL_PATH.exists():
+    pytest.skip(
+        f"local ONNX model missing at {MODEL_PATH} (run scripts/closed_loop_demo.py first)",
+        allow_module_level=True,
+    )
 
 @pytest.fixture(name="backend")
 def _backend() -> UltralyticsBackend:

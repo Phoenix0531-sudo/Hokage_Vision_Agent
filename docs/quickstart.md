@@ -57,8 +57,9 @@ Real weights stay external. After placing a reviewed weight file under
 hokage-vision detect image examples/images/sample.jpg --backend ultralytics --model-path models/your-model.onnx --device cpu
 ```
 
-ONNX Runtime is used automatically for `.onnx` models; install the training
-extra (`pip install -e .[train]`) for `.pt` weights.
+ONNX Runtime is used automatically for `.onnx` models; both real-inference
+paths need the training extra (`pip install -e .[train]`), which is also
+required for `.pt` weights.
 
 ## 5. Next steps
 

@@ -39,7 +39,11 @@
 python examples/quickstart.py        # mock 全流程：检测 → 校验 → smoke 训练 → agent → 报告
 ```
 
-想跑真实模型？模型就在仓库里：
+想跑真实模型？模型就在仓库里（Ultralytics backend 需要 `train` extra 提供 ONNX Runtime）：
+
+```bash
+pip install -e ".[dev,train]"      # 补上 ultralytics + onnxruntime（CPU 轮子）
+```
 
 ```bash
 # 解压内置合成数据集，用内置 ONNX 模型跑真实推理

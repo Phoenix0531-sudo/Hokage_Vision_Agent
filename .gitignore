@@ -91,3 +91,5 @@ models/registry.json
 !hf-space/examples/*.jpg
 tasks/
 .venv/
+_pt.txt
+_ruff.txt
