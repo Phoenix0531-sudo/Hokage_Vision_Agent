@@ -27,6 +27,7 @@ nav:
   - ADR-007 Bundled demo assets: adr/007-bundled-demo-assets.md
   - ADR-008 GHCR multi-OS releases: adr/008-ghcr-multi-os-release.md
   - Benchmarks: benchmarks.md
+  - Code Tour: code-tour.md
   - Data And Models: data-and-models.md
   - Development And Release: development.md
   - License Audit: license-audit.md
