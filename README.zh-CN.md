@@ -23,6 +23,14 @@
 - **仓库内训练闭环**：合成数据 → yolov8n 微调 → ONNX 导出 → 真实检测，一条命令、纯 CPU、mAP50 0.995。
 - **工程质量即卖点**：160+ 测试、93% 覆盖（CI 门禁 85%）、8 条 CI 流水线、三平台桌面包、GHCR 镜像、MkDocs 文档站。
 
+## 🎮 在线试玩（免安装）
+
+内置的合成形状模型已部署在免费的 Hugging Face Space 上——上传图片、拖动置信度滑杆，直接看真实 ONNX 检测结果：
+
+**→ [打开在线 Demo](https://huggingface.co/spaces/phoenix0531-sudo/hokage-vision-agent)** *（部署中 —— 应用已在 [`hf-space/`](hf-space/) 备好，推上去即生效）*
+
+同一套 Space 代码（`hf-space/app.py`）也可本地运行：`pip install -r hf-space/requirements.txt && python hf-space/app.py`。
+
 ## 30 秒上手（fresh clone 即可跑）
 
 以下全部随仓库内置，无需下载：

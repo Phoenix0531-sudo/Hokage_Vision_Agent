@@ -87,5 +87,7 @@ models/registry.json
 !examples/videos/demo.mp4
 !examples/videos/demo.gif
 !assets/demo/**
+!hf-space/assets/demo/*.onnx
+!hf-space/examples/*.jpg
 tasks/
 .venv/

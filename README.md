@@ -23,6 +23,14 @@ Portfolio-grade CV workbench. Detection is performed by a **vision backend** (mo
 - **Training closed loop in-repo.** Synthetic data → yolov8n fine-tune → ONNX export → real detection, one command, CPU-only, mAP50 0.995.
 - **Engineering hygiene as a feature.** 160+ tests at 93% coverage with an 85% CI gate, 8 CI workflows, multi-OS desktop releases, GHCR image, MkDocs site.
 
+## 🎮 Try it online (no install)
+
+The bundled synthetic-shapes model runs in the browser on a free Hugging Face Space — upload an image, drag the confidence slider, get real ONNX detections:
+
+**→ [Open the live demo](https://huggingface.co/spaces/phoenix0531-sudo/hokage-vision-agent)** *(deploy pending — see [`hf-space/`](hf-space/) for the ready-to-deploy app)*
+
+The same Space app (`hf-space/app.py`) runs locally with `pip install -r hf-space/requirements.txt && python hf-space/app.py`.
+
 ## 30-second demo (works on a fresh clone)
 
 Everything below ships in the repo — no downloads, no weights hunting:
