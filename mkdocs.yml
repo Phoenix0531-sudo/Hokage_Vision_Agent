@@ -16,6 +16,17 @@ nav:
   - Usage: usage.md
   - API Reference: api.md
   - Architecture: architecture.md
+  - Evolution Story: evolution.md
+  - ADR Index: adr/index.md
+  - ADR-001 Mock-first backend: adr/001-mock-first-backend.md
+  - ADR-002 Backend factory: adr/002-backend-factory.md
+  - ADR-003 Legacy deletion: adr/003-vendored-legacy-deletion.md
+  - ADR-004 Agent tool registry: adr/004-agent-tool-registry.md
+  - ADR-005 Injectable LLM clients: adr/005-injectable-llm-clients.md
+  - ADR-006 Coverage gate: adr/006-coverage-gate-85.md
+  - ADR-007 Bundled demo assets: adr/007-bundled-demo-assets.md
+  - ADR-008 GHCR multi-OS releases: adr/008-ghcr-multi-os-release.md
+  - Benchmarks: benchmarks.md
   - Data And Models: data-and-models.md
   - Development And Release: development.md
   - License Audit: license-audit.md

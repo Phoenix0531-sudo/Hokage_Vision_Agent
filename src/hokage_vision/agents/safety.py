@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 OUT_OF_SCOPE_KEYWORDS = [
+    "写一篇小说",
     "写小说",
     "查天气",
     "访问网页",

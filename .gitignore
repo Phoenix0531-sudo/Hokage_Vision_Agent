@@ -4,6 +4,7 @@ __pycache__/
 *$py.class
 .venv/
 .venv-verify/
+.auto/
 venv/
 env/
 ENV/
@@ -84,5 +85,7 @@ models/registry.json
 !assets/**/*.svg
 !docs/screenshots/closed-loop-detection.png
 !examples/videos/demo.mp4
+!examples/videos/demo.gif
+!assets/demo/**
 tasks/
 .venv/

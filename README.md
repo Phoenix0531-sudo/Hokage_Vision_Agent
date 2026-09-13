@@ -1,5 +1,9 @@
 # Hokage Vision Agent
 
+<p align="center">
+  <img src="docs/screenshots/gui_hero.png" alt="Hokage Vision Agent GUI" width="720">
+</p>
+
 **Agentic anime character detection workbench — YOLO backends, PySide6 desktop, FastAPI, Typer CLI, tool-calling agent.**
 
 [English](README.md) | [中文](README.zh-CN.md)
@@ -7,8 +11,60 @@
 [![CI](https://github.com/Phoenix0531-sudo/Hokage_Vision_Agent/actions/workflows/ci.yml/badge.svg)](https://github.com/Phoenix0531-sudo/Hokage_Vision_Agent/actions/workflows/ci.yml)
 [![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](LICENSE)
 [![Python](https://img.shields.io/badge/Python-%3E%3D3.12-blue.svg)](pyproject.toml)
+[![Code style: ruff](https://img.shields.io/badge/lint-ruff-261230.svg)](https://github.com/astral-sh/ruff)
+[![Coverage gate 85%](https://img.shields.io/badge/coverage-gate%2085%25-brightgreen.svg)](.github/workflows/ci.yml)
 
 Portfolio-grade CV workbench. Detection is performed by a **vision backend** (mock / Ultralytics / legacy YOLOv5). The **agent does not invent labels**; it only chooses safe project tools (detect, validate dataset, smoke train, evaluate, compare, registry updates).
+
+## Why this project
+
+- **Real LLM agent, not a wrapper.** Function-calling agent over 16 typed tools with three providers (rule-based / OpenAI / LangGraph), injectable clients so the whole agent loop is unit-testable offline. Safety layer refuses out-of-scope tasks before any LLM call.
+- **ONNX-only CPU inference.** 12 MB model, no PyTorch at runtime, ~30 FPS on a laptop CPU (`hokage-vision model benchmark`).
+- **Training closed loop in-repo.** Synthetic data → yolov8n fine-tune → ONNX export → real detection, one command, CPU-only, mAP50 0.995.
+- **Engineering hygiene as a feature.** 160+ tests at 93% coverage with an 85% CI gate, 8 CI workflows, multi-OS desktop releases, GHCR image, MkDocs site.
+
+## 30-second demo (works on a fresh clone)
+
+Everything below ships in the repo — no downloads, no weights hunting:
+
+```bash
+python examples/quickstart.py        # mock pipeline: detect → validate → smoke train → agent → report
+```
+
+Want the real model instead of mock? It's bundled:
+
+```bash
+# unzip the bundled synthetic dataset, then run REAL inference with the bundled ONNX model
+python -c "
+import zipfile; from pathlib import Path
+tmp = Path('runs/bundled-demo'); tmp.mkdir(parents=True, exist_ok=True)
+zipfile.ZipFile('assets/demo/synthetic-shapes-dataset.zip').extractall(tmp)
+"
+hokage-vision detect image runs/bundled-demo/dataset/images/val/naruto_000.jpg \
+  --backend ultralytics --model-path assets/demo/synthetic-shapes-yolov8n.onnx \
+  --conf 0.5 --imgsz 320
+# → {"label": "naruto", "confidence": 0.999}
+```
+
+<p align="center">
+  <img src="examples/videos/demo.gif" alt="Real ONNX detection demo" width="480">
+</p>
+
+## Agent in action (tool-calling)
+
+The agent plans over JSON-schema'd tools and executes them through the same `ToolRegistry` the CLI/API use — no parallel code paths:
+
+```bash
+hokage-vision agent run "批量识别 examples/images 文件夹里的目标"
+# → tool_calls: detect_folder(examples/images) → status success, 1 image scanned
+
+hokage-vision agent run "帮我写一篇小说"
+# → Agent refused the task: it only handles this project's vision, data, annotation,
+#   training, evaluation, model-management, and project-health tasks.
+```
+
+With `--provider openai` (or `langgraph`) the same registry is exposed to an
+LLM as OpenAI-style function schemas — see `docs/usage.md`.
 
 Docs site (MkDocs): <https://phoenix0531-sudo.github.io/Hokage_Vision_Agent/>
 
@@ -41,8 +97,8 @@ Docs site (MkDocs): <https://phoenix0531-sudo.github.io/Hokage_Vision_Agent/>
       <br><strong>Closed-loop real detection</strong> — trained in-repo (synthetic data → yolov8n fine-tune → ONNX export → <code>UltralyticsBackend</code> + rendering), 24/24 val accuracy
     </td>
     <td width="50%">
-      <img src="docs/screenshots/preview.png" alt="Architecture schematic">
-      <br><strong>Architecture schematic</strong> — CLI / GUI / API → backends
+      <img src="examples/videos/demo.gif" alt="Real ONNX detection demo GIF">
+      <br><strong>Real ONNX detection demo</strong> — bundled 12 MB model, CPU-only, no PyTorch at runtime
     </td>
   </tr>
 </table>
